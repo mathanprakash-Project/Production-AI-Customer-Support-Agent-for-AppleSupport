@@ -20,6 +20,7 @@ jobs:
   build:
     name: "Build & Push Artifacts"
     runs-on: ubuntu-latest
+    environment: apple-support-env
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -56,6 +57,7 @@ jobs:
     name: "Deploy via Helm to GKE"
     needs: build
     runs-on: ubuntu-latest
+    environment: apple-support-env
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
