@@ -102,6 +102,8 @@ jobs:
 
       - name: Verify Deployment Rollout & Service Status
         run: |
+          kubectl rollout status deployment/postgres-deployment -n ${{ env.NAMESPACE }}
+          kubectl rollout status deployment/ollama-deployment -n ${{ env.NAMESPACE }}
           kubectl rollout status deployment/backend-deployment -n ${{ env.NAMESPACE }}
           kubectl rollout status deployment/frontend-deployment -n ${{ env.NAMESPACE }}
           kubectl get service frontend-service -n ${{ env.NAMESPACE }}
