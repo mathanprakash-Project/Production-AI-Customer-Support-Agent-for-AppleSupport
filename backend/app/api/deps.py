@@ -16,13 +16,8 @@ async def get_current_user(
     token: Optional[str] = Depends(oauth2_scheme),
     db: AsyncSession = Depends(get_db),
 ) -> User:
-    """Extract and validate the currently authenticated User."""
+    """Extract, decode, and validate the currently authenticated User from JWT token."""
     if not token:
-        # For development ease / demo, return default agent if no bearer token passed
-        res = await db.execute(select(User).where(User.role == "agent").limit(1))
-        user = res.scalars().first()
-        if user:
-            return user
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Authentication token required.",
