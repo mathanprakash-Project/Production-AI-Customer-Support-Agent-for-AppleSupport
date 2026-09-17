@@ -16,22 +16,26 @@ export const LoginPage: React.FC = () => {
   const [fullName, setFullName] = useState('');
   const [role, setRole] = useState<'agent' | 'admin'>('agent');
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
     setLoading(true);
 
     try {
       if (mode === 'login') {
         const data = await api.login(email, password);
         setAuth(data.access_token, data.user);
+        navigate('/inbox');
       } else {
-        const data = await api.register(email, password, fullName || 'Support Agent', role);
-        setAuth(data.access_token, data.user);
+        await api.register(email, password, fullName || 'Support Agent', role);
+        setSuccess('Account created successfully! Please sign in with your credentials.');
+        setMode('login');
+        setPassword('');
       }
-      navigate('/inbox');
     } catch (err: any) {
       setError(
         err.response?.data?.detail ||
@@ -83,6 +87,7 @@ export const LoginPage: React.FC = () => {
               onClick={() => {
                 setMode('login');
                 setError(null);
+                setSuccess(null);
               }}
               className={`flex-1 py-2 text-xs font-bold rounded-full transition-all text-center ${
                 mode === 'login'
@@ -97,6 +102,7 @@ export const LoginPage: React.FC = () => {
               onClick={() => {
                 setMode('register');
                 setError(null);
+                setSuccess(null);
               }}
               className={`flex-1 py-2 text-xs font-bold rounded-full transition-all text-center ${
                 mode === 'register'
@@ -118,6 +124,12 @@ export const LoginPage: React.FC = () => {
                 : 'Join the @AppleSupport AI customer service operations team.'}
             </p>
           </div>
+
+          {success && (
+            <div className="mb-5 p-3.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs rounded-xl font-medium">
+              {success}
+            </div>
+          )}
 
           {error && (
             <div className="mb-5 p-3.5 bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs rounded-xl font-medium">

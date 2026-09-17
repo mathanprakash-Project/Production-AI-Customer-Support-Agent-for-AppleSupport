@@ -33,6 +33,21 @@ apiClient.interceptors.request.use((config) => {
   return config;
 });
 
+// Handle 401 Unauthorized globally for session maintenance
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login';
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 // API helper functions
 export const api = {
   // Auth
