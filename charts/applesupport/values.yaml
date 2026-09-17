@@ -94,3 +94,17 @@ secrets:
   openaiApiKey: ""
   groqApiKey: ""
 
+# Ingress & SSL/TLS Configuration
+ingress:
+  enabled: true
+  ingressClassName: "nginx"
+  host: "applesupport-tweet.servehttp.com"
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+  tls:
+    enabled: true
+    secretName: "applesupport-tls-secret"
+
+
