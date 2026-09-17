@@ -1,0 +1,381 @@
+{
+  "timestamp": "2026-09-12 02:37:04",
+  "dataset_size": 25,
+  "smoke_test": true,
+  "models": {
+    "agent_model": "mock-agent-model",
+    "agent_provider": "mock",
+    "judge_model": "mock-judge-model",
+    "judge_provider": "mock"
+  },
+  "headline_comparison": {
+    "Trivial Baseline (Random)": {
+      "accuracy": 0.16,
+      "macro_f1": 0.075,
+      "rouge_l": 0.0475,
+      "escalation_f1": 0.3871
+    },
+    "Simple Baseline (TF-IDF + LogReg)": {
+      "accuracy": 0.88,
+      "macro_f1": 0.3677,
+      "rouge_l": 0.0656,
+      "escalation_f1": 0.3871
+    },
+    "AI Customer Support Agent (Ours)": {
+      "accuracy": 0.24,
+      "macro_f1": 0.0323,
+      "rouge_l": 0.1419,
+      "escalation_f1": 0.2857,
+      "latency_p50_ms": 4.0,
+      "latency_p95_ms": 4.0
+    }
+  },
+  "agent_intent_metrics": {
+    "accuracy": 0.24,
+    "macro_f1": 0.0323,
+    "micro_f1": 0.24,
+    "per_class": {
+      "iphone_wont_charge": {
+        "precision": 0.24,
+        "recall": 1.0,
+        "f1": 0.387,
+        "support": 6
+      },
+      "battery_drain": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 6
+      },
+      "apple_id_account_access": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5
+      },
+      "ios_update_issue": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4
+      },
+      "airpods_sound_connectivity": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4
+      },
+      "hardware_damage_repair": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "billing_and_subscriptions": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "icloud_storage_sync": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "mac_performance_macos": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "app_store_downloads": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "watch_fitness_sync": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "other_inquiry": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      }
+    },
+    "labels": [
+      "iphone_wont_charge",
+      "battery_drain",
+      "apple_id_account_access",
+      "ios_update_issue",
+      "airpods_sound_connectivity",
+      "hardware_damage_repair",
+      "billing_and_subscriptions",
+      "icloud_storage_sync",
+      "mac_performance_macos",
+      "app_store_downloads",
+      "watch_fitness_sync",
+      "other_inquiry"
+    ],
+    "confusion_matrix": [
+      [
+        6,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  "agent_escalation_metrics": {
+    "escalation_accuracy": 0.8,
+    "escalation_precision": 1.0,
+    "escalation_recall": 0.1667,
+    "escalation_f1": 0.2857
+  },
+  "agent_latency_metrics": {
+    "p50": 4.0,
+    "p95": 4.0,
+    "mean": 4.3
+  },
+  "human_judge_agreement": {
+    "relevance": {
+      "cohens_kappa_quadratic": 0.5,
+      "spearman_rho": 0.55,
+      "human_mean": 5.0,
+      "judge_mean": 5.0
+    },
+    "accuracy": {
+      "cohens_kappa_quadratic": 0.0,
+      "spearman_rho": 0.55,
+      "human_mean": 4.76,
+      "judge_mean": 4.0
+    },
+    "tone": {
+      "cohens_kappa_quadratic": 0.5,
+      "spearman_rho": 0.55,
+      "human_mean": 5.0,
+      "judge_mean": 5.0
+    },
+    "completeness": {
+      "cohens_kappa_quadratic": 0.0,
+      "spearman_rho": 0.55,
+      "human_mean": 5.0,
+      "judge_mean": 4.0
+    },
+    "groundedness": {
+      "cohens_kappa_quadratic": 0.5,
+      "spearman_rho": 0.55,
+      "human_mean": 5.0,
+      "judge_mean": 5.0
+    }
+  },
+  "top_failures": [
+    {
+      "id": "golden-007",
+      "customer_message": "Updated to iOS 17.4 yesterday and my battery is draining 30% per hour on standby!",
+      "expected_intent": "battery_drain",
+      "predicted_intent": "iphone_wont_charge",
+      "confidence": 0.88,
+      "escalation_decision": "auto"
+    },
+    {
+      "id": "golden-008",
+      "customer_message": "iPhone 13 battery health dropped from 95% to 78% overnight with a Service alert.",
+      "expected_intent": "battery_drain",
+      "predicted_intent": "iphone_wont_charge",
+      "confidence": 0.88,
+      "escalation_decision": "auto"
+    },
+    {
+      "id": "golden-009",
+      "customer_message": "Phone gets extremely hot to the touch while playing music and battery dies in 2 hours.",
+      "expected_intent": "battery_drain",
+      "predicted_intent": "iphone_wont_charge",
+      "confidence": 0.88,
+      "escalation_decision": "auto"
+    },
+    {
+      "id": "golden-010",
+      "customer_message": "Why does my battery jump from 20% down to 1% in less than two minutes?",
+      "expected_intent": "battery_drain",
+      "predicted_intent": "iphone_wont_charge",
+      "confidence": 0.88,
+      "escalation_decision": "auto"
+    },
+    {
+      "id": "golden-011",
+      "customer_message": "Battery drops from 100% to 50% while doing nothing. Screen is off in my pocket.",
+      "expected_intent": "battery_drain",
+      "predicted_intent": "iphone_wont_charge",
+      "confidence": 0.88,
+      "escalation_decision": "auto"
+    }
+  ]
+}

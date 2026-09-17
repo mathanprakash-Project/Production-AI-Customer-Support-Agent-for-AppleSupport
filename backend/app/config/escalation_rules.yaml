@@ -1,0 +1,78 @@
+version: "1.0"
+description: "Auditable rule-based escalation policy for @AppleSupport AI Agent"
+
+rules:
+  - id: "low_intent_confidence"
+    name: "Low Intent Confidence"
+    description: "Escalate when intent classification confidence is below safety threshold"
+    enabled: true
+    threshold: 0.60
+    severity: 0.35
+
+  - id: "low_draft_confidence"
+    name: "Low Draft Confidence"
+    description: "Escalate when reply drafter confidence is low"
+    enabled: true
+    threshold: 0.65
+    severity: 0.30
+
+  - id: "pii_detected"
+    name: "Customer PII Detected"
+    description: "Escalate when message contains sensitive private information requiring human privacy controls"
+    enabled: true
+    severity: 0.60
+    patterns:
+      - '(?i)\b\d{15,17}\b' # IMEI / Serial
+      - '(?i)\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b' # Email
+      - '(?i)\b(?:\+?1[-. ]?)?\(?[2-9]\d{2}\)?[-. ]?\d{3}[-. ]?\d{4}\b' # Phone number
+      - '(?i)\b(?:\d{4}[- ]?){3}\d{4}\b' # Credit card pattern
+
+  - id: "legal_and_safety_risk"
+    name: "Legal or Safety Risk"
+    description: "Escalate legal threats, physical safety hazards, or regulatory complaints"
+    enabled: true
+    severity: 0.85
+    keywords:
+      - "lawyer"
+      - "attorney"
+      - "lawsuit"
+      - "sue"
+      - "police"
+      - "stolen"
+      - "battery exploded"
+      - "caught fire"
+      - "fire"
+      - "smoke"
+      - "smoking"
+      - "burnt"
+      - "burning"
+      - "spark"
+      - "electric shock"
+
+  - id: "intractable_intents"
+    name: "Intents Requiring Mandatory Human Verification"
+    description: "Intents that intrinsically involve security or financial decisions"
+    enabled: true
+    severity: 0.50
+    intents:
+      - "purchase_refund_billing"
+      - "billing_and_subscriptions"
+      - "hardware_damage"
+      - "hardware_damage_repair"
+      - "apple_id_account"
+      - "apple_id_account_access"
+
+  - id: "high_customer_frustration"
+    name: "Severe Frustration / Escalation Request"
+    description: "Customer explicitly demands a human agent or expresses severe distress"
+    enabled: true
+    severity: 0.55
+    keywords:
+      - "speak to a human"
+      - "talk to a person"
+      - "real person"
+      - "useless bot"
+      - "terrible service"
+      - "worst customer service"
+      - "scam"
+

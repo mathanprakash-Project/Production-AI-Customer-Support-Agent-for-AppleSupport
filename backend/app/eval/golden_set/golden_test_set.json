@@ -1,0 +1,424 @@
+[
+  {
+    "id": 1,
+    "tweet": "My iPhone 15 Pro battery drops 30% in one hour just browsing Safari after updating to iOS 18.2 @AppleSupport",
+    "expected_intent": "battery_performance",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "must_contain_in_response": ["battery", "settings"],
+    "must_not_contain_in_response": ["sorry for the inconvenience", "refund"],
+    "difficulty": "easy"
+  },
+  {
+    "id": 2,
+    "tweet": "I was charged $14.99 for an app subscription I never downloaded. This is fraud. I want my money back NOW. My email is sarah99@gmail.com",
+    "expected_intent": "purchase_refund_billing",
+    "min_confidence": 0.70,
+    "should_escalate": true,
+    "escalation_reasons": ["pii_detected", "intractable_intents"],
+    "difficulty": "medium"
+  },
+  {
+    "id": 3,
+    "tweet": "If you don't fix my phone I swear I'm going to sue Apple. This is the third time this month. My attorney is ready. @AppleSupport",
+    "expected_intent": "hardware_damage",
+    "min_confidence": 0.50,
+    "should_escalate": true,
+    "escalation_reasons": ["legal_and_safety_risk"],
+    "difficulty": "hard"
+  },
+  {
+    "id": 4,
+    "tweet": "My iPhone 14 won't charge with any Lightning cable. Cleaned the port gently with a toothpick but it's completely dead.",
+    "expected_intent": "charging_issues",
+    "min_confidence": 0.80,
+    "should_escalate": false,
+    "must_contain_in_response": ["charge", "cable"],
+    "must_not_contain_in_response": ["free replacement"],
+    "difficulty": "easy"
+  },
+  {
+    "id": 5,
+    "tweet": "iOS 18.1 update download is stuck at 'Update Requested' for 8 hours on iPhone 13. Have 45GB free.",
+    "expected_intent": "ios_update_bugs",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "must_contain_in_response": ["update", "restart"],
+    "difficulty": "easy"
+  },
+  {
+    "id": 6,
+    "tweet": "Instagram and TikTok keep immediately crashing on launch on my iPad Air after rebooting.",
+    "expected_intent": "app_crashes",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "must_contain_in_response": ["app", "reinstall"],
+    "difficulty": "easy"
+  },
+  {
+    "id": 7,
+    "tweet": "My AirPods Pro 2 keep disconnecting from my MacBook Pro every 3 minutes during Zoom calls.",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "min_confidence": 0.80,
+    "should_escalate": false,
+    "must_contain_in_response": ["bluetooth", "pair"],
+    "difficulty": "easy"
+  },
+  {
+    "id": 8,
+    "tweet": "iCloud backup says 'Estimating time remaining' for 2 days. 180GB available in my 200GB plan.",
+    "expected_intent": "icloud_sync_storage",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "must_contain_in_response": ["icloud", "backup"],
+    "difficulty": "easy"
+  },
+  {
+    "id": 9,
+    "tweet": "Locked out of my Apple ID because I forgot my password and changed my phone number. How do I recover it?",
+    "expected_intent": "apple_id_account",
+    "min_confidence": 0.70,
+    "should_escalate": true,
+    "escalation_reasons": ["intractable_intents"],
+    "difficulty": "medium"
+  },
+  {
+    "id": 10,
+    "tweet": "Dropped my iPhone 14 Pro Max on concrete and the front glass is completely shattered. How much does repair cost?",
+    "expected_intent": "hardware_damage",
+    "min_confidence": 0.75,
+    "should_escalate": true,
+    "escalation_reasons": ["intractable_intents"],
+    "difficulty": "medium"
+  },
+  {
+    "id": 11,
+    "tweet": "Left AirPod has zero sound coming out of it. Right one works perfectly fine in ear.",
+    "expected_intent": "audio_speaker_mic",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "must_contain_in_response": ["airpod", "case"],
+    "difficulty": "easy"
+  },
+  {
+    "id": 12,
+    "tweet": "A bright green vertical line appeared down the right side of my iPhone 13 OLED screen out of nowhere.",
+    "expected_intent": "display_screen",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "must_contain_in_response": ["display", "screen"],
+    "difficulty": "easy"
+  },
+  {
+    "id": 13,
+    "tweet": "MacBook Air M1 fan spinning loud and spinning beach ball on every click after opening Safari.",
+    "expected_intent": "performance_speed",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "must_contain_in_response": ["activity monitor", "restart"],
+    "difficulty": "easy"
+  },
+  {
+    "id": 14,
+    "tweet": "Double charged for Apple TV+ subscription on my credit card ending in 4111. Need immediate refund.",
+    "expected_intent": "purchase_refund_billing",
+    "min_confidence": 0.80,
+    "should_escalate": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": 15,
+    "tweet": "My phone battery got boiling hot, started smoking and expanding in my hand! Call 911 emergency!",
+    "expected_intent": "battery_performance",
+    "min_confidence": 0.60,
+    "should_escalate": true,
+    "escalation_reasons": ["legal_and_safety_risk"],
+    "difficulty": "hard"
+  },
+  {
+    "id": 16,
+    "tweet": "iPhone 12 battery health dropped from 89% to 78% in two weeks. Normal or defective?",
+    "expected_intent": "battery_performance",
+    "min_confidence": 0.80,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 17,
+    "tweet": "USB-C port on iPad 10th gen is loose. Cable wobbles and won't make a solid connection.",
+    "expected_intent": "charging_issues",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 18,
+    "tweet": "Unable to verify update error when trying to install iOS 18 on iPhone XR.",
+    "expected_intent": "ios_update_bugs",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 19,
+    "tweet": "Photos app freezes whenever I try to edit a Portrait mode picture on iOS 18.",
+    "expected_intent": "app_crashes",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "medium"
+  },
+  {
+    "id": 20,
+    "tweet": "Wi-Fi toggle switch is grayed out in Settings and Bluetooth won't turn on at all.",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "min_confidence": 0.80,
+    "should_escalate": false,
+    "difficulty": "medium"
+  },
+  {
+    "id": 21,
+    "tweet": "iCloud says storage is full 50GB but my iPhone storage only has 10GB of data. Why?",
+    "expected_intent": "icloud_sync_storage",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 22,
+    "tweet": "Someone from Russia logged into my Apple ID account. I received a sign-in code I didn't request. HELP HACKED",
+    "expected_intent": "apple_id_account",
+    "min_confidence": 0.75,
+    "should_escalate": true,
+    "escalation_reasons": ["intractable_intents"],
+    "difficulty": "hard"
+  },
+  {
+    "id": 23,
+    "tweet": "Spilled coffee all over my MacBook Pro keyboard. It turned off immediately and won't power on.",
+    "expected_intent": "hardware_damage",
+    "min_confidence": 0.75,
+    "should_escalate": true,
+    "escalation_reasons": ["intractable_intents"],
+    "difficulty": "medium"
+  },
+  {
+    "id": 24,
+    "tweet": "Microphone is muffled during phone calls. People say I sound like I am underwater.",
+    "expected_intent": "audio_speaker_mic",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 25,
+    "tweet": "Screen flickering purple lines when brightness is set below 50% on iPhone 14.",
+    "expected_intent": "display_screen",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 26,
+    "tweet": "Typing lag on keyboard after updating to iOS 18. Letters take 2 seconds to appear on screen.",
+    "expected_intent": "performance_speed",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 27,
+    "tweet": "Need a refund for an in-app purchase my 6-year-old child made without my permission for $79.99.",
+    "expected_intent": "purchase_refund_billing",
+    "min_confidence": 0.75,
+    "should_escalate": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": 28,
+    "tweet": "MagSafe charger charges iPhone 15 for 5 seconds then stops charging completely.",
+    "expected_intent": "charging_issues",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 29,
+    "tweet": "iPhone maximum battery capacity says 81%. Do I need a replacement before it hits 80%?",
+    "expected_intent": "battery_performance",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 30,
+    "tweet": "My phone IMEI is 358941092837491 and email is alex.smith@company.org please fix my phone immediately",
+    "expected_intent": "hardware_damage",
+    "min_confidence": 0.60,
+    "should_escalate": true,
+    "escalation_reasons": ["pii_detected"],
+    "difficulty": "medium"
+  },
+  {
+    "id": 31,
+    "tweet": "Phone app crashes whenever I tap on the voicemail tab. iOS 18.2 iPhone 15.",
+    "expected_intent": "app_crashes",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 32,
+    "tweet": "AirPods microphone volume is super low in voice memos and Siri can't hear me.",
+    "expected_intent": "audio_speaker_mic",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 33,
+    "tweet": "Touch screen ghost touches everywhere. Apps opening by themselves without touching phone.",
+    "expected_intent": "display_screen",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 34,
+    "tweet": "MacBook takes 5 minutes to boot up from cold restart. Progress bar loads extremely slowly.",
+    "expected_intent": "performance_speed",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 35,
+    "tweet": "Charged twice for $2.99 monthly 50GB storage plan on my debit card. Please fix.",
+    "expected_intent": "purchase_refund_billing",
+    "min_confidence": 0.75,
+    "should_escalate": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": 36,
+    "tweet": "Can't sign into iCloud on Windows 11 PC. Verification code never sends to trusted devices.",
+    "expected_intent": "apple_id_account",
+    "min_confidence": 0.70,
+    "should_escalate": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": 37,
+    "tweet": "iPhone back glass cracked into pieces when it fell out of my pocket. Does warranty cover it?",
+    "expected_intent": "hardware_damage",
+    "min_confidence": 0.75,
+    "should_escalate": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": 38,
+    "tweet": "Bluetooth stuttering and cutting out when iPhone is in my pocket while walking outdoors.",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 39,
+    "tweet": "Stuck on recovery mode screen with support.apple.com/restore URL displayed on iPhone screen.",
+    "expected_intent": "ios_update_bugs",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "medium"
+  },
+  {
+    "id": 40,
+    "tweet": "Ear speaker has no sound during phone calls, only works when I switch to loudspeaker.",
+    "expected_intent": "audio_speaker_mic",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 41,
+    "tweet": "Photos not syncing from iPhone to iPad over iCloud Photo Library for the past 3 days.",
+    "expected_intent": "icloud_sync_storage",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 42,
+    "tweet": "Lightning cable says 'Liquid detected in Lightning connector' but phone is bone dry.",
+    "expected_intent": "charging_issues",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 43,
+    "tweet": "I want to speak to a human supervisor right now. Your automated system is complete garbage.",
+    "expected_intent": "hardware_damage",
+    "min_confidence": 0.40,
+    "should_escalate": true,
+    "escalation_reasons": ["high_customer_frustration"],
+    "difficulty": "hard"
+  },
+  {
+    "id": 44,
+    "tweet": "Battery drainage after iOS 18.3 update is crazy. 100% to 0% in 90 minutes with zero screen time.",
+    "expected_intent": "battery_performance",
+    "min_confidence": 0.80,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 45,
+    "tweet": "Top half of my touch screen doesn't register touches after dropping phone on carpet.",
+    "expected_intent": "display_screen",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 46,
+    "tweet": "Messages app takes 10 seconds to open conversation threads on iPhone 11.",
+    "expected_intent": "performance_speed",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 47,
+    "tweet": "How do I cancel my AppleCare+ monthly subscription for an iPad I sold yesterday?",
+    "expected_intent": "purchase_refund_billing",
+    "min_confidence": 0.75,
+    "should_escalate": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": 48,
+    "tweet": "My phone is stolen and thief is changing my Apple ID credentials right now. URGENT POLICE REPORT FILED",
+    "expected_intent": "apple_id_account",
+    "min_confidence": 0.75,
+    "should_escalate": true,
+    "escalation_reasons": ["legal_and_safety_risk", "intractable_intents"],
+    "difficulty": "hard"
+  },
+  {
+    "id": 49,
+    "tweet": "Safari web pages taking forever to load on 5G cellular network but Wi-Fi works fine.",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "min_confidence": 0.75,
+    "should_escalate": false,
+    "difficulty": "easy"
+  },
+  {
+    "id": 50,
+    "tweet": "Face ID stopped working and says 'A problem was detected with TrueDepth Camera'.",
+    "expected_intent": "hardware_damage",
+    "min_confidence": 0.75,
+    "should_escalate": true,
+    "difficulty": "medium"
+  }
+]
+
