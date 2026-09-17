@@ -1,354 +1,376 @@
-# Master Architectural Blueprint & End-to-End Plan
-## Production AI Customer Support Agent for @AppleSupport
+# 🍎⚡ Apple Support AI Co-Pilot — v2.0 Restructure Plan
 
-This document serves as the master specification, architectural blueprint, and end-to-end execution skeleton for the **Hiver AI Customer Support Agent** project. It outlines every subsystem, data pipeline, model layer, API contract, user interface, and evaluation benchmark.
-
----
-
-## Table of Contents
-1. [System Overview & Architecture](#1-system-overview--architecture)
-2. [Phase 1: Data Ingestion & Thread Reconstruction](#2-phase-1-data-ingestion--thread-reconstruction)
-3. [Phase 2: Intent Discovery & Taxonomy Definition](#3-phase-2-intent-discovery--taxonomy-definition)
-4. [Phase 3: Semantic Retrieval & pgvector Knowledge Base](#4-phase-3-semantic-retrieval--pgvector-knowledge-base)
-5. [Phase 4: 4-Stage Agent Inference Pipeline](#5-phase-4-4-stage-agent-inference-pipeline)
-6. [Phase 5: Backend API Architecture (FastAPI)](#6-phase-5-backend-api-architecture-fastapi)
-7. [Phase 6: Frontend Agent Workspace (React 18 + Vite)](#7-phase-6-frontend-agent-workspace-react-18--vite)
-8. [Phase 7: Evaluation Harness & Baseline Benchmarking](#8-phase-7-evaluation-harness--baseline-benchmarking)
-9. [Phase 8: Containerization & Deployment Topology](#9-phase-8-containerization--deployment-topology)
-10. [Phase 9: Quality Assurance & Verification Plan](#10-phase-9-quality-assurance--verification-plan)
+> **Goal**: Transform the current 4-stage CLI+API pipeline into a **production-grade 7-stage AI Co-Pilot** with self-updating knowledge base, feedback loop, analytics dashboard, safety checker, and scientific evaluation — all deployable with one Docker command.
 
 ---
 
-## 1. System Overview & Architecture
+## Current State Summary (v1.0)
 
-### 1.1 Objective
-To construct a production-ready, auditable, full-stack AI Customer Support Agent for **@AppleSupport** using real Twitter support conversations. The system assists human support agents by automatically classifying incoming customer queries, retrieving semantically relevant historical resolutions, drafting grounded and empathetic responses, and applying deterministic safety and escalation rules.
+Your existing codebase is **well-architected** with clean separation (repositories → services → API routers → schemas → models). Here's what already exists vs. what the v2.0 plan requires:
 
-### 1.2 Core Architectural Principles
-* **Human-in-the-Loop (HITL)**: Safety by default. The AI drafts replies for agent approval or editing in an interactive workspace; autonomous auto-sending is restricted.
-* **Local-First Extensibility**: Pluggable `LLMProvider` abstraction defaulting to local **Ollama** (`llama3.2:3b`), with zero vendor lock-in and seamless cloud failover (OpenAI / Mock).
-* **Deterministic Governance**: Escalation is governed by transparent, versioned YAML rulebooks (`escalation_rules.yaml`) rather than opaque model prompts.
-* **RAG Grounding**: Responses cite verified past solutions (`grounded_thread_ids`) to eliminate hallucinations and policy drift.
-
-### 1.3 End-to-End System Topology
-
-```
-                          ┌─────────────────────────┐
-                          │    React 18 + Vite      │
-                          │  - Support Agent Inbox  │
-                          │  - Interactive Drafter  │
-                          │  - Evaluation Dashboard │
-                          └────────────┬────────────┘
-                                       │ REST / JWT (Bearer)
-                                       ▼
-                          ┌─────────────────────────┐
-                          │     FastAPI Backend     │
-                          │  /api/v1/* Route Group  │
-                          ├─────────────────────────┤
-                          │ Middleware:             │
-                          │  - JWT & Role Auth      │
-                          │  - PII Masking/Scrub    │
-                          │  - Request-ID & Timing  │
-                          └────────────┬────────────┘
-                                       │
-            ┌──────────────────────────┼──────────────────────────┐
-            ▼                          ▼                          ▼
-    ┌───────────────┐        ┌──────────────────┐       ┌──────────────────┐
-    │ Ticket/Draft  │        │  Agent Pipeline  │       │    Evaluation    │
-    │ CRUD Services │        │   Orchestrator   │       │     Harness      │
-    └───────┬───────┘        └─────────┬────────┘       └─────────┬────────┘
-            │                          │                          │
-            │           ┌──────────────┼──────────────┐           │
-            │           ▼              ▼              ▼           │
-            │     ┌───────────┐  ┌───────────┐  ┌───────────┐     │
-            │     │Classifier │  │ Retriever │  │  Drafter  │     │
-            │     │(Few-shot) │  │ (pgvector)│  │ (RAG LLM) │     │
-            │     └─────┬─────┘  └─────┬─────┘  └─────┬─────┘     │
-            │           │              │              │           │
-            │           └──────────────┼──────────────┘           │
-            │                          ▼                          │
-            │               ┌─────────────────────┐               │
-            │               │  Escalation Engine  │               │
-            │               │(Versioned YAML Rules│               │
-            │               └──────────┬──────────┘               │
-            ▼                          ▼                          ▼
-    ┌──────────────────────────────────────┐      ┌────────────────────────┐
-    │       PostgreSQL 16 + pgvector       │      │  LLM Provider Adapter  │
-    │ - tickets, drafts, feedback, users   │      │  - Ollama (local)      │
-    │ - threads w/ HNSW cosine index       │      │  - OpenAI (cloud)      │
-    │ - eval_runs & metrics history        │      │  - Mock (deterministic)│
-    │ (Automatic fallback to SQLite local) │      └────────────────────────┘
-    └──────────────────────────────────────┘
-```
-
----
-
-## 2. Phase 1: Data Ingestion & Thread Reconstruction
-
-### 2.1 Dataset Specifications
-* **Dataset**: Customer Support on Twitter (`thoughtvector/customer-support-on-twitter`, ~3M tweets).
-* **Target Brand**: `@AppleSupport` exclusively (clear hardware/software domain boundaries).
-* **Subsample Size**: 5,000 seeded, stratified tweets (~1,500 reconstructed dialog threads) ensuring complete local pipeline reproducibility in **< 15 minutes**.
-
-### 2.2 Preprocessing & Cleaning Pipeline
-1. **Thread Reconstruction**:
-   - Group by `response_tweet_id` and `in_response_to_tweet_id`.
-   - Pair initial customer inquiries with brand agent replies.
-2. **Text Normalization**:
-   - Strip support agent signature tags (`^JM`, `^SW`, `-Alex`, `/Dan`).
-   - Standardize whitespace and normalize URLs.
-   - Clean Unicode artifacts and scrub pre-existing PII.
-3. **DM Redirect Filtering**:
-   - Identify deflection boilerplate ("Please send us a DM", "Direct Message us").
-   - Flag `is_dm_request = True`. Exclude canned DM replies from the RAG knowledge retrieval index while preserving customer query patterns for intent classification.
-
----
-
-## 3. Phase 2: Intent Discovery & Taxonomy Definition
-
-### 3.1 Unsupervised Intent Discovery
-1. Generate sentence embeddings for customer inquiries using `all-MiniLM-L6-v2`.
-2. Apply unsupervised clustering (K-Means / HDBSCAN) to discover natural query groupings.
-3. Sample top centroid queries per cluster and prompt LLM to generate descriptive, non-overlapping intent names.
-4. Human review and refinement to bound scope to **12 distinct, high-signal intents**.
-
-### 3.2 12-Intent Taxonomy Specification
-
-| Intent Key | Description | Example Query |
+| Component | v1.0 Status | v2.0 Target |
 |---|---|---|
-| `iphone_wont_charge` | Charging port, cable, power adapter, or hardware power failure | *"iPhone 13 won't charge overnight, port looks clean."* |
-| `battery_drain` | Sudden battery percentage drop, thermal overheating, battery health | *"Battery goes from 100% to 20% in two hours after update."* |
-| `apple_id_account_access` | Account lockouts, two-factor authentication, forgot password | *"Locked out of my Apple ID and trusted phone is dead."* |
-| `ios_update_issue` | OTA update stalls, installation loops, insufficient storage errors | *"iOS 17 update failed with an unknown error occurred."* |
-| `airpods_sound_connectivity` | One bud silent, bluetooth pairing dropouts, case charging issues | *"Left AirPod has no sound at all, right one works fine."* |
-| `hardware_damage_repair` | Cracked screens, water intrusion, AppleCare+ repair inquiries | *"Cracked my screen while running, can I get a replacement?"* |
-| `mac_performance_crash` | Kernel panics, app freeze, beachball cursor, thermal throttling | *"MacBook Pro M1 freezes when opening Photoshop."* |
-| `billing_subscription` | Unexpected App Store charges, recurring subscriptions, refund requests | *"Charged $9.99 for an app I cancelled last month."* |
-| `icloud_storage_sync` | iCloud full alerts, photo backup sync failures, Drive sync errors | *"Photos stopped syncing to iCloud, says storage full."* |
-| `watch_fitness_sync` | Activity rings not syncing, workout tracking failure, heart rate bug | *"Apple Watch Series 8 workout stopped counting calories."* |
-| `bluetooth_wifi_network` | Wi-Fi disconnects, cellular dropped calls, Bluetooth pairing failure | *"Wi-Fi keeps dropping every 5 minutes on home network."* |
-| `other_inquiry` | General product questions, trade-in values, store appointment booking | *"How much can I get trading in an iPhone 11?"* |
+| 4-stage pipeline (classify → retrieve → draft → escalate) | ✅ Working | Reorder + add 2 stages |
+| Stage 5: Safety Checker | ❌ Missing | New `pipeline/safety_checker.py` |
+| Stage 6: Agent Review (Human-in-Loop) | ⚠️ Partial (feedback exists) | Enhance with edit-distance tracking |
+| Stage 7: Feedback Processor (Background) | ⚠️ Basic feedback service | Full feedback loop + KB auto-populate |
+| Knowledge Base model + self-updating RAG | ❌ Missing | New model, service, retriever ranking |
+| Analytics Service + Dashboard | ❌ Missing | New service, API routes, React page |
+| Safety keywords YAML + URL/promise blocking | ❌ Missing | New deterministic + LLM checks |
+| Helpfulness-weighted retrieval ranking | ❌ Missing | Enhanced retriever with formula |
+| Intent taxonomy (12 categories) | ⚠️ Different names | Rename to match v2.0 spec |
+| Golden test set (50 manually labeled) | ⚠️ Has 200-sample set | Reformat to v2.0 JSON schema |
+| Docker Compose (4 services) | ✅ Working | Update DB name + add env vars |
+| README with eval results table | ⚠️ Exists but outdated | Complete rewrite |
 
 ---
 
-## 4. Phase 3: Semantic Retrieval & pgvector Knowledge Base
+## User Review Required
 
-### 4.1 Embedding Pipeline
-* **Model**: `all-MiniLM-L6-v2` (384-dimensional dense vector space).
-* **Caching**: In-memory LRU cache (`EmbeddingService`) to avoid redundant embedding computations.
-* **Fallback Strategy**: Deterministic hash-based projection if deep learning libraries are unavailable.
+> [!IMPORTANT]
+> **Pipeline Stage Reordering**: Your v2.0 plan moves Escalation to **Stage 2** (before RAG retrieval), while v1.0 has it at Stage 4 (after drafting). This is a significant logic change — escalated tickets will skip RAG retrieval and drafting entirely, saving LLM calls. The plan below follows your v2.0 ordering.
 
-### 4.2 Storage & Search Architecture
-* **Primary Database**: PostgreSQL 16 + `pgvector`.
-  * Index Type: **HNSW** (Hierarchical Navigable Small World) with cosine distance metric (`vector_cosine_ops`).
-  * Query Latency: Sub-15ms for Top-3 retrieval.
-* **Retriever Logic**:
-  * Exclude `is_dm_request = True` records.
-  * Filter candidate threads by high cosine similarity (`cosine_similarity >= 0.65`).
-  * Return Top-$K$ ($K=3$) historical resolutions formatted with customer context and brand reply.
-* **Standalone Mode**: Automatic transparent fallback to local SQLite (`backend/hiver.db`) with Python-side vector dot-product scoring.
+> [!IMPORTANT]
+> **Intent Category Renaming**: Your v1.0 uses names like `iphone_wont_charge`, `battery_drain`, `apple_id_account_access`. Your v2.0 plan uses `battery_performance`, `charging_issues`, `apple_id_account`. This affects the classifier prompt, golden test set labels, escalation rules, and frontend display. The plan includes a migration for this.
+
+> [!WARNING]
+> **Database Name Change**: Your v2.0 plan uses `apple_copilot` as the PostgreSQL DB name (v1.0 uses `tweetsupport`). This will require recreating the Docker volume or running a migration. I'll keep `tweetsupport` for continuity unless you want the rename.
+
+> [!IMPORTANT]
+> **Incremental vs. Big-Bang Approach**: Rather than rewriting the entire project from scratch (risking breaking the working v1.0), I'll take an **incremental approach** — adding new components alongside existing ones and refactoring in-place. This means the project stays runnable throughout.
 
 ---
 
-## 5. Phase 4: 4-Stage Agent Inference Pipeline
+## Open Questions
 
+1. **Database name**: Keep `tweetsupport` (current) or rename to `apple_copilot` (v2.0 plan)?
+2. **Frontend framework**: Your v2.0 plan mentions JSX components. The current frontend uses **TypeScript TSX**. Should I keep TSX (recommended) or convert to JSX?
+3. **Celery vs BackgroundTasks**: Your v2.0 plan mentions both. For local development simplicity, I recommend **FastAPI BackgroundTasks** first, with Celery as a future add-on. Agreed?
+4. **Existing pages**: The current frontend has `EvalDashboardPage`, `IntentsPage`, `SettingsPage` which aren't in the v2.0 plan. Should I keep them alongside the new pages, or replace them?
+
+---
+
+## Proposed Changes
+
+### Phase 1 — New Database Models & Backend Services (Week 1-2)
+
+This phase adds the 4 new tables and 3 new services required by v2.0, without breaking existing functionality.
+
+---
+
+#### Backend Models
+
+##### [NEW] [knowledge_base.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/models/knowledge_base.py)
+- New SQLAlchemy model `KnowledgeEntry` with fields: `id`, `source_type` (seed_dataset/agent_approved/manual_upload), `source_ticket_id`, `customer_message`, `resolution_text`, `intent`, `embedding` (Vector(384)), `times_retrieved`, `times_helpful`, `helpfulness_ratio`, `is_active`, `created_at`, `updated_at`
+- Indexes on `intent`, `is_active`, and HNSW vector index on `embedding`
+
+##### [NEW] [escalation_log.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/models/escalation_log.py)
+- New model `EscalationLog` with: `id`, `ticket_id` (FK), `escalation_reasons` (JSON), `risk_score`, `escalated_by` (system/agent), `created_at`
+
+##### [NEW] [analytics_daily.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/models/analytics_daily.py)
+- New model `AnalyticsDaily` with: `id`, `date` (unique), `total_tickets`, `drafts_approved`, `drafts_edited`, `drafts_rejected`, `escalated_count`, `avg_confidence`, `avg_edit_distance`, `avg_pipeline_time_ms`, `avg_review_time_seconds`, `kb_entries_added`
+
+##### [NEW] [system_config.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/models/system_config.py)
+- New model `SystemConfig` with: `key` (PK), `value` (JSON), `description`, `updated_at`
+- Used for configurable thresholds (escalation confidence, safety keywords, etc.)
+
+##### [MODIFY] [ticket.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/models/ticket.py)
+- Add new fields: `tweet_author`, `sentiment_score`, `pii_detected`, `pii_redacted_text`, `classification_time_ms`, `retrieval_time_ms`, `drafting_time_ms`, `total_pipeline_time_ms`, `processed_at`, `resolved_at`
+- Add new status values: `pending`, `processing`, `draft_ready` (alongside existing `open`, `drafted`, `resolved`, `escalated`)
+
+##### [MODIFY] [draft.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/models/draft.py)
+- Add fields: `safety_passed` (bool), `safety_flags` (JSON), `response_type` (tweet/dm), `char_count`
+
+##### [MODIFY] [feedback.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/models/feedback.py)
+- Add fields: `edit_distance_ratio` (float), `review_time_seconds` (int), `final_response_text` (Text)
+
+##### [MODIFY] [\_\_init\_\_.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/models/__init__.py)
+- Register new models: `KnowledgeEntry`, `EscalationLog`, `AnalyticsDaily`, `SystemConfig`
+
+---
+
+#### Backend Services
+
+##### [NEW] [knowledge_service.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/services/knowledge_service.py)
+- `KnowledgeService` class with methods:
+  - `seed_from_csv(csv_path)`: Batch-import threads from seed CSV into `knowledge_base` with embeddings
+  - `add_from_approved_feedback(ticket, approved_text)`: Auto-populate KB from agent approvals
+  - `get_entries(intent_filter, page, size)`: Paginated KB browser
+  - `toggle_entry(entry_id, is_active)`: Activate/deactivate entries
+  - `get_stats()`: KB health metrics (total, from_seed, from_feedback, growth%)
+
+##### [NEW] [analytics_service.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/services/analytics_service.py)
+- `AnalyticsService` class with methods:
+  - `get_overview()`: Total tickets, approval rate, avg edit distance, avg pipeline time, escalation rate, time saved estimate
+  - `get_intent_distribution(period)`: Intent breakdown for charts
+  - `get_confidence_trend()`: Confidence scores over time
+  - `get_feedback_summary()`: Approval/edit/reject rates by intent
+  - `get_time_saved()`: Estimated agent time saved (formula: `approved_count * 4.5min - approved_count * avg_review_time`)
+  - `compute_daily_snapshot()`: Background job to pre-compute `analytics_daily`
+
+##### [MODIFY] [feedback_service.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/services/feedback_service.py)
+- Enhance `record_feedback()` to:
+  1. Calculate `edit_distance_ratio` using `difflib.SequenceMatcher`
+  2. Store `final_response_text` and `review_time_seconds`
+  3. Call `KnowledgeService.add_from_approved_feedback()` when action is `approve` or `edit`
+  4. Call `_update_helpfulness()` to update retrieval source entry metrics
+  5. Log to `EscalationLog` when action is `escalate`
+
+---
+
+#### Backend API Routes
+
+##### [NEW] [knowledge.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/api/v1/knowledge.py)
+- `GET /api/v1/knowledge` — Paginated knowledge base entries with intent filter
+- `GET /api/v1/knowledge/stats` — KB health metrics
+- `POST /api/v1/knowledge/seed` — Trigger CSV seed import (admin only)
+- `PATCH /api/v1/knowledge/{id}` — Toggle entry active/inactive (admin only)
+
+##### [NEW] [analytics.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/api/v1/analytics.py)
+- `GET /api/v1/analytics/overview` — Dashboard overview metrics
+- `GET /api/v1/analytics/intent-distribution?period=week` — Intent breakdown
+- `GET /api/v1/analytics/confidence-over-time` — Confidence trend data
+- `GET /api/v1/analytics/feedback-summary` — Approval/edit/reject rates by intent
+- `GET /api/v1/analytics/time-saved` — Estimated time saved calculation
+
+##### [MODIFY] [main.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/main.py)
+- Mount new routers: `knowledge`, `analytics`
+
+##### [MODIFY] [inference.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/api/v1/inference.py)
+- Add `tweet_author` parameter support
+
+---
+
+### Phase 2 — Pipeline Enhancement: Safety Checker + Stage Reorder (Week 2)
+
+This phase adds Stage 5 (Safety Checker) and reorders the pipeline to match v2.0 flow.
+
+---
+
+#### Pipeline
+
+##### [NEW] [safety_checker.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/agent/safety_checker.py)
+- `SafetyChecker` class implementing deterministic + LLM-based safety validation:
+  - **Deterministic checks**: Block hallucinated URLs (not from approved list), unauthorized promises (timeline/outcome guarantees), medical/legal advice patterns
+  - **LLM tone check**: Professional + empathetic verification
+  - Returns `SafetyResult(passed: bool, flags: List[str])`
+
+##### [NEW] [safety_keywords.yaml](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/config/safety_keywords.yaml)
+- Categorized safety keyword lists: `legal_terms`, `medical_terms`, `promise_patterns`, `approved_urls`
+
+##### [MODIFY] [pipeline.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/agent/pipeline.py)
+- Reorder to 5-stage flow: Classify → Escalation Check → RAG Retrieve → Draft → Safety Check
+- Add per-stage timing instrumentation (`classification_time_ms`, `retrieval_time_ms`, etc.)
+- Skip RAG + Draft stages for escalated tickets (save LLM calls)
+- Integrate `SafetyChecker` as final pipeline stage
+- Return safety flags in `InferenceResponse`
+
+##### [MODIFY] [retriever.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/agent/retriever.py)
+- Add **helpfulness-weighted ranking**: `final_score = (vector_similarity * 0.7) + (helpfulness_ratio * 0.3)`
+- Query from `knowledge_base` table instead of (or in addition to) `threads` table
+- Add keyword fallback search when vector results are sparse
+- Accept `intent_filter` parameter for scoped retrieval
+
+##### [MODIFY] [classifier.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/agent/classifier.py)
+- Update `DEFAULT_TAXONOMY` to match v2.0 intent names:
+
+| v1.0 Name | v2.0 Name |
+|---|---|
+| `iphone_wont_charge` | `charging_issues` |
+| `battery_drain` | `battery_performance` |
+| `apple_id_account_access` | `apple_id_account` |
+| `ios_update_issue` | `ios_update_bugs` |
+| `airpods_sound_connectivity` | `connectivity_wifi_bluetooth` |
+| `hardware_damage_repair` | `hardware_damage` |
+| `billing_and_subscriptions` | `purchase_refund_billing` |
+| `icloud_storage_sync` | `icloud_sync_storage` |
+| `mac_performance_macos` | `performance_speed` |
+| `app_store_downloads` | `app_crashes` |
+| `watch_fitness_sync` | `audio_speaker_mic` |
+| `other_inquiry` | `display_screen` |
+
+- Update classifier Jinja prompt with new names + descriptions
+
+##### [MODIFY] [escalation.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/agent/escalation.py)
+- Update escalation rules to reference new intent names
+- Add rules from v2.0 spec: `apple_id_account` + password/hack → ESCALATE, `purchase_refund_billing` + amount > $50 → ESCALATE, Sentiment > 0.85 → ESCALATE PRIORITY
+
+##### [MODIFY] [inference.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/schemas/inference.py)
+- Add `SafetyResult` schema: `passed` (bool), `flags` (List[str])
+- Add safety fields to `InferenceResponse`: `safety_passed`, `safety_flags`
+- Add timing fields to `InferenceMeta`: `classification_ms`, `retrieval_ms`, `drafting_ms`, `safety_ms`, `total_ms`
+
+---
+
+### Phase 3 — Frontend Dashboard Enhancements (Week 3-4)
+
+Enhance the existing React frontend with Analytics, Knowledge Base pages, and improved agent workflow.
+
+---
+
+#### Frontend Pages
+
+##### [NEW] [AnalyticsPage.tsx](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/frontend/src/pages/AnalyticsPage.tsx)
+- Overview metrics cards: Tickets Today, AI Approval Rate, Avg Response Time, Escalation Rate, Time Saved
+- Intent distribution bar chart (using recharts or custom CSS bars)
+- Performance metrics panel: Approval Rate, Avg Edit Distance, Pipeline Latency, Escalation Rate, Est Time Saved, KB Size
+- Fetches from `/api/v1/analytics/overview`, `/api/v1/analytics/intent-distribution`, `/api/v1/analytics/feedback-summary`
+
+##### [NEW] [KnowledgeBasePage.tsx](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/frontend/src/pages/KnowledgeBasePage.tsx)
+- Searchable/filterable list of knowledge base entries
+- Shows source type (seed/agent_approved/manual), intent tag, helpfulness ratio, times retrieved
+- Admin can toggle entries active/inactive
+- KB stats summary card (total entries, from seed, from feedback, growth %)
+
+##### [MODIFY] [TicketDetailPage.tsx](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/frontend/src/pages/TicketDetailPage.tsx)
+- Add safety flags banner (yellow warning panel when `safety_flags.length > 0`)
+- Add per-stage timing display (classification, retrieval, drafting, safety check)
+- Track `review_time_seconds` on the client (start timer when page loads, submit with feedback)
+- Enhanced feedback submission: include `final_response_text`, `review_time_seconds`, `edit_distance_ratio` computed client-side
+- Show "Response added to knowledge base ✓" confirmation after approval
+
+##### [MODIFY] [InboxPage.tsx](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/frontend/src/pages/InboxPage.tsx)
+- Add `tweet_author` field to "Simulate Incoming Tweet" modal
+- Show safety flag badges on ticket cards
+- Add `draft_ready` and `pending` status filter options
+
+##### [MODIFY] [AppShell.tsx](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/frontend/src/components/layout/AppShell.tsx)
+- Add sidebar navigation items: "📊 Analytics" (`/analytics`), "📚 Knowledge Base" (`/knowledge`)
+- Update branding to "Apple Support AI Co-Pilot v2.0"
+
+##### [MODIFY] [router.tsx](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/frontend/src/router.tsx)
+- Add routes: `/analytics` → `<AnalyticsPage />`, `/knowledge` → `<KnowledgeBasePage />`
+
+##### [MODIFY] [apiClient.ts](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/frontend/src/services/apiClient.ts)
+- Add API methods:
+  - `getAnalyticsOverview()`, `getIntentDistribution(period)`, `getFeedbackSummary()`, `getTimeSaved()`
+  - `getKnowledgeEntries(intent, page, size)`, `getKnowledgeStats()`, `seedKnowledge()`, `toggleKnowledgeEntry(id, active)`
+- Enhance `submitFeedback()` to include `final_response_text`, `review_time_seconds`
+
+##### [MODIFY] [index.ts](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/frontend/src/types/index.ts)
+- Add types: `KnowledgeEntry`, `KnowledgeStats`, `AnalyticsOverview`, `IntentDistribution`, `FeedbackSummary`, `TimeSaved`, `SafetyResult`
+- Update `InferenceResponse` type with `safety_passed`, `safety_flags`, timing fields
+
+---
+
+### Phase 4 — Golden Test Set & Evaluation Refresh (Week 5)
+
+Update the evaluation framework to match the v2.0 pipeline and new intent taxonomy.
+
+---
+
+##### [NEW] [golden_test_set.json](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/eval/golden_set/golden_test_set.json)
+- 50 manually labeled test cases in v2.0 format:
+  ```json
+  {
+    "id": 1,
+    "tweet": "...",
+    "expected_intent": "battery_performance",
+    "min_confidence": 0.80,
+    "should_escalate": false,
+    "must_contain_in_response": ["battery", "settings"],
+    "must_not_contain_in_response": ["sorry for the inconvenience"],
+    "difficulty": "easy"
+  }
+  ```
+- Coverage: All 12 v2.0 intents, PII scenarios, safety edge cases, multi-intent tweets, very short/long inputs
+
+##### [NEW] [evaluate_pipeline.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/eval/evaluate_pipeline.py)
+- `PipelineEvaluator` class running full v2.0 pipeline against golden test set
+- Outputs: intent accuracy, escalation accuracy, safety violation count, avg confidence, avg pipeline time, per-intent accuracy, confusion matrix
+
+##### [MODIFY] [run.py (eval)](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/eval/run.py)
+- Update to use new intent names in baseline comparisons
+- Add safety violation tracking to evaluation metrics
+
+---
+
+### Phase 5 — Docker & Deployment Polish (Week 6)
+
+---
+
+##### [MODIFY] [docker-compose.yml](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/docker-compose.yml)
+- Update environment variables for new services
+- Add `REACT_APP_API_URL` to frontend service
+- Add GPU reservation for Ollama (with graceful fallback for CPU-only)
+
+##### [MODIFY] [Dockerfile (backend)](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/Dockerfile)
+- Add `RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"` to pre-download embedding model at build time
+
+##### [MODIFY] [init_db.py](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/backend/app/db/init_db.py)
+- Add creation of new tables: `knowledge_base`, `escalation_log`, `analytics_daily`, `system_config`
+- Seed default `system_config` entries (escalation thresholds, safety keywords)
+
+---
+
+### Phase 6 — README & Documentation (Week 7)
+
+---
+
+##### [MODIFY] [README.md](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/README.md)
+- Complete rewrite following v2.0 template:
+  - Hero description with architecture diagram
+  - Quick Start (3 commands: clone, docker-compose up, open dashboard)
+  - Evaluation results table with real metrics
+  - Tech stack grid
+  - Project structure tree
+  - Key design decisions (Why RAG, Why HITL, Why Deterministic Escalation)
+  - Roadmap with checkboxes
+
+##### [MODIFY] [DECISIONS.md](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/DECISIONS.md)
+- Add new decisions: Safety Checker rationale, Helpfulness-weighted RAG, Feedback Loop architecture, Analytics time-saved formula
+
+##### [MODIFY] [REPORT.md](file:///c:/D/python/AI-Customer-Suppor-AppleSupport/REPORT.md)
+- Update with v2.0 pipeline description, new evaluation metrics, safety checker results
+
+---
+
+## Verification Plan
+
+### Automated Tests
+
+```bash
+# Run existing backend tests (should still pass after each phase)
+pytest backend/tests -v
+
+# Run new model tests
+pytest backend/tests/test_knowledge_model.py -v
+pytest backend/tests/test_safety_checker.py -v
+
+# Run v2.0 pipeline evaluation
+python -m backend.app.eval.evaluate_pipeline
+
+# Frontend build check
+cd frontend && npm run build
+
+# Docker smoke test
+docker compose up -d --build
+curl http://localhost:8000/api/v1/health
+curl http://localhost:5173
 ```
-Incoming Customer Query
-         │
-         ▼
-[Stage 1: Few-Shot Intent Classifier]
-  ├── Input: Customer query + 12-intent taxonomy descriptions
-  ├── Output: {intent, confidence: [0.0 - 1.0], reasoning, alternatives}
-  └── Resilience: Single-turn JSON repair + fallback validator
-         │
-         ▼
-[Stage 2: Context Semantic Retriever]
-  ├── Input: Query embedding (384-d vector)
-  ├── Search: pgvector HNSW index over non-DM historical threads
-  └── Output: Top-3 relevant reference threads with similarity scores
-         │
-         ▼
-[Stage 3: Grounded Reply Drafter]
-  ├── Input: Customer message + Intent context + Retrieved solutions
-  ├── Prompt: Apple-style support persona (empathetic, concise, actionable)
-  └── Output: {reply_text, confidence, grounded_thread_ids, reasoning}
-         │
-         ▼
-[Stage 4: Auditable Escalation Engine]
-  ├── Input: Query text + Classifier confidence + Drafter confidence
-  ├── Rules: Evaluates versioned YAML policy (escalation_rules.yaml)
-  └── Output: {decision: "auto" | "escalate", reasons: [], risk_score}
-```
 
-### 5.1 Escalation Policy Rules (`escalation_rules.yaml`)
-1. **Low Confidence Floor**: If `intent_confidence < 0.70` or `draft_confidence < 0.75` $\rightarrow$ Escalation required.
-2. **PII Detection**: Regex pattern matching for phone numbers, email addresses, credit cards, or physical addresses $\rightarrow$ Auto-escalate to private support channel.
-3. **Safety & Legal Hazards**: Keywords indicating battery swelling, smoke, fire, electric shocks, or threats of legal/regulatory action $\rightarrow$ Immediate priority escalation.
-4. **Sentiment & Frustration**: High urgency indicators or severe customer dissatisfaction $\rightarrow$ Route to Tier-2 supervisor.
+### Manual Verification
+1. Submit a tweet through the dashboard → verify 5-stage pipeline runs with timing data
+2. Approve a draft → verify it appears in Knowledge Base page
+3. Check Analytics page → verify metrics are populated
+4. Submit a tweet with safety keywords → verify safety flags appear
+5. Submit a tweet with PII → verify escalation triggers
+6. Check Knowledge Base page → verify entries with helpfulness ratios
+7. Run golden test evaluation → verify per-intent accuracy report
 
 ---
 
-## 6. Phase 5: Backend API Architecture (FastAPI)
+## Execution Order Summary
 
-### 6.1 Directory & Module Layout
-```
-backend/
-├── app/
-│   ├── api/
-│   │   ├── deps.py              # Auth and database dependencies
-│   │   └── v1/
-│   │       ├── auth.py          # /api/v1/auth/login
-│   │       ├── tickets.py       # /api/v1/tickets CRUD & feedback
-│   │       ├── inference.py     # /api/v1/tickets/{id}/inference
-│   │       ├── intents.py       # /api/v1/intents taxonomy endpoints
-│   │       ├── evaluation.py    # /api/v1/evaluation benchmark metrics
-│   │       └── health.py        # /api/v1/health liveness & readiness
-│   ├── core/
-│   │   ├── config.py            # Pydantic Settings & env management
-│   │   ├── security.py          # JWT generation, validation & bcrypt
-│   │   ├── middleware.py        # Request timing, tracing & PII scrubber
-│   │   └── logging.py           # Structured application logging
-│   ├── db/
-│   │   ├── base.py              # DeclarativeBase SQLAlchemy registry
-│   │   ├── session.py           # Async engine with SQLite fallback
-│   │   └── init_db.py           # Schema init, default users & seeding
-│   ├── models/                  # SQLAlchemy entities (User, Ticket, Draft, etc.)
-│   ├── schemas/                 # Pydantic request/response DTOs
-│   ├── services/                # Business logic services (InferenceService, etc.)
-│   ├── agent/                   # Agent pipeline (classifier, drafter, escalation)
-│   ├── eval/                    # Evaluation harness, baselines, LLM judge
-│   └── llm/                     # LLMProvider adapters (Ollama, OpenAI, Mock)
-```
+| Phase | Deliverable | Est. Files Changed | Est. Files New |
+|-------|------------|-------------------|---------------|
+| 1 | Models + Services + API routes | ~6 | ~7 |
+| 2 | Safety Checker + Pipeline reorder + Intent rename | ~6 | ~2 |
+| 3 | Frontend pages + enhanced workflow | ~6 | ~2 |
+| 4 | Golden test set + evaluation script | ~2 | ~2 |
+| 5 | Docker polish + init_db | ~3 | 0 |
+| 6 | README + docs | ~3 | 0 |
+| **Total** | | **~26** | **~13** |
 
-### 6.2 Key API Contracts
-
-| Method | Route | Description | Auth Required |
-|---|---|---|:---:|
-| `POST` | `/api/v1/auth/login` | Authenticate agent/admin, returns JWT access token | No |
-| `GET` | `/api/v1/tickets` | Query tickets with status, pagination, and sorting | Yes |
-| `POST` | `/api/v1/tickets` | Ingest new customer ticket | Yes |
-| `GET` | `/api/v1/tickets/{id}` | Fetch ticket details, conversation history, and drafts | Yes |
-| `POST` | `/api/v1/tickets/{id}/inference`| Trigger 4-stage AI agent pipeline on ticket | Yes |
-| `POST` | `/api/v1/tickets/{id}/feedback` | Record agent action (`approve`, `edit`, `reject`, `escalate`)| Yes |
-| `GET` | `/api/v1/intents` | Fetch 12-intent taxonomy metadata | Yes |
-| `GET` | `/api/v1/evaluation/latest` | Fetch latest evaluation benchmark metrics & baseline comparison | Yes |
-| `GET` | `/api/v1/health` | Service liveness, database status, and LLM readiness | No |
-
----
-
-## 7. Phase 6: Frontend Agent Workspace (React 18 + Vite)
-
-### 7.1 Architecture & Tech Stack
-* **Framework**: React 18 + TypeScript + Vite + Tailwind CSS.
-* **Routing**: React Router v6 (`/inbox`, `/tickets/:id`, `/eval`).
-* **State Management**: Zustand store (`useAuthStore`, `useTicketStore`).
-* **Icons**: `lucide-react`.
-
-### 7.2 Core User Interfaces
-1. **Support Agent Inbox**:
-   - Split-pane layout: Ticket list on the left, active ticket detail on the right.
-   - Filtering tabs: `All`, `Open`, `Drafted`, `Resolved`, `Escalated`.
-   - Real-time status badges and risk indicators.
-2. **Interactive AI Drafter & Review Panel**:
-   - Inspect AI-classified intent with confidence score and reasoning.
-   - View retrieved reference `@AppleSupport` historical solutions.
-   - One-click actions: **Approve Draft**, **Edit in Place**, **Reject Draft**, or **Escalate to Human Queue**.
-   - Transparent escalation reasons displayed (e.g., *"Phone number detected in message"*).
-3. **Evaluation Dashboard (`/eval`)**:
-   - Visual comparison of AI Agent vs. Random Baseline vs. TF-IDF Baseline.
-   - Radar charts and metric cards for Accuracy, Macro-F1, Escalation F1, and ROUGE-L.
-   - LLM-as-a-Judge scorecards across 5 rubric dimensions.
-
----
-
-## 8. Phase 7: Evaluation Harness & Baseline Benchmarking
-
-### 8.1 Curated Golden Set
-* **Size**: Exactly 200 hand-labeled customer queries.
-* **Stratification**: Balanced across all 12 intents (~15 queries/intent).
-* **Adversarial Edge Cases**: ~15% dedicated to challenging cases:
-  - Sarcasm and aggressive frustration.
-  - Multi-intent queries (e.g., battery issue + cracked screen).
-  - PII exposure (phone numbers, email addresses).
-  - Safety-critical complaints (smoke, battery expansion).
-
-### 8.2 Baseline Implementations
-1. **Trivial Random Baseline**:
-   - Uniform random intent assignment across 12 classes (~8.3% chance accuracy).
-   - Static deflection reply ("Please contact Apple Support").
-   - Always auto-escalates.
-2. **Simple Baseline (TF-IDF + Logistic Regression)**:
-   - Traditional n-gram TF-IDF vectorizer + multiclass Logistic Regression.
-   - Nearest-neighbor reply retrieval.
-   - Escalation rule based strictly on class probability threshold.
-
-### 8.3 Headline Benchmark Results
-
-| System / Baseline | Intent Accuracy | Intent Macro-F1 | Draft ROUGE-L | Escalation F1 |
-|---|:---:|:---:|:---:|:---:|
-| **Trivial Baseline (Random)** | 8.3% | 0.078 | 0.042 | 0.385 |
-| **Simple Baseline (TF-IDF + LR)** | 62.5% | 0.582 | 0.281 | 0.612 |
-| **AI Support Agent (Ours)** | **88.5%** | **0.871** | **0.442** | **0.895** |
-
-### 8.4 LLM-as-a-Judge Rubric (1–5 Likert Scale)
-* **Relevance**: Does the reply address the specific customer problem?
-* **Technical Accuracy**: Are troubleshooting steps correct for Apple devices?
-* **Tone & Empathy**: Does it match Apple's polite, professional, action-oriented voice?
-* **Completeness**: Does it provide next steps without unnecessary fluff?
-* **Groundedness**: Is the answer derived from verified reference knowledge?
-* **Human-Judge Correlation**: Evaluated via Cohen's Kappa ($\kappa \ge 0.72$) and Spearman's rank correlation ($\rho \ge 0.78$).
-
----
-
-## 9. Phase 8: Containerization & Deployment Topology
-
-### 9.1 Multi-Container Docker Topology (`docker-compose.yml`)
-
-| Service Container | Image / Dockerfile | Host Port Mapping | Purpose |
-|---|---|---|---|
-| `hiver-frontend` | `frontend/Dockerfile` (Node 20 build + Nginx Alpine) | `5173:80` | Serves React SPA & proxies `/api/` to backend |
-| `hiver-backend` | `backend/Dockerfile` (Python 3.11-slim + CPU PyTorch) | `8000:8000` | FastAPI REST service & pipeline execution |
-| `hiver-db` | `pgvector/pgvector:pg16` | `5433:5432` | Relational tables + HNSW vector index |
-| `hiver-ollama` | `ollama/ollama:latest` | `11435:11434` | Local model serving (`llama3.2:3b`) |
-
-*(Note: Host ports 5433 and 11435 are assigned to avoid conflicts with existing host services while internal container networking operates on default ports 5432 and 11434).*
-
-### 9.2 Execution Modes
-* **Mode A (Docker Compose)**: `docker compose up -d --build` (full-stack containerized).
-* **Mode B (Local Standalone)**:
-  - Backend: `uvicorn app.main:app --port 8000` (auto-uses local `backend/hiver.db` SQLite).
-  - Frontend: `npm run dev` (Vite dev server at `http://localhost:5173`).
-  - LLM: Local native Ollama instance on port 11434.
-
----
-
-## 10. Phase 9: Quality Assurance & Verification Plan
-
-### 10.1 Automated Test Matrix
-* **Unit Tests (`backend/tests/unit/`)**:
-  - `test_escalation.py`: 100% coverage of YAML escalation policy rules.
-  - `test_structured.py`: JSON extraction, markdown stripping, schema repair, fallback.
-  - `test_baselines.py`: Verifies deterministic behavior of Random and TF-IDF models.
-  - `test_metrics.py`: Accurate computation of Macro-F1, Escalation F1, and ROUGE-L.
-* **Integration Tests (`backend/tests/integration/`)**:
-  - `test_pipeline.py`: End-to-end multi-stage pipeline flow with mock LLM provider.
-* **API Tests (`backend/tests/api/`)**:
-  - `test_endpoints.py`: Health check, JWT authentication, ticket CRUD, live inference, and feedback submission.
-
-### 10.2 Verification Commands
-```powershell
-# 1. Run complete automated backend test suite
-cd c:\D\python\Hiver\backend
-python -m pytest tests -v
-
-# 2. Run evaluation smoke benchmark
-python -m app.eval.run --smoke --mock
-
-# 3. Verify frontend production compilation
-cd c:\D\python\Hiver\frontend
-npm run build
-```
-
----
-*Created as the master architectural specification for the Hiver SDE Intern AI Customer Support Agent.*
-
+> [!TIP]
+> Each phase is self-contained and testable independently. The project will remain runnable after each phase completion.
