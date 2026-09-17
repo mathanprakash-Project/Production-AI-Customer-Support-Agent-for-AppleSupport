@@ -1,0 +1,105 @@
+name: CI/CD Pipeline — Build & Helm Deploy to GKE
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PROJECT_ID: tweet-support
+  REGION: us-east1
+  CLUSTER_NAME: applesupport-cluster
+  REPO_NAME: applesupport-repo
+  NAMESPACE: tweet-support
+  HELM_RELEASE_NAME: applesupport-prod
+
+jobs:
+  # =========================================================
+  # STAGE 1: BUILD & PUSH DOCKER IMAGES
+  # =========================================================
+  build:
+    name: "Build & Push Artifacts"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Configure Docker Authentication for Artifact Registry
+        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+
+      - name: Build & Push Backend Container Image
+        run: |
+          IMAGE_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/backend:${{ github.sha }}"
+          docker build -t $IMAGE_TAG ./backend
+          docker tag $IMAGE_TAG "${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/backend:latest"
+          docker push --all-tags "${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/backend"
+
+      - name: Build & Push Frontend Container Image
+        run: |
+          IMAGE_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/frontend:${{ github.sha }}"
+          docker build -t $IMAGE_TAG ./frontend
+          docker tag $IMAGE_TAG "${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/frontend:latest"
+          docker push --all-tags "${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/frontend"
+
+  # =========================================================
+  # STAGE 2: HELM DEPLOYMENT TO GKE
+  # =========================================================
+  deploy:
+    name: "Deploy via Helm to GKE"
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Get GKE Cluster Credentials
+        uses: google-github-actions/get-gke-credentials@v1
+        with:
+          cluster_name: ${{ env.CLUSTER_NAME }}
+          location: ${{ env.REGION }}
+
+      - name: Install Helm CLI
+        uses: azure/setup-helm@v3
+        with:
+          version: 'v3.12.0'
+
+      - name: Execute Helm Upgrade / Install
+        run: |
+          # Ensure target namespace exists
+          kubectl create namespace ${{ env.NAMESPACE }} --dry-run=client -o yaml | kubectl apply -f -
+
+          # Deploy Umbrella Helm Chart with image tag overrides and secret values
+          helm upgrade --install ${{ env.HELM_RELEASE_NAME }} ./charts/applesupport \
+            --namespace ${{ env.NAMESPACE }} \
+            --values ./charts/applesupport/values.yaml \
+            --set backend.image.tag="${{ github.sha }}" \
+            --set frontend.image.tag="${{ github.sha }}" \
+            --set secrets.postgresPassword="${{ secrets.POSTGRES_PASSWORD || 'postgres123' }}" \
+            --set secrets.jwtSecretKey="${{ secrets.JWT_SECRET_KEY || 'default-jwt-secret' }}" \
+            --set backend.config.llmProvider="${{ secrets.LLM_PROVIDER || 'mock' }}" \
+            --set backend.config.postgresUrl="${{ secrets.POSTGRES_URL || 'postgresql+asyncpg://postgres:postgres123@db.tweet-support.svc.cluster.local:5432/tweetsupport' }}" \
+            --set backend.config.ollamaUrl="${{ secrets.OLLAMA_URL || 'http://ollama-service.tweet-support.svc.cluster.local:11434' }}" \
+            --wait \
+            --timeout 10m0s
+
+      - name: Verify Deployment Rollout & Service Status
+        run: |
+          kubectl rollout status deployment/backend-deployment -n ${{ env.NAMESPACE }}
+          kubectl rollout status deployment/frontend-deployment -n ${{ env.NAMESPACE }}
+          kubectl get service frontend-service -n ${{ env.NAMESPACE }}
