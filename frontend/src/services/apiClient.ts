@@ -41,6 +41,11 @@ export const api = {
     return res.data;
   },
 
+  async register(email: string, password: string, full_name = 'Support Agent', role = 'agent'): Promise<{ access_token: string; user: User }> {
+    const res = await apiClient.post('/auth/register', { email, password, full_name, role });
+    return res.data;
+  },
+
   // Tickets
   async getTickets(status?: string, page = 1, size = 50): Promise<{ items: Ticket[]; total: number }> {
     const params: Record<string, any> = { page, size };

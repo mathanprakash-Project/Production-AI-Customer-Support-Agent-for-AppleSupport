@@ -1,92 +1,213 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles, Shield, User as UserIcon, Lock, ArrowRight } from 'lucide-react';
+import { Twitter, Lock, Mail, User as UserIcon, ArrowRight, Sun, Moon, Shield } from 'lucide-react';
 import { api } from '../services/apiClient';
 import { useAuthStore } from '../stores/authStore';
+import { useTheme } from '../context/ThemeContext';
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const setAuth = useAuthStore((state) => state.setAuth);
+  const { theme, toggleTheme } = useTheme();
 
-  const [email, setEmail] = useState('agent@tweetsupport.local');
-  const [password, setPassword] = useState('agent123');
+  const [mode, setMode] = useState<'login' | 'register'>('login');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [role, setRole] = useState<'agent' | 'admin'>('agent');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
 
     try {
-      const data = await api.login(email, password);
-      setAuth(data.access_token, data.user);
+      if (mode === 'login') {
+        const data = await api.login(email, password);
+        setAuth(data.access_token, data.user);
+      } else {
+        const data = await api.register(email, password, fullName || 'Support Agent', role);
+        setAuth(data.access_token, data.user);
+      }
       navigate('/inbox');
     } catch (err: any) {
-      setError(err.response?.data?.detail || 'Invalid credentials. Please try again.');
+      setError(
+        err.response?.data?.detail ||
+          (mode === 'login'
+            ? 'Invalid email or password. Please verify your credentials.'
+            : 'Failed to create account. Ensure email is valid and not already registered.')
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  const handleQuickDemoLogin = (role: 'agent' | 'admin') => {
-    if (role === 'agent') {
-      setEmail('agent@tweetsupport.local');
-      setPassword('agent123');
-    } else {
-      setEmail('admin@tweetsupport.local');
-      setPassword('admin123');
-    }
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-900 p-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
-        <div className="bg-sky-600 p-6 text-white text-center">
-          <div className="inline-flex h-12 w-12 rounded-xl bg-sky-500 items-center justify-center mb-3 shadow-inner">
-            <Sparkles className="h-6 w-6 text-white" />
+    <div className="min-h-screen flex flex-col justify-between bg-slate-50 dark:bg-black text-slate-900 dark:text-neutral-100 transition-colors duration-200 font-sans p-4 sm:p-6">
+      {/* Top Header Navigation */}
+      <header className="w-full max-w-6xl mx-auto flex items-center justify-between py-4">
+        <div className="flex items-center space-x-3">
+          <div className="h-10 w-10 rounded-xl bg-black dark:bg-white text-white dark:text-black flex items-center justify-center font-bold shadow-sm">
+            <Twitter className="h-5 w-5 fill-current" />
           </div>
-          <h2 className="text-2xl font-bold">TweetSupport Agent</h2>
-          <p className="text-sky-100 text-xs mt-1 font-medium">Production AI Customer Support Platform</p>
+          <div>
+            <h1 className="font-bold text-slate-900 dark:text-white text-base tracking-tight leading-tight">
+              Apple Support Workspace
+            </h1>
+            <p className="text-xs text-slate-400 dark:text-neutral-500 font-medium">@AppleSupport Customer AI Agent</p>
+          </div>
         </div>
 
-        <div className="p-6">
+        <button
+          onClick={toggleTheme}
+          title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+          className="p-2.5 rounded-full text-slate-500 dark:text-neutral-400 hover:bg-slate-200/60 dark:hover:bg-neutral-800 transition border border-slate-200 dark:border-neutral-800"
+        >
+          {theme === 'dark' ? (
+            <Sun className="h-4 w-4 text-amber-400" />
+          ) : (
+            <Moon className="h-4 w-4 text-slate-700" />
+          )}
+        </button>
+      </header>
+
+      {/* Center Auth Box */}
+      <div className="w-full max-w-md mx-auto my-auto py-8">
+        <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-200 dark:border-neutral-800 p-8 shadow-sm">
+          {/* Mode Selector Tabs */}
+          <div className="flex items-center p-1 bg-slate-100 dark:bg-black rounded-full border border-slate-200 dark:border-neutral-800 mb-6">
+            <button
+              type="button"
+              onClick={() => {
+                setMode('login');
+                setError(null);
+              }}
+              className={`flex-1 py-2 text-xs font-bold rounded-full transition-all text-center ${
+                mode === 'login'
+                  ? 'bg-white dark:bg-neutral-800 text-slate-900 dark:text-white shadow-sm'
+                  : 'text-slate-500 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              Sign In
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setMode('register');
+                setError(null);
+              }}
+              className={`flex-1 py-2 text-xs font-bold rounded-full transition-all text-center ${
+                mode === 'register'
+                  ? 'bg-white dark:bg-neutral-800 text-slate-900 dark:text-white shadow-sm'
+                  : 'text-slate-500 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              Create Account
+            </button>
+          </div>
+
+          <div className="mb-6">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+              {mode === 'login' ? 'Sign in to your account' : 'Register new agent account'}
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-neutral-400 mt-1">
+              {mode === 'login'
+                ? 'Access incoming customer tweets, AI drafts, and evaluation benchmarks.'
+                : 'Join the @AppleSupport AI customer service operations team.'}
+            </p>
+          </div>
+
           {error && (
-            <div className="mb-4 p-3 bg-red-50 text-red-700 text-xs rounded-lg border border-red-200">
+            <div className="mb-5 p-3.5 bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs rounded-xl font-medium">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {mode === 'register' && (
+              <>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-500 dark:text-neutral-400 uppercase tracking-wider mb-1.5">
+                    Full Name
+                  </label>
+                  <div className="relative">
+                    <UserIcon className="absolute left-3.5 top-2.5 h-4 w-4 text-slate-400 dark:text-neutral-500" />
+                    <input
+                      type="text"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      required
+                      className="w-full pl-10 pr-3.5 py-2 text-xs bg-slate-50 dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl text-slate-900 dark:text-neutral-100 placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                      placeholder="e.g. Jane Doe"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-500 dark:text-neutral-400 uppercase tracking-wider mb-1.5">
+                    Workspace Role
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setRole('agent')}
+                      className={`p-2.5 rounded-xl border text-xs font-bold flex items-center justify-center space-x-2 transition ${
+                        role === 'agent'
+                          ? 'border-sky-500 bg-sky-500/10 text-sky-600 dark:text-sky-400'
+                          : 'border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400'
+                      }`}
+                    >
+                      <UserIcon className="h-3.5 w-3.5" />
+                      <span>Support Agent</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setRole('admin')}
+                      className={`p-2.5 rounded-xl border text-xs font-bold flex items-center justify-center space-x-2 transition ${
+                        role === 'admin'
+                          ? 'border-purple-500 bg-purple-500/10 text-purple-600 dark:text-purple-400'
+                          : 'border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400'
+                      }`}
+                    >
+                      <Shield className="h-3.5 w-3.5" />
+                      <span>Operations Lead</span>
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+
             <div>
-              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-slate-500 dark:text-neutral-400 uppercase tracking-wider mb-1.5">
                 Email Address
               </label>
               <div className="relative">
-                <UserIcon className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                <Mail className="absolute left-3.5 top-2.5 h-4 w-4 text-slate-400 dark:text-neutral-500" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
+                  className="w-full pl-10 pr-3.5 py-2 text-xs bg-slate-50 dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl text-slate-900 dark:text-neutral-100 placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-sky-500"
                   placeholder="agent@tweetsupport.local"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-slate-500 dark:text-neutral-400 uppercase tracking-wider mb-1.5">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                <Lock className="absolute left-3.5 top-2.5 h-4 w-4 text-slate-400 dark:text-neutral-500" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
+                  className="w-full pl-10 pr-3.5 py-2 text-xs bg-slate-50 dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl text-slate-900 dark:text-neutral-100 placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-sky-500"
                   placeholder="••••••••"
                 />
               </div>
@@ -95,36 +216,27 @@ export const LoginPage: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 px-4 bg-sky-600 hover:bg-sky-700 text-white font-medium text-sm rounded-lg shadow transition flex items-center justify-center space-x-2"
+              className="w-full mt-2 py-2.5 px-4 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-full shadow-sm transition flex items-center justify-center space-x-2"
             >
-              <span>{loading ? 'Authenticating...' : 'Sign In to Workspace'}</span>
+              <span>
+                {loading
+                  ? mode === 'login'
+                    ? 'Authenticating...'
+                    : 'Creating Account...'
+                  : mode === 'login'
+                  ? 'Sign In to Workspace'
+                  : 'Create Agent Account'}
+              </span>
               <ArrowRight className="h-4 w-4" />
             </button>
           </form>
-
-          {/* Quick demo sign-in shortcuts */}
-          <div className="mt-6 pt-5 border-t border-slate-100">
-            <p className="text-xs text-slate-500 text-center font-medium mb-3">Quick Demo Profiles</p>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => handleQuickDemoLogin('agent')}
-                className="px-3 py-2 text-xs border border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50 font-medium text-center transition"
-              >
-                Support Agent
-              </button>
-              <button
-                type="button"
-                onClick={() => handleQuickDemoLogin('admin')}
-                className="px-3 py-2 text-xs border border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50 font-medium text-center transition"
-              >
-                Evaluator / Admin
-              </button>
-            </div>
-          </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="w-full max-w-6xl mx-auto py-4 text-center text-xs text-slate-400 dark:text-neutral-600 font-medium border-t border-slate-200/50 dark:border-neutral-900">
+        Apple Support Customer Service AI Agent • GKE Production Release
+      </footer>
     </div>
   );
 };
-

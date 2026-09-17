@@ -13,14 +13,22 @@ import { useAuthStore } from './stores/authStore';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const token = useAuthStore((state) => state.token);
-  // Allow seamless demo exploration if no token is saved yet
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
   return <AppShell>{children}</AppShell>;
+};
+
+const RootRedirect: React.FC = () => {
+  const token = useAuthStore((state) => state.token);
+  return token ? <Navigate to="/inbox" replace /> : <Navigate to="/login" replace />;
 };
 
 export const AppRouter: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<RootRedirect />} />
         <Route path="/login" element={<LoginPage />} />
         <Route
           path="/inbox"
@@ -78,7 +86,7 @@ export const AppRouter: React.FC = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="*" element={<Navigate to="/inbox" replace />} />
+        <Route path="*" element={<RootRedirect />} />
       </Routes>
     </BrowserRouter>
   );
