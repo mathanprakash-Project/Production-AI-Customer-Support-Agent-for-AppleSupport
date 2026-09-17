@@ -130,11 +130,11 @@ export const TicketDetailPage: React.FC = () => {
   return (
     <div className="flex-1 flex flex-col h-full overflow-hidden bg-slate-50 dark:bg-black text-slate-900 dark:text-neutral-100">
       {/* Top Navigation Header */}
-      <header className="bg-white dark:bg-black border-b border-slate-200 dark:border-neutral-800 px-6 py-3 flex items-center justify-between">
+      <header className="flex-shrink-0 bg-white dark:bg-black border-b border-slate-200 dark:border-neutral-800 px-6 py-2.5 flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <button
             onClick={() => navigate('/inbox')}
-            className="p-2 text-slate-500 dark:text-neutral-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-neutral-900 rounded-full transition"
+            className="p-1.5 text-slate-500 dark:text-neutral-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-neutral-900 rounded-full transition"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
@@ -202,17 +202,17 @@ export const TicketDetailPage: React.FC = () => {
 
       {/* Action Notification Banner */}
       {actionSuccess && (
-        <div className="bg-emerald-600 text-white text-xs py-2 px-6 font-bold flex items-center justify-between shadow-inner">
+        <div className="flex-shrink-0 bg-emerald-600 text-white text-xs py-2 px-6 font-bold flex items-center justify-between shadow-inner">
           <span>{actionSuccess} Redirecting to queue...</span>
         </div>
       )}
 
       {/* Tab 1: Agent Cockpit View */}
       {activeTab === 'cockpit' && (
-        <div className="flex-1 overflow-y-auto p-6 max-w-7xl mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="flex-1 min-h-0 p-4 lg:p-5 max-w-7xl mx-auto w-full overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 h-full overflow-hidden">
             {/* Left Column: Customer Context & AI Diagnostics (5 cols) */}
-            <div className="lg:col-span-5 space-y-6">
+            <div className="lg:col-span-5 h-full overflow-y-auto pr-1 space-y-4">
               {/* Customer Message Card */}
               <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-200 dark:border-neutral-800 p-5 shadow-sm">
                 <div className="flex items-center justify-between mb-3">
@@ -380,79 +380,77 @@ export const TicketDetailPage: React.FC = () => {
             </div>
 
             {/* Right Column: AI Reply Drafter & Agent Actions (7 cols) */}
-            <div className="lg:col-span-7 flex flex-col space-y-6">
-              <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-200 dark:border-neutral-800 p-6 shadow-sm flex-1 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="h-9 w-9 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center font-bold">
-                        <Edit3 className="h-5 w-5" />
-                      </div>
-                      <div>
-                        <h3 className="text-base font-bold text-slate-900 dark:text-white">AI-Drafted Customer Reply</h3>
-                        <p className="text-xs text-slate-400 dark:text-neutral-500">
-                          Grounded in historical resolutions • Never auto-sent without agent verification
-                        </p>
-                      </div>
+            <div className="lg:col-span-7 h-full flex flex-col justify-between overflow-hidden bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-2xl p-5 shadow-sm">
+              <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
+                <div className="flex-shrink-0 flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="h-8 w-8 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center font-bold">
+                      <Edit3 className="h-4 w-4" />
                     </div>
-
-                    <div className="text-right">
-                      <span className="text-xs font-bold text-sky-500">
-                        {inference ? `Quality Score: ${(inference.draft.confidence * 100).toFixed(0)}%` : 'Manual Draft'}
-                      </span>
-                      <p className="text-[10px] text-slate-400 dark:text-neutral-500 font-mono">{replyText.length} / 280 chars</p>
+                    <div>
+                      <h3 className="text-sm font-bold text-slate-900 dark:text-white">AI-Drafted Customer Reply</h3>
+                      <p className="text-[11px] text-slate-400 dark:text-neutral-500">
+                        Grounded in historical resolutions • Never auto-sent without agent verification
+                      </p>
                     </div>
                   </div>
 
-                  {/* Safety Policy Flags Banner */}
-                  {inference?.safety && !inference.safety.passed && (
-                    <div className="mb-4 bg-rose-500/10 border border-rose-500/20 rounded-xl p-3.5 text-xs text-rose-600 dark:text-rose-400">
-                      <div className="font-bold flex items-center space-x-1.5 mb-1">
-                        <ShieldAlert className="h-4 w-4" />
-                        <span>Safety Policy Warning Triggered</span>
-                      </div>
-                      <ul className="list-disc list-inside space-y-0.5 text-[11px]">
-                        {inference.safety.flags.map((flag, i) => (
-                          <li key={i}>{flag}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Draft Editable Text Area */}
-                  <div className="relative">
-                    <textarea
-                      rows={6}
-                      value={replyText}
-                      onChange={(e) => setReplyText(e.target.value)}
-                      placeholder="AI agent is drafting a reply..."
-                      disabled={inferring || submittingAction}
-                      className="w-full p-4 text-sm bg-slate-50 dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl text-slate-900 dark:text-neutral-100 placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-sky-500 leading-relaxed font-normal"
-                    />
+                  <div className="text-right">
+                    <span className="text-xs font-bold text-sky-500">
+                      {inference ? `Quality Score: ${(inference.draft.confidence * 100).toFixed(0)}%` : 'Manual Draft'}
+                    </span>
+                    <p className="text-[10px] text-slate-400 dark:text-neutral-500 font-mono">{replyText.length} / 280 chars</p>
                   </div>
-
-                  {/* Inference Latency Metrics */}
-                  {inference && (
-                    <div className="mt-3 flex items-center justify-between text-[11px] text-slate-400 dark:text-neutral-500 font-mono">
-                      <div className="flex items-center space-x-3">
-                        <span className="bg-slate-100 dark:bg-neutral-800 px-2 py-0.5 rounded-full border border-slate-200 dark:border-neutral-800">
-                          Latency: {inference.meta.latency_ms}ms
-                        </span>
-                        <span className="bg-slate-100 dark:bg-neutral-800 px-2 py-0.5 rounded-full border border-slate-200 dark:border-neutral-800">
-                          Provider: {inference.meta.provider}
-                        </span>
-                      </div>
-                      {inference.meta.safety_ms && (
-                        <span className="bg-slate-100 dark:bg-neutral-800 px-2 py-0.5 rounded-full border border-slate-200 dark:border-neutral-800">
-                          Safety: {inference.meta.safety_ms}ms
-                        </span>
-                      )}
-                    </div>
-                  )}
                 </div>
 
-                {/* Support Agent Action Buttons */}
-                <div className="pt-6 border-t border-slate-100 dark:border-neutral-800 mt-6">
+                {/* Safety Policy Flags Banner */}
+                {inference?.safety && !inference.safety.passed && (
+                  <div className="flex-shrink-0 mb-3 bg-rose-500/10 border border-rose-500/20 rounded-xl p-3 text-xs text-rose-600 dark:text-rose-400">
+                    <div className="font-bold flex items-center space-x-1.5 mb-0.5">
+                      <ShieldAlert className="h-3.5 w-3.5" />
+                      <span>Safety Policy Warning Triggered</span>
+                    </div>
+                    <ul className="list-disc list-inside space-y-0.5 text-[11px]">
+                      {inference.safety.flags.map((flag, i) => (
+                        <li key={i}>{flag}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Draft Editable Text Area */}
+                <div className="relative flex-1 min-h-0 flex flex-col">
+                  <textarea
+                    value={replyText}
+                    onChange={(e) => setReplyText(e.target.value)}
+                    placeholder="AI agent is drafting a reply..."
+                    disabled={inferring || submittingAction}
+                    className="w-full flex-1 p-3.5 text-sm bg-slate-50 dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl text-slate-900 dark:text-neutral-100 placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-sky-500 leading-relaxed font-normal resize-none min-h-[130px]"
+                  />
+                </div>
+
+                {/* Inference Latency Metrics */}
+                {inference && (
+                  <div className="flex-shrink-0 mt-2.5 flex items-center justify-between text-[11px] text-slate-400 dark:text-neutral-500 font-mono">
+                    <div className="flex items-center space-x-3">
+                      <span className="bg-slate-100 dark:bg-neutral-800 px-2 py-0.5 rounded-full border border-slate-200 dark:border-neutral-800">
+                        Latency: {inference.meta.latency_ms}ms
+                      </span>
+                      <span className="bg-slate-100 dark:bg-neutral-800 px-2 py-0.5 rounded-full border border-slate-200 dark:border-neutral-800">
+                        Provider: {inference.meta.provider}
+                      </span>
+                    </div>
+                    {inference.meta.safety_ms && (
+                      <span className="bg-slate-100 dark:bg-neutral-800 px-2 py-0.5 rounded-full border border-slate-200 dark:border-neutral-800">
+                        Safety: {inference.meta.safety_ms}ms
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Support Agent Action Buttons */}
+              <div className="flex-shrink-0 pt-3.5 border-t border-slate-100 dark:border-neutral-800 mt-3.5">
                   <div className="flex flex-wrap gap-3 justify-end">
                     <button
                       type="button"

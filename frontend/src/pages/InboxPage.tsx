@@ -97,9 +97,9 @@ export const InboxPage: React.FC = () => {
   );
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden bg-slate-50 dark:bg-black text-slate-900 dark:text-neutral-100">
+    <div className="flex-1 h-full min-h-0 flex flex-col overflow-hidden bg-slate-50 dark:bg-black text-slate-900 dark:text-neutral-100">
       {/* Top Header */}
-      <header className="bg-white dark:bg-black border-b border-slate-200 dark:border-neutral-800 px-6 py-4 flex items-center justify-between">
+      <header className="flex-shrink-0 bg-white dark:bg-black border-b border-slate-200 dark:border-neutral-800 px-6 py-3.5 flex items-center justify-between">
         <div>
           <div className="flex items-center space-x-3">
             <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
@@ -129,7 +129,7 @@ export const InboxPage: React.FC = () => {
       </header>
 
       {/* Filter and Search Toolbar */}
-      <div className="bg-white dark:bg-black border-b border-slate-200 dark:border-neutral-800 px-6 py-3 flex items-center justify-between gap-4">
+      <div className="flex-shrink-0 bg-white dark:bg-black border-b border-slate-200 dark:border-neutral-800 px-6 py-2.5 flex items-center justify-between gap-4">
         {/* Filter Tabs - X Style */}
         <div className="flex items-center space-x-1">
           {['all', 'open', 'drafted', 'resolved', 'escalated'].map((tab) => {

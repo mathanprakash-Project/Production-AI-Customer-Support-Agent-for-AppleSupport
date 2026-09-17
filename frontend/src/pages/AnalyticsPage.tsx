@@ -50,7 +50,7 @@ export const AnalyticsPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-6 space-y-6 max-w-7xl mx-auto w-full text-slate-900 dark:text-neutral-100">
+    <div className="flex-1 h-full min-h-0 overflow-y-auto p-5 space-y-5 max-w-7xl mx-auto w-full text-slate-900 dark:text-neutral-100">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
