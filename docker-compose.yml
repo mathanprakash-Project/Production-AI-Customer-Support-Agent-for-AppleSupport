@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: tweetsupport-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: tweetsupport
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d tweetsupport"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: tweetsupport-ollama
+    restart: unless-stopped
+    ports:
+      - "11435:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: tweetsupport-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://app:app@db:5432/tweetsupport
+      - DATABASE_SYNC_URL=postgresql://app:app@db:5432/tweetsupport
+      - LLM_PROVIDER=ollama
+      - LLM_MODEL=llama3.2:3b
+      - LLM_BASE_URL=http://ollama:11434
+      - JUDGE_PROVIDER=ollama
+      - JUDGE_MODEL=qwen2.5:14b-instruct
+      - JWT_SECRET=tweetsupport-super-secret-key-change-in-production
+      - 'CORS_ORIGINS=["http://localhost:5173","http://localhost:3000"]'
+    volumes:
+      - ./data:/app/data
+      - ./eval:/app/eval
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: tweetsupport-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  pgdata:
+  ollama_models:
+
