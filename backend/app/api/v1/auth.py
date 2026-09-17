@@ -17,7 +17,9 @@ async def login(credentials: UserLogin, db: AsyncSession = Depends(get_db)):
     res = await db.execute(select(User).where(User.email == credentials.email))
     user = res.scalars().first()
 
-    if not user or not verify_password(credentials.password, user.password_hash):
+    raw_password = credentials.password.get_secret_value() if hasattr(credentials.password, "get_secret_value") else credentials.password
+
+    if not user or not verify_password(raw_password, user.password_hash):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect email or password.",
@@ -43,9 +45,11 @@ async def register(user_in: UserCreate, db: AsyncSession = Depends(get_db)):
             detail="An account with this email address already exists.",
         )
 
+    raw_password = user_in.password.get_secret_value() if hasattr(user_in.password, "get_secret_value") else user_in.password
+
     new_user = User(
         email=user_in.email,
-        password_hash=get_password_hash(user_in.password),
+        password_hash=get_password_hash(raw_password),
         full_name=user_in.full_name,
         role=user_in.role if user_in.role in ["agent", "admin"] else "agent",
     )

@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, SecretStr
 
 
 class UserBase(BaseModel):
@@ -12,12 +12,12 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
-    password: str = Field(..., min_length=6)
+    password: SecretStr = Field(..., min_length=6)
 
 
 class UserLogin(BaseModel):
     email: str
-    password: str
+    password: SecretStr
 
 
 class UserResponse(UserBase):
