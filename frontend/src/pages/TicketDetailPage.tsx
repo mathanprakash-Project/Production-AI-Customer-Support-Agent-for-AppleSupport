@@ -496,8 +496,7 @@ export const TicketDetailPage: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
       {/* Tab 2: Customer Twitter / X Thread View */}
       {activeTab === 'twitter' && (
