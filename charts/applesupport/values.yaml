@@ -1,0 +1,96 @@
+# Global Environment & Namespace
+global:
+  namespace: tweet-support
+  environment: production
+
+# PostgreSQL + pgvector Configuration
+postgres:
+  enabled: true
+  image:
+    repository: pgvector/pgvector
+    tag: pg16
+  pvc:
+    enabled: true
+    storage: 10Gi
+    accessMode: ReadWriteOnce
+  database: tweetsupport
+  user: postgres
+  # Password injected securely from pipeline / K8s Secrets
+  existingSecret: applesupport-secrets
+  secretPasswordKey: postgres-password
+  service:
+    port: 5432
+    name: db
+
+# Ollama LLM Service Configuration
+ollama:
+  enabled: true
+  image:
+    repository: ollama/ollama
+    tag: latest
+  pvc:
+    enabled: true
+    storage: 20Gi
+    accessMode: ReadWriteOnce
+  resources:
+    requests:
+      cpu: "1"
+      memory: "2Gi"
+    limits:
+      cpu: "4"
+      memory: "6Gi"
+  service:
+    port: 11434
+    name: ollama-service
+
+# Backend FastAPI Microservice
+backend:
+  replicaCount: 2
+  image:
+    repository: us-east1-docker.pkg.dev/tweet-support/applesupport-repo/backend
+    tag: latest
+    pullPolicy: Always
+  service:
+    port: 8000
+    targetPort: 8000
+    name: backend-service
+  config:
+    llmProvider: "mock" # Options: mock | ollama | groq | openai
+    postgresUrl: "postgresql+asyncpg://postgres:postgres123@db.tweet-support.svc.cluster.local:5432/tweetsupport"
+    ollamaUrl: "http://ollama-service.tweet-support.svc.cluster.local:11434"
+    corsOrigins: '["*"]'
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "512Mi"
+    limits:
+      cpu: "1000m"
+      memory: "2Gi"
+
+# Frontend Nginx React Web Client
+frontend:
+  replicaCount: 2
+  image:
+    repository: us-east1-docker.pkg.dev/tweet-support/applesupport-repo/frontend
+    tag: latest
+    pullPolicy: Always
+  service:
+    type: LoadBalancer
+    port: 80
+    targetPort: 80
+    name: frontend-service
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+
+# Secrets Management (Injected dynamically via Pipeline Git/GitHub Secrets)
+secrets:
+  postgresPassword: "postgres123"
+  jwtSecretKey: "super-secret-jwt-key-change-in-prod"
+  openaiApiKey: ""
+  groqApiKey: ""
+

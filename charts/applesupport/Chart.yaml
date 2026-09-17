@@ -1,0 +1,7 @@
+apiVersion: v2
+name: applesupport-umbrella
+description: Umbrella Helm chart for AppleSupport AI Customer Support Agent (PostgreSQL + pgvector, Ollama, Backend FastAPI, Frontend Nginx)
+type: application
+version: 1.0.0
+appVersion: "2.0.0"
+

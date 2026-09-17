@@ -1,0 +1,68 @@
+{{- if .Values.ollama.enabled }}
+{{- if .Values.ollama.pvc.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ollama-pvc
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "applesupport.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.ollama.pvc.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.ollama.pvc.storage }}
+---
+{{- end }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ollama-deployment
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "applesupport.labels" . | nindent 4 }}
+    app: ollama
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ollama
+  template:
+    metadata:
+      labels:
+        app: ollama
+    spec:
+      containers:
+        - name: ollama
+          image: "{{ .Values.ollama.image.repository }}:{{ .Values.ollama.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.ollama.service.port }}
+          resources:
+            {{- toYaml .Values.ollama.resources | nindent 12 }}
+          {{- if .Values.ollama.pvc.enabled }}
+          volumeMounts:
+            - mountPath: /root/.ollama
+              name: ollama-storage
+      volumes:
+        - name: ollama-storage
+          persistentVolumeClaim:
+            claimName: ollama-pvc
+          {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.ollama.service.name }}
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "applesupport.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.ollama.service.port }}
+      targetPort: {{ .Values.ollama.service.port }}
+  selector:
+    app: ollama
+{{- end }}
+
