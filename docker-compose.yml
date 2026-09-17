@@ -52,6 +52,10 @@ services:
     volumes:
       - ./data:/app/data
       - ./eval:/app/eval
+    networks:
+      default:
+        aliases:
+          - backend-service
 
   frontend:
     build:
