@@ -73,6 +73,11 @@ DEFAULT_TAXONOMY: List[Dict[str, Any]] = [
         "description": "Unrecognized charge on card, Apple bill refund, cancellation of active subscription.",
         "examples": ["charged $14.99 unauthorized", "cancel my Apple Music subscription", "request refund for app"],
     },
+    {
+        "label": "lost_device_find_my",
+        "description": "Locating lost or stolen EarPods, AirPods, iPhone, iPad, or Mac using Find My app or iCloud.com.",
+        "examples": ["my EarPods i lost i need to find", "lost my right AirPod in park", "how to track lost iPhone with Find My"],
+    },
 ]
 
 V1_TO_V2_INTENT_MAP: Dict[str, str] = {
@@ -88,6 +93,7 @@ V1_TO_V2_INTENT_MAP: Dict[str, str] = {
     "app_store_downloads": "app_crashes",
     "watch_fitness_sync": "audio_speaker_mic",
     "other_inquiry": "display_screen",
+    "lost_device_find_my": "lost_device_find_my",
 }
 
 

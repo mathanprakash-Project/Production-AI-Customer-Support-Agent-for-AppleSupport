@@ -213,6 +213,7 @@ export const KnowledgeBasePage: React.FC = () => {
             <option value="display_screen">Display / Screen</option>
             <option value="performance_speed">Performance & Speed</option>
             <option value="purchase_refund_billing">Purchase / Refund / Billing</option>
+            <option value="lost_device_find_my">Lost Device / Find My</option>
           </select>
         </div>
       </div>

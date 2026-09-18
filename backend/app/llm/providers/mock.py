@@ -54,7 +54,10 @@ class MockProvider(LLMProvider):
         else:
             target_text = lower
 
-        if "battery" in target_text or "overheating" in target_text or "drain" in target_text:
+        if "lost" in target_text or "find" in target_text or "stolen" in target_text or "locate" in target_text or "find my" in target_text or "earpod" in target_text:
+            intent_label = "lost_device_find_my"
+            draft_text = "You can locate your lost EarPods or AirPods using the Find My app on your iPhone or at https://www.icloud.com/find. Select your EarPods under Devices to view their location or play a sound."
+        elif "battery" in target_text or "overheating" in target_text or "drain" in target_text:
             intent_label = "battery_performance"
             draft_text = "Hello! Battery health is important. Check Settings > Battery > Battery Health to inspect peak performance capability."
         elif "charge" in target_text or "charging" in target_text or "cable" in target_text or "port" in target_text:

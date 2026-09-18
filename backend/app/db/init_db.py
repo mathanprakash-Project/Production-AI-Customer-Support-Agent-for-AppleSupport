@@ -137,7 +137,13 @@ async def init_db(target_engine=None, target_factory=None):
                     "seed-107",
                     "Unauthorized charge of $9.99 from Apple.com/bill on my credit card statement!",
                     "We take billing inquiries seriously. You can view all active subscriptions and purchase history at reportaproblem.apple.com to identify or request a refund for the charge.",
-                    "billing_and_subscriptions",
+                    "purchase_refund_billing",
+                ),
+                (
+                    "seed-108",
+                    "my EarPods i lost i need to find give me a idea for it",
+                    "You can locate your lost EarPods or AirPods using the Find My app on your iPhone or at icloud.com/find. Select your EarPods under Devices to view their location or play a sound.",
+                    "lost_device_find_my",
                 ),
             ]
 
