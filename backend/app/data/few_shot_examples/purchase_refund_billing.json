@@ -1,0 +1,122 @@
+[
+  {
+    "tweet": "Unauthorized charge of $14.99 from Apple.com/bill on my credit card statement!",
+    "intent": "purchase_refund_billing",
+    "sentiment": "negative",
+    "explanation": "Unrecognized bank transaction dispute"
+  },
+  {
+    "tweet": "Requested refund for accidental in-app purchase on reportaproblem.apple.com got denied",
+    "intent": "purchase_refund_billing",
+    "sentiment": "negative",
+    "explanation": "Refund appeal / rejection dispute"
+  },
+  {
+    "tweet": "How do I cancel my active Apple Fitness+ subscription before auto-renewing?",
+    "intent": "purchase_refund_billing",
+    "sentiment": "neutral",
+    "explanation": "Subscription cancellation procedure"
+  },
+  {
+    "tweet": "Child made $250 in Roblox purchases on iPad without permission can I get a refund?",
+    "intent": "purchase_refund_billing",
+    "sentiment": "negative",
+    "explanation": "Minor accidental purchase refund"
+  },
+  {
+    "tweet": "Apple billed me twice for the same month of Apple One Premier",
+    "intent": "purchase_refund_billing",
+    "sentiment": "negative",
+    "explanation": "Duplicate billing error"
+  },
+  {
+    "tweet": "Payment method declined in App Store but card works everywhere else",
+    "intent": "purchase_refund_billing",
+    "sentiment": "negative",
+    "explanation": "Billing card verification decline"
+  },
+  {
+    "tweet": "How long does an approved Apple refund take to show back in my bank account?",
+    "intent": "purchase_refund_billing",
+    "sentiment": "neutral",
+    "explanation": "Refund processing timeline"
+  },
+  {
+    "tweet": "Free trial ended yesterday and charged me $69.99 annual fee can I cancel?",
+    "intent": "purchase_refund_billing",
+    "sentiment": "negative",
+    "explanation": "Trial expiration unexpected charge"
+  },
+  {
+    "tweet": "Need VAT invoice / tax receipt for my MacBook Pro business purchase",
+    "intent": "purchase_refund_billing",
+    "sentiment": "neutral",
+    "explanation": "Tax invoice generation inquiry"
+  },
+  {
+    "tweet": "Cannot add payment method says 'There is an unpaid balance on a previous purchase'",
+    "intent": "purchase_refund_billing",
+    "sentiment": "negative",
+    "explanation": "Unpaid balance account block"
+  },
+  {
+    "tweet": "Apple Card cashback Daily Cash not credited for Apple Store purchase",
+    "intent": "purchase_refund_billing",
+    "sentiment": "negative",
+    "explanation": "Apple Card reward inquiry"
+  },
+  {
+    "tweet": "My subscription was cancelled but app still won't restore premium purchases",
+    "intent": "purchase_refund_billing",
+    "sentiment": "negative",
+    "explanation": "StoreKit receipt restoration failure"
+  },
+  {
+    "tweet": "How do I remove my expired credit card from Apple Pay wallet?",
+    "intent": "purchase_refund_billing",
+    "sentiment": "neutral",
+    "explanation": "Wallet card removal"
+  },
+  {
+    "tweet": "Charged $2.99 for 200GB iCloud but my storage was downgraded to 5GB",
+    "intent": "purchase_refund_billing",
+    "sentiment": "negative",
+    "explanation": "Paid service not provisioned"
+  },
+  {
+    "tweet": "App Store gift card balance depleted without making any purchases",
+    "intent": "purchase_refund_billing",
+    "sentiment": "negative",
+    "explanation": "Disputed gift card balance loss"
+  },
+  {
+    "tweet": "Can I transfer Apple ID balance to my checking account?",
+    "intent": "purchase_refund_billing",
+    "sentiment": "neutral",
+    "explanation": "Account balance cashout policy"
+  },
+  {
+    "tweet": "Why is sales tax higher on my digital app purchase in New York?",
+    "intent": "purchase_refund_billing",
+    "sentiment": "neutral",
+    "explanation": "Tax rate calculation inquiry"
+  },
+  {
+    "tweet": "AppleCare+ monthly billing failed how do I update card without losing coverage?",
+    "intent": "purchase_refund_billing",
+    "sentiment": "negative",
+    "explanation": "AppleCare plan lapse prevention"
+  },
+  {
+    "tweet": "Student discount for Apple Music verification through UNiDAYS failed",
+    "intent": "purchase_refund_billing",
+    "sentiment": "negative",
+    "explanation": "Student discount verification"
+  },
+  {
+    "tweet": "Family sharing member bought expensive app and charged it to my organizer card",
+    "intent": "purchase_refund_billing",
+    "sentiment": "negative",
+    "explanation": "Family sharing purchase sharing rules"
+  }
+]

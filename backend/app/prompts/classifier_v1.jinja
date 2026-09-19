@@ -16,6 +16,15 @@ Your task is to analyze incoming customer tweets and classify them into exactly 
 4. Provide top-2 alternative intents with estimated probabilities.
 5. Provide a confidence score between 0.00 and 1.00.
 
+{% if few_shot_examples %}
+=== FEW-SHOT DEMONSTRATIONS ===
+{% for ex in few_shot_examples %}
+Example {{ loop.index }}:
+  Tweet: "{{ ex.tweet }}"
+  Intent: {{ ex.intent }}
+{% endfor %}
+{% endif %}
+
 === CUSTOMER MESSAGE ===
 """{{ customer_message }}"""
 

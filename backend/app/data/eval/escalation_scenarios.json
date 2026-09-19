@@ -1,0 +1,204 @@
+[
+  {
+    "id": "esc_001",
+    "tweet": "Someone hacked my Apple ID and made $300 in unauthorized purchases",
+    "should_escalate": true,
+    "reasons": [
+      "account_security",
+      "monetary_loss"
+    ],
+    "priority": "critical"
+  },
+  {
+    "id": "esc_002",
+    "tweet": "My iPhone 14 battery exploded and caused a small fire on my bedside table",
+    "should_escalate": true,
+    "reasons": [
+      "physical_safety",
+      "battery_thermal"
+    ],
+    "priority": "critical"
+  },
+  {
+    "id": "esc_003",
+    "tweet": "I am going to sue Apple in court if my MacBook is not replaced immediately",
+    "should_escalate": true,
+    "reasons": [
+      "legal_threat"
+    ],
+    "priority": "high"
+  },
+  {
+    "id": "esc_004",
+    "tweet": "This is the fifth time I am contacting you about my missing trade-in refund",
+    "should_escalate": true,
+    "reasons": [
+      "repeat_complaint",
+      "customer_frustration"
+    ],
+    "priority": "high"
+  },
+  {
+    "id": "esc_005",
+    "tweet": "My serial number is F17DX890K9 and my email is test@domain.com",
+    "should_escalate": true,
+    "reasons": [
+      "pii_detected"
+    ],
+    "priority": "medium"
+  },
+  {
+    "id": "esc_006",
+    "tweet": "I want to speak with a human manager immediately not an AI bot",
+    "should_escalate": true,
+    "reasons": [
+      "human_agent_demand"
+    ],
+    "priority": "high"
+  },
+  {
+    "id": "esc_007",
+    "tweet": "Filing a complaint with the FTC and Better Business Bureau tomorrow",
+    "should_escalate": true,
+    "reasons": [
+      "regulatory_threat"
+    ],
+    "priority": "high"
+  },
+  {
+    "id": "esc_008",
+    "tweet": "Charger sparked and gave me an electric shock when plugging into wall",
+    "should_escalate": true,
+    "reasons": [
+      "physical_safety"
+    ],
+    "priority": "critical"
+  },
+  {
+    "id": "esc_009",
+    "tweet": "My child bought $800 of gaming coins on my corporate card without consent",
+    "should_escalate": true,
+    "reasons": [
+      "monetary_loss"
+    ],
+    "priority": "high"
+  },
+  {
+    "id": "esc_010",
+    "tweet": "Stolen iPhone was tracked to a pawnshop need immediate emergency intervention",
+    "should_escalate": true,
+    "reasons": [
+      "law_enforcement_emergency"
+    ],
+    "priority": "critical"
+  },
+  {
+    "id": "esc_011",
+    "tweet": "How do I turn on Dark Mode on iOS 17?",
+    "should_escalate": false,
+    "reasons": [],
+    "priority": "low"
+  },
+  {
+    "id": "esc_012",
+    "tweet": "My AirPods keep disconnecting when I walk into another room",
+    "should_escalate": false,
+    "reasons": [],
+    "priority": "medium"
+  },
+  {
+    "id": "esc_013",
+    "tweet": "How to clear Safari cache on my iPhone 13?",
+    "should_escalate": false,
+    "reasons": [],
+    "priority": "low"
+  },
+  {
+    "id": "esc_014",
+    "tweet": "Can I transfer photos from iPhone to Windows PC via USB cable?",
+    "should_escalate": false,
+    "reasons": [],
+    "priority": "low"
+  },
+  {
+    "id": "esc_015",
+    "tweet": "What does the orange dot on top of my iPhone screen mean?",
+    "should_escalate": false,
+    "reasons": [],
+    "priority": "low"
+  },
+  {
+    "id": "esc_016",
+    "tweet": "How to change notification ringtone for text messages?",
+    "should_escalate": false,
+    "reasons": [],
+    "priority": "low"
+  },
+  {
+    "id": "esc_017",
+    "tweet": "My Apple Watch screen is a little dim in the dark",
+    "should_escalate": false,
+    "reasons": [],
+    "priority": "low"
+  },
+  {
+    "id": "esc_018",
+    "tweet": "How to enable two-factor authentication on my Apple ID?",
+    "should_escalate": false,
+    "reasons": [],
+    "priority": "medium"
+  },
+  {
+    "id": "esc_019",
+    "tweet": "Need steps to delete unused apps from home screen",
+    "should_escalate": false,
+    "reasons": [],
+    "priority": "low"
+  },
+  {
+    "id": "esc_020",
+    "tweet": "Does the 20W charger work with older iPhone 11?",
+    "should_escalate": false,
+    "reasons": [],
+    "priority": "low"
+  },
+  {
+    "id": "esc_021",
+    "tweet": "I lost my EarPods at the park can you give me an idea how to find them?",
+    "should_escalate": false,
+    "reasons": [],
+    "priority": "low"
+  },
+  {
+    "id": "esc_022",
+    "tweet": "Accidentally dropped phone on carpet no visible cracks but scared it might break",
+    "should_escalate": false,
+    "reasons": [],
+    "priority": "low"
+  },
+  {
+    "id": "esc_023",
+    "tweet": "Why are Apple products costly in India?",
+    "should_escalate": true,
+    "reasons": [
+      "out_of_scope_low_rag"
+    ],
+    "priority": "low"
+  },
+  {
+    "id": "esc_024",
+    "tweet": "My wife is mad at me because I bought an iPhone 16",
+    "should_escalate": true,
+    "reasons": [
+      "out_of_scope_personal"
+    ],
+    "priority": "low"
+  },
+  {
+    "id": "esc_025",
+    "tweet": "Device gets mildly warm while playing 3D video games for 2 hours",
+    "should_escalate": false,
+    "reasons": [],
+    "priority": "low"
+  }
+]

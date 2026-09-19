@@ -1,0 +1,212 @@
+[
+  {
+    "id": "conf_001",
+    "tweet": "My phone won't charge past 80% and the back gets hot",
+    "expected_intent": "charging_issues",
+    "confused_with": "battery_performance",
+    "reasoning": "Charging stops at 80% threshold"
+  },
+  {
+    "id": "conf_002",
+    "tweet": "Battery percentage drops while plugged into charger",
+    "expected_intent": "charging_issues",
+    "confused_with": "battery_performance",
+    "reasoning": "Charger delivery defect"
+  },
+  {
+    "id": "conf_003",
+    "tweet": "Battery dies in 2 hours but charges to 100% in 10 minutes",
+    "expected_intent": "battery_performance",
+    "confused_with": "charging_issues",
+    "reasoning": "Severe capacity degradation"
+  },
+  {
+    "id": "conf_004",
+    "tweet": "Cable says charging but battery percentage never increases",
+    "expected_intent": "charging_issues",
+    "confused_with": "battery_performance",
+    "reasoning": "Port / cable hardware failure"
+  },
+  {
+    "id": "conf_005",
+    "tweet": "Battery health degraded to 70% and won't hold a charge",
+    "expected_intent": "battery_performance",
+    "confused_with": "charging_issues",
+    "reasoning": "Chemical degradation"
+  },
+  {
+    "id": "conf_006",
+    "tweet": "Phone gets scorching hot and lags when opening camera",
+    "expected_intent": "performance_speed",
+    "confused_with": "battery_performance",
+    "reasoning": "Thermal throttling of CPU"
+  },
+  {
+    "id": "conf_007",
+    "tweet": "MacBook Air fans blast at 100% and battery drops to zero in 1 hour",
+    "expected_intent": "battery_performance",
+    "confused_with": "performance_speed",
+    "reasoning": "Unreasonable battery drain"
+  },
+  {
+    "id": "conf_008",
+    "tweet": "Keyboard typing is delayed by 5 seconds when battery is low",
+    "expected_intent": "performance_speed",
+    "confused_with": "battery_performance",
+    "reasoning": "UI input lag"
+  },
+  {
+    "id": "conf_009",
+    "tweet": "Device throttles to 30Hz screen refresh when playing games",
+    "expected_intent": "performance_speed",
+    "confused_with": "battery_performance",
+    "reasoning": "Frame rate performance drop"
+  },
+  {
+    "id": "conf_010",
+    "tweet": "Battery usage shows Springboard taking 80% CPU and draining phone",
+    "expected_intent": "battery_performance",
+    "confused_with": "performance_speed",
+    "reasoning": "Background power consumption"
+  },
+  {
+    "id": "conf_011",
+    "tweet": "My AirPods Pro won't connect to my iPhone anymore",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "confused_with": "audio_speaker_mic",
+    "reasoning": "Bluetooth pairing failure"
+  },
+  {
+    "id": "conf_012",
+    "tweet": "Left AirPod plays no audio but shows connected in Bluetooth settings",
+    "expected_intent": "audio_speaker_mic",
+    "confused_with": "connectivity_wifi_bluetooth",
+    "reasoning": "Acoustic transducer defect"
+  },
+  {
+    "id": "conf_013",
+    "tweet": "People hear static when I talk through my connected AirPods",
+    "expected_intent": "audio_speaker_mic",
+    "confused_with": "connectivity_wifi_bluetooth",
+    "reasoning": "Microphone sensor defect"
+  },
+  {
+    "id": "conf_014",
+    "tweet": "AirPods keep dropping audio when walking past microwave",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "confused_with": "audio_speaker_mic",
+    "reasoning": "2.4GHz RF interference"
+  },
+  {
+    "id": "conf_015",
+    "tweet": "CarPlay Bluetooth connects for phone calls but music is silent",
+    "expected_intent": "audio_speaker_mic",
+    "confused_with": "connectivity_wifi_bluetooth",
+    "reasoning": "A2DP audio routing issue"
+  },
+  {
+    "id": "conf_016",
+    "tweet": "Can't sign into iCloud because I forgot my Apple ID password",
+    "expected_intent": "apple_id_account",
+    "confused_with": "icloud_sync_storage",
+    "reasoning": "Account credential recovery"
+  },
+  {
+    "id": "conf_017",
+    "tweet": "iCloud says account storage full can I add another Apple ID to expand space?",
+    "expected_intent": "icloud_sync_storage",
+    "confused_with": "apple_id_account",
+    "reasoning": "Storage capacity management"
+  },
+  {
+    "id": "conf_018",
+    "tweet": "Photos won't sync because Apple ID requires 2FA verification code",
+    "expected_intent": "apple_id_account",
+    "confused_with": "icloud_sync_storage",
+    "reasoning": "Authentication gatekeeper"
+  },
+  {
+    "id": "conf_019",
+    "tweet": "Deleted files from iCloud Drive and want to restore them",
+    "expected_intent": "icloud_sync_storage",
+    "confused_with": "apple_id_account",
+    "reasoning": "iCloud file restoration"
+  },
+  {
+    "id": "conf_020",
+    "tweet": "Signed out of Apple ID and lost all local contacts",
+    "expected_intent": "icloud_sync_storage",
+    "confused_with": "apple_id_account",
+    "reasoning": "Cloud contact synchronization"
+  },
+  {
+    "id": "conf_021",
+    "tweet": "My iPhone 12 is super slow and lagging ever since I updated to iOS 18",
+    "expected_intent": "ios_update_bugs",
+    "confused_with": "performance_speed",
+    "reasoning": "Direct post-update regression"
+  },
+  {
+    "id": "conf_022",
+    "tweet": "System UI stuttering when swiping between home screens on iOS 17.5",
+    "expected_intent": "performance_speed",
+    "confused_with": "ios_update_bugs",
+    "reasoning": "General UI latency"
+  },
+  {
+    "id": "conf_023",
+    "tweet": "@apple support hey i have a few problem with my software with my apple iphone 12",
+    "expected_intent": "ios_update_bugs",
+    "confused_with": "performance_speed",
+    "reasoning": "Explicit software update issue on iPhone 12"
+  },
+  {
+    "id": "conf_024",
+    "tweet": "Apps freeze after update because phone storage is 100% full",
+    "expected_intent": "performance_speed",
+    "confused_with": "ios_update_bugs",
+    "reasoning": "Storage pressure slowdown"
+  },
+  {
+    "id": "conf_025",
+    "tweet": "Stuck on loading screen after initiating software update",
+    "expected_intent": "ios_update_bugs",
+    "confused_with": "performance_speed",
+    "reasoning": "OS install freeze"
+  },
+  {
+    "id": "conf_026",
+    "tweet": "Dropped phone on concrete, screen is completely shattered with glass falling out",
+    "expected_intent": "hardware_damage",
+    "confused_with": "display_screen",
+    "reasoning": "Physical shatter damage"
+  },
+  {
+    "id": "conf_027",
+    "tweet": "Green line on screen after small bump but glass is completely intact",
+    "expected_intent": "display_screen",
+    "confused_with": "hardware_damage",
+    "reasoning": "Internal OLED failure"
+  },
+  {
+    "id": "conf_028",
+    "tweet": "Touch doesn't work after hairline crack on bottom corner",
+    "expected_intent": "hardware_damage",
+    "confused_with": "display_screen",
+    "reasoning": "Impact damage causing failure"
+  },
+  {
+    "id": "conf_029",
+    "tweet": "Display flickering green without any drop or impact",
+    "expected_intent": "display_screen",
+    "confused_with": "hardware_damage",
+    "reasoning": "Display panel anomaly"
+  },
+  {
+    "id": "conf_030",
+    "tweet": "Back glass broken and camera lens cracked",
+    "expected_intent": "hardware_damage",
+    "confused_with": "display_screen",
+    "reasoning": "Multiple physical fractures"
+  }
+]

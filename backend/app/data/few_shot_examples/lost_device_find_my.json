@@ -1,0 +1,122 @@
+[
+  {
+    "tweet": "my EarPods i lost i need to find give me a idea for it",
+    "intent": "lost_device_find_my",
+    "sentiment": "neutral",
+    "explanation": "Lost EarPods location inquiry"
+  },
+  {
+    "tweet": "Lost my iPhone on the subway can I track it if phone was turned off?",
+    "intent": "lost_device_find_my",
+    "sentiment": "negative",
+    "explanation": "Find My Network offline tracking"
+  },
+  {
+    "tweet": "Left my AirPods Pro in an Uber how do I play a sound to locate them?",
+    "intent": "lost_device_find_my",
+    "sentiment": "neutral",
+    "explanation": "Find My play sound feature"
+  },
+  {
+    "tweet": "How do I mark my stolen MacBook Pro as Lost in iCloud to lock it?",
+    "intent": "lost_device_find_my",
+    "sentiment": "negative",
+    "explanation": "Lost Mode remote lock inquiry"
+  },
+  {
+    "tweet": "Find My app says 'No location found' for my missing iPad",
+    "intent": "lost_device_find_my",
+    "sentiment": "negative",
+    "explanation": "Device offline status in Find My"
+  },
+  {
+    "tweet": "AirTag precision finding arrow not appearing on my iPhone 13",
+    "intent": "lost_device_find_my",
+    "sentiment": "negative",
+    "explanation": "Ultra Wideband precision finding issue"
+  },
+  {
+    "tweet": "Someone found my lost iPhone how do they see my contact number on lock screen?",
+    "intent": "lost_device_find_my",
+    "sentiment": "neutral",
+    "explanation": "Lost Mode message display"
+  },
+  {
+    "tweet": "How to erase my stolen iPhone remotely without losing Activation Lock?",
+    "intent": "lost_device_find_my",
+    "sentiment": "neutral",
+    "explanation": "Remote wipe vs activation lock"
+  },
+  {
+    "tweet": "AirTag alert 'AirTag Found Moving With You' keeps notifying my phone",
+    "intent": "lost_device_find_my",
+    "sentiment": "negative",
+    "explanation": "Unknown tracker safety notification"
+  },
+  {
+    "tweet": "Can police use Find My data to retrieve my stolen Apple Watch?",
+    "intent": "lost_device_find_my",
+    "sentiment": "neutral",
+    "explanation": "Law enforcement location inquiry"
+  },
+  {
+    "tweet": "My missing AirPods show location updated 3 days ago can it update in real time?",
+    "intent": "lost_device_find_my",
+    "sentiment": "negative",
+    "explanation": "Find My network update frequency"
+  },
+  {
+    "tweet": "Find My app won't share location with my family sharing members",
+    "intent": "lost_device_find_my",
+    "sentiment": "negative",
+    "explanation": "Location sharing permission toggle"
+  },
+  {
+    "tweet": "Received a phishing text saying 'Your lost iPhone was found click here to view location'",
+    "intent": "lost_device_find_my",
+    "sentiment": "negative",
+    "explanation": "Find My phishing scam alert"
+  },
+  {
+    "tweet": "How do I remove an AirTag from my Apple ID so my brother can use it?",
+    "intent": "lost_device_find_my",
+    "sentiment": "neutral",
+    "explanation": "AirTag unpair / ownership transfer"
+  },
+  {
+    "tweet": "Can I locate my AirPods if they are inside the closed charging case?",
+    "intent": "lost_device_find_my",
+    "sentiment": "neutral",
+    "explanation": "Find My case tracking capability"
+  },
+  {
+    "tweet": "Stolen iPad was erased by thief will I still be able to track its location?",
+    "intent": "lost_device_find_my",
+    "sentiment": "negative",
+    "explanation": "Tracking capability post-wipe"
+  },
+  {
+    "tweet": "Notify When Left Behind alert went off while my phone was in my pocket",
+    "intent": "lost_device_find_my",
+    "sentiment": "neutral",
+    "explanation": "Separation alert false alarm"
+  },
+  {
+    "tweet": "How do I turn off Find My before sending my phone in for Apple trade-in?",
+    "intent": "lost_device_find_my",
+    "sentiment": "neutral",
+    "explanation": "Trade-in preparation / FMI off"
+  },
+  {
+    "tweet": "AirTag battery level says low how do I change the CR2032 coin cell battery?",
+    "intent": "lost_device_find_my",
+    "sentiment": "neutral",
+    "explanation": "AirTag maintenance battery replacement"
+  },
+  {
+    "tweet": "Lost my Apple Pencil 2 can Find My show its last known location?",
+    "intent": "lost_device_find_my",
+    "sentiment": "neutral",
+    "explanation": "Accessory tracking limitations"
+  }
+]

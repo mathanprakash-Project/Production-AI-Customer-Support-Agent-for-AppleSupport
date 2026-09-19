@@ -70,3 +70,5 @@ charts/**/charts/*.tgz
 
 # Antigravity Workspace
 .system_generated/
+*.db
+eval_results.json

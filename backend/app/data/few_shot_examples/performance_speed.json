@@ -1,0 +1,122 @@
+[
+  {
+    "tweet": "MacBook Pro spinning beach ball of death on every click with high fan noise",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "macOS CPU thermal throttling and memory pressure"
+  },
+  {
+    "tweet": "iPhone 13 lagging severely when typing on keyboard with 5 second delay",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "Keyboard input latency and UI lag"
+  },
+  {
+    "tweet": "MacBook fans running at maximum RPM even while sitting idle on desktop",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "Runaway background process fan noise"
+  },
+  {
+    "tweet": "Apps taking 20 seconds to open on iPhone 12 running iOS 18",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "Cold launch performance slowdown"
+  },
+  {
+    "tweet": "Why is Kernel Task using 600% CPU in Activity Monitor?",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "Kernel task thermal management throttling"
+  },
+  {
+    "tweet": "iPad Pro M1 stuttering during multitasking with Stage Manager",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "GPU frame rate drop during windowing"
+  },
+  {
+    "tweet": "iPhone rebooting randomly every 3 minutes panic full log in analytics",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "Hardware panic watchdog reset"
+  },
+  {
+    "tweet": "Camera app takes 5 seconds to take a photo after clicking shutter button",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "Shutter lag / Deep Fusion processing delay"
+  },
+  {
+    "tweet": "Mac running out of application memory prompt with only Safari open",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "RAM leak / memory pressure"
+  },
+  {
+    "tweet": "Stuttery animations when pulling down notification center or searching spotlight",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "Springboard frame drop"
+  },
+  {
+    "tweet": "Phone freezes solid for 30 seconds when unlocking with Face ID",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "Biometric unlock system lockup"
+  },
+  {
+    "tweet": "Why does my iPhone get super slow when battery percentage drops below 10%?",
+    "intent": "performance_speed",
+    "sentiment": "neutral",
+    "explanation": "Power management performance throttling"
+  },
+  {
+    "tweet": "MacBook trackpad haptic click lag delayed by 1 second",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "Force Touch driver latency"
+  },
+  {
+    "tweet": "Spotlight indexing taking all CPU power and slowing down Mac for 2 days",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "MDS / Spotlight indexing loop"
+  },
+  {
+    "tweet": "iPhone warms up and drops screen brightness to 30% while playing Genshin Impact",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "Sustained gaming thermal throttling"
+  },
+  {
+    "tweet": "Boot time on Mac went from 15 seconds to 5 minutes after upgrade",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "APFS startup extension hang"
+  },
+  {
+    "tweet": "App switcher takes 2 seconds to swipe between running applications",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "Multitasking gesture lag"
+  },
+  {
+    "tweet": "Apple Watch lagging when scrolling through smart stack widgets",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "watchOS UI frame stutter"
+  },
+  {
+    "tweet": "Safari web pages stuttering while scrolling down long articles",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "GPU WebKit rasterization lag"
+  },
+  {
+    "tweet": "Why is WindowServer using 80% GPU on my dual monitor setup?",
+    "intent": "performance_speed",
+    "sentiment": "negative",
+    "explanation": "macOS WindowServer display driver load"
+  }
+]

@@ -134,3 +134,28 @@ async def test_low_rag_match_draft_polite_reply(mock_provider):
     assert draft.confidence == 0.80
 
 
+@pytest.mark.asyncio
+async def test_iphone_12_software_query(pipeline):
+    """
+    Test that '@apple support hey i have a few problem with my software with my apple iphone 12':
+    1. Is classified as 'ios_update_bugs' (NOT 'out_of_scope').
+    2. Acknowledges 'iPhone 12' in the drafted reply.
+    3. Does NOT ask the customer for their device model (since it was already provided).
+    """
+    query = "@apple support hey i have a few problem with my software with my apple iphone 12"
+    res = await pipeline.run(query)
+
+    # 1. Classification check
+    assert res.intent.intent == "ios_update_bugs"
+
+    # 2. Device awareness check
+    reply_lower = res.draft.reply.lower()
+    assert "iphone 12" in reply_lower
+
+    # 3. Grounded reply check
+    assert "what is your device model" not in reply_lower
+    assert "what device" not in reply_lower
+    assert "software" in reply_lower or "ios" in reply_lower
+
+
+

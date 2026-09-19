@@ -1,0 +1,1082 @@
+[
+  {
+    "id": "test_001",
+    "tweet": "My iPhone 14 dies at 40% battery every single day",
+    "expected_intent": "battery_performance",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Rapid sudden drain before 0%"
+  },
+  {
+    "id": "test_002",
+    "tweet": "Battery health dropped to 78% after just 8 months on iPhone 15",
+    "expected_intent": "battery_performance",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Battery maximum capacity degradation"
+  },
+  {
+    "id": "test_003",
+    "tweet": "My phone is burning hot to the touch while browsing Safari and battery drops 1% per minute",
+    "expected_intent": "battery_performance",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Overheating coupled with fast discharge"
+  },
+  {
+    "id": "test_004",
+    "tweet": "iPhone 13 battery draining overnight from 100% to 15% with no apps running",
+    "expected_intent": "battery_performance",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Idle standby battery drain"
+  },
+  {
+    "id": "test_005",
+    "tweet": "Should I replace my battery if maximum capacity is at 79%?",
+    "expected_intent": "battery_performance",
+    "expected_sentiment": "neutral",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Battery service threshold inquiry"
+  },
+  {
+    "id": "test_006",
+    "tweet": "My battery icon turned yellow and won't go back to normal",
+    "expected_intent": "battery_performance",
+    "expected_sentiment": "neutral",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Low Power Mode indicator inquiry"
+  },
+  {
+    "id": "test_007",
+    "tweet": "Battery percentage jumps from 50% to 20% then shuts down",
+    "expected_intent": "battery_performance",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Erratic battery gauge calibration issue"
+  },
+  {
+    "id": "test_008",
+    "tweet": "Why does iOS 18 show battery service recommended on my iPhone 12?",
+    "expected_intent": "battery_performance",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Battery health degradation alert"
+  },
+  {
+    "id": "test_009",
+    "tweet": "My Apple Watch Series 8 won't last a full 12 hour workday anymore",
+    "expected_intent": "battery_performance",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Wearable battery life deficiency"
+  },
+  {
+    "id": "test_010",
+    "tweet": "Is it normal for iPhone 15 Pro to lose 30% battery in 1 hour on 5G?",
+    "expected_intent": "battery_performance",
+    "expected_sentiment": "neutral",
+    "expected_escalate": false,
+    "difficulty": "adversarial",
+    "notes": "High cellular drain inquiry"
+  },
+  {
+    "id": "test_011",
+    "tweet": "My iPhone won't charge when plugged into the wall with official cable",
+    "expected_intent": "charging_issues",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Wired charging failure"
+  },
+  {
+    "id": "test_012",
+    "tweet": "Accessory may not be supported pop up keeps appearing when I plug in charger",
+    "expected_intent": "charging_issues",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "MFi accessory recognition error"
+  },
+  {
+    "id": "test_013",
+    "tweet": "iPhone 15 USB-C port is loose and cable keeps falling out",
+    "expected_intent": "charging_issues",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Physical port debris or connection issue"
+  },
+  {
+    "id": "test_014",
+    "tweet": "MagSafe wireless charger charges for 5 seconds then stops flashing orange",
+    "expected_intent": "charging_issues",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Wireless charging fault"
+  },
+  {
+    "id": "test_015",
+    "tweet": "Lightning cable only charges if I bend it at a specific angle",
+    "expected_intent": "charging_issues",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Damaged charging cable wire"
+  },
+  {
+    "id": "test_016",
+    "tweet": "Water detected in Lightning connector alert won't go away even after 24 hours drying",
+    "expected_intent": "charging_issues",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Liquid detection sensor lock"
+  },
+  {
+    "id": "test_017",
+    "tweet": "iPad Pro 11 inch not charging from MacBook USB-C port",
+    "expected_intent": "charging_issues",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Low-wattage port charging issue"
+  },
+  {
+    "id": "test_018",
+    "tweet": "My iPhone vibrates repeatedly every 2 seconds when plugged into charger",
+    "expected_intent": "charging_issues",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Intermittent charging loop"
+  },
+  {
+    "id": "test_019",
+    "tweet": "Charging port has lint stuck inside how do I safely clean it out?",
+    "expected_intent": "charging_issues",
+    "expected_sentiment": "neutral",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Port cleaning inquiry"
+  },
+  {
+    "id": "test_020",
+    "tweet": "20W Apple fast charger brick gets burning hot and smells like burnt plastic",
+    "expected_intent": "charging_issues",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "adversarial",
+    "notes": "Hardware power brick safety hazard"
+  },
+  {
+    "id": "test_021",
+    "tweet": "@AppleSupport touch screen not working on my iPhone 11 after screen got wet",
+    "expected_intent": "display_screen",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Touch digitizer unresponsive"
+  },
+  {
+    "id": "test_022",
+    "tweet": "Green line appeared vertically down the middle of my iPhone 13 Pro display",
+    "expected_intent": "display_screen",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "OLED panel vertical green line defect"
+  },
+  {
+    "id": "test_023",
+    "tweet": "Touch screen is ghost clicking apps and typing by itself",
+    "expected_intent": "display_screen",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Ghost touch phantom input"
+  },
+  {
+    "id": "test_024",
+    "tweet": "Screen is completely black but phone vibrates when I flip silent switch",
+    "expected_intent": "display_screen",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Black screen of death with active logic board"
+  },
+  {
+    "id": "test_025",
+    "tweet": "Display flickering rapidly when brightness drops below 25%",
+    "expected_intent": "display_screen",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "OLED PWM flicker malfunction"
+  },
+  {
+    "id": "test_026",
+    "tweet": "Top half of my iPhone screen doesn't respond to touch gestures",
+    "expected_intent": "display_screen",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Partial digitizer failure"
+  },
+  {
+    "id": "test_027",
+    "tweet": "Yellow tint on my new iPhone 15 screen compared to my old iPhone",
+    "expected_intent": "display_screen",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "True Tone / Night Shift color calibration"
+  },
+  {
+    "id": "test_028",
+    "tweet": "White screen of death after dropping phone on carpet",
+    "expected_intent": "display_screen",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "WSOD display controller fault"
+  },
+  {
+    "id": "test_029",
+    "tweet": "Dynamic Island pixel burn-in visible on gray backgrounds",
+    "expected_intent": "display_screen",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "OLED image retention / burn-in"
+  },
+  {
+    "id": "test_030",
+    "tweet": "ProMotion 120Hz feels choppy and locked to 60Hz on iPhone 14 Pro",
+    "expected_intent": "display_screen",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "adversarial",
+    "notes": "Refresh rate display stutter"
+  },
+  {
+    "id": "test_031",
+    "tweet": "@apple support hey i have a few problem with my software with my apple iphone 12",
+    "expected_intent": "ios_update_bugs",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "General iPhone 12 iOS software problem"
+  },
+  {
+    "id": "test_032",
+    "tweet": "iOS 18 update stuck on 'Estimating time remaining...' for 4 hours",
+    "expected_intent": "ios_update_bugs",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "OTA update download stalled"
+  },
+  {
+    "id": "test_033",
+    "tweet": "iPhone stuck on Apple logo boot loop after installing latest iOS 17.5.1 update",
+    "expected_intent": "ios_update_bugs",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Post-update bootloop failure"
+  },
+  {
+    "id": "test_034",
+    "tweet": "Update error 4013 occurred while restoring iPhone through Finder on Mac",
+    "expected_intent": "ios_update_bugs",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "DFU restore error code"
+  },
+  {
+    "id": "test_035",
+    "tweet": "Software update says 'Unable to Verify Update: Failed verification because you are no longer connected to the internet'",
+    "expected_intent": "ios_update_bugs",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Verification handshake error"
+  },
+  {
+    "id": "test_036",
+    "tweet": "System Data taking up 85GB of storage preventing me from updating iOS",
+    "expected_intent": "ios_update_bugs",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "System storage bug blocking update"
+  },
+  {
+    "id": "test_037",
+    "tweet": "How do I downgrade back to iOS 17 from iOS 18 developer beta?",
+    "expected_intent": "ios_update_bugs",
+    "expected_sentiment": "neutral",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Beta unenrollment downgrade request"
+  },
+  {
+    "id": "test_038",
+    "tweet": "Control center keeps crashing and respringing to lockscreen after software update",
+    "expected_intent": "ios_update_bugs",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Springboard software glitch"
+  },
+  {
+    "id": "test_039",
+    "tweet": "iPhone says 'An error occurred while checking for a software update'",
+    "expected_intent": "ios_update_bugs",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Update server query failure"
+  },
+  {
+    "id": "test_040",
+    "tweet": "Widgets disappeared from home screen and won't reload after the update",
+    "expected_intent": "ios_update_bugs",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "adversarial",
+    "notes": "Post-update widget subsystem glitch"
+  },
+  {
+    "id": "test_041",
+    "tweet": "Instagram keeps crashing immediately on launch on iPhone 15 Pro",
+    "expected_intent": "app_crashes",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Third-party app crash on open"
+  },
+  {
+    "id": "test_042",
+    "tweet": "Apps stuck on 'Waiting...' grey icon and won't finish downloading from App Store",
+    "expected_intent": "app_crashes",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "App Store download stall"
+  },
+  {
+    "id": "test_043",
+    "tweet": "App Store says 'Unable to Purchase' error code 5002",
+    "expected_intent": "app_crashes",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "App Store storekit purchase error"
+  },
+  {
+    "id": "test_044",
+    "tweet": "YouTube freezes entire phone when switching from landscape to portrait",
+    "expected_intent": "app_crashes",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "App-induced system UI lockup"
+  },
+  {
+    "id": "test_045",
+    "tweet": "Can't update any of my apps, the update button just circles back to 'Update'",
+    "expected_intent": "app_crashes",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "App Store update loop"
+  },
+  {
+    "id": "test_046",
+    "tweet": "WhatsApp crashes every time I try to open a photo or take a picture",
+    "expected_intent": "app_crashes",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "App camera permission crash"
+  },
+  {
+    "id": "test_047",
+    "tweet": "Safari tabs keep crashing with 'A problem repeatedly occurred with this webpage'",
+    "expected_intent": "app_crashes",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "WebKit memory crash"
+  },
+  {
+    "id": "test_048",
+    "tweet": "Mail app quits unexpectedly when searching through inbox",
+    "expected_intent": "app_crashes",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "First-party Mail crash"
+  },
+  {
+    "id": "test_049",
+    "tweet": "App Store requires me to enter Apple ID password for every free app update",
+    "expected_intent": "app_crashes",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "App Store credential prompt loop"
+  },
+  {
+    "id": "test_050",
+    "tweet": "TikTok audio desyncs and stutters then app closes",
+    "expected_intent": "app_crashes",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "adversarial",
+    "notes": "App media buffer crash"
+  },
+  {
+    "id": "test_051",
+    "tweet": "Wi-Fi toggle switch is grayed out and won't turn on in Settings",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Hardware Wi-Fi module fault"
+  },
+  {
+    "id": "test_052",
+    "tweet": "AirPods keep disconnecting and reconnecting every 30 seconds during calls",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Bluetooth audio link drop"
+  },
+  {
+    "id": "test_053",
+    "tweet": "iPhone shows 'No Service' or 'Searching...' even with valid active SIM card",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Baseband modem cellular drop"
+  },
+  {
+    "id": "test_054",
+    "tweet": "Connected to Wi-Fi without Internet alert while all other devices work fine",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "DHCP / DNS network lease failure"
+  },
+  {
+    "id": "test_055",
+    "tweet": "Bluetooth devices won't discover my iPhone in pairing mode",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Bluetooth discoverability failure"
+  },
+  {
+    "id": "test_056",
+    "tweet": "AirDrop refuses to send photos to my Mac says 'Declined' immediately",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "AirDrop peer-to-peer Wi-Fi failure"
+  },
+  {
+    "id": "test_057",
+    "tweet": "Personal Hotspot disconnects my laptop every 5 minutes when screen turns off",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Cellular tethering idle drop"
+  },
+  {
+    "id": "test_058",
+    "tweet": "eSIM activation failed error 'eSIM cannot be added contact carrier'",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "eSIM profile provisioning error"
+  },
+  {
+    "id": "test_059",
+    "tweet": "Apple Watch won't sync with iPhone via Bluetooth after unpairing",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "BLE pairing handshake failure"
+  },
+  {
+    "id": "test_060",
+    "tweet": "Wi-Fi speeds capped at 5Mbps while sitting right next to 1Gbps router",
+    "expected_intent": "connectivity_wifi_bluetooth",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "adversarial",
+    "notes": "WLAN throughput degradation"
+  },
+  {
+    "id": "test_061",
+    "tweet": "iCloud storage full notification won't disappear even after deleting 5,000 photos",
+    "expected_intent": "icloud_sync_storage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Recently Deleted album storage hold"
+  },
+  {
+    "id": "test_062",
+    "tweet": "Photos not syncing between my iPhone and MacBook Air on same Apple ID",
+    "expected_intent": "icloud_sync_storage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "iCloud Photos sync pause"
+  },
+  {
+    "id": "test_063",
+    "tweet": "iCloud backup failed with 'Not enough storage' despite having 200GB plan",
+    "expected_intent": "icloud_sync_storage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Backup sizing larger than available cloud quota"
+  },
+  {
+    "id": "test_064",
+    "tweet": "Messages in iCloud disabled and downloading messages stuck at 1%",
+    "expected_intent": "icloud_sync_storage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "iMessage cloud sync stall"
+  },
+  {
+    "id": "test_065",
+    "tweet": "How do I upgrade from 50GB to 200GB iCloud+ plan with family sharing?",
+    "expected_intent": "icloud_sync_storage",
+    "expected_sentiment": "neutral",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "iCloud plan upgrade inquiry"
+  },
+  {
+    "id": "test_066",
+    "tweet": "Notes app deleted all my notes after toggling iCloud sync off and on",
+    "expected_intent": "icloud_sync_storage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Local vs Cloud notes sync overwrite"
+  },
+  {
+    "id": "test_067",
+    "tweet": "WhatsApp iCloud chat backup stuck at 99% for 3 days",
+    "expected_intent": "icloud_sync_storage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Third party iCloud container backup pause"
+  },
+  {
+    "id": "test_068",
+    "tweet": "Shared iCloud Photo Library invitations not delivering to family members",
+    "expected_intent": "icloud_sync_storage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Shared library invite failure"
+  },
+  {
+    "id": "test_069",
+    "tweet": "iCloud Drive files showing cloud icon with down arrow and won't download offline",
+    "expected_intent": "icloud_sync_storage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "On-demand cloud file download failure"
+  },
+  {
+    "id": "test_070",
+    "tweet": "Keychain passwords not syncing to new iPhone 15 from iCloud",
+    "expected_intent": "icloud_sync_storage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "adversarial",
+    "notes": "iCloud Keychain sync delay"
+  },
+  {
+    "id": "test_071",
+    "tweet": "Locked out of my Apple ID and cannot remember security questions or trusted phone number",
+    "expected_intent": "apple_id_account",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Account lock and lost credentials"
+  },
+  {
+    "id": "test_072",
+    "tweet": "Verification code not sending to my trusted phone number for 2FA login",
+    "expected_intent": "apple_id_account",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Two-factor authentication code delivery failure"
+  },
+  {
+    "id": "test_073",
+    "tweet": "Someone from another state is trying to sign into my Apple ID got popup notification",
+    "expected_intent": "apple_id_account",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Unauthorized login alert / account security"
+  },
+  {
+    "id": "test_074",
+    "tweet": "How do I change my primary Apple ID email from Yahoo to Gmail?",
+    "expected_intent": "apple_id_account",
+    "expected_sentiment": "neutral",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Apple ID username update inquiry"
+  },
+  {
+    "id": "test_075",
+    "tweet": "Account Recovery at iforgot.apple.com says waiting period is 14 days can this be expedited?",
+    "expected_intent": "apple_id_account",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Account recovery waiting period dispute"
+  },
+  {
+    "id": "test_076",
+    "tweet": "Apple ID disabled for security reasons error message on App Store",
+    "expected_intent": "apple_id_account",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Security lock trigger"
+  },
+  {
+    "id": "test_077",
+    "tweet": "Inherited deceased parent's iPhone how to remove Activation Lock with death certificate?",
+    "expected_intent": "apple_id_account",
+    "expected_sentiment": "neutral",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Digital Legacy / bereavement unlock"
+  },
+  {
+    "id": "test_078",
+    "tweet": "Cannot sign out of Apple ID in Settings, 'Sign Out' button is grayed out",
+    "expected_intent": "apple_id_account",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Screen Time restrictions blocking sign out"
+  },
+  {
+    "id": "test_079",
+    "tweet": "Trusted phone number on my account is an old number I no longer own",
+    "expected_intent": "apple_id_account",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Outdated 2FA recovery number"
+  },
+  {
+    "id": "test_080",
+    "tweet": "Apple ID password reset email never arrives in my inbox or spam folder",
+    "expected_intent": "apple_id_account",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "adversarial",
+    "notes": "Recovery email routing issue"
+  },
+  {
+    "id": "test_081",
+    "tweet": "Unauthorized charge of $14.99 from Apple.com/bill on my credit card statement!",
+    "expected_intent": "purchase_refund_billing",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Unrecognized bank transaction dispute"
+  },
+  {
+    "id": "test_082",
+    "tweet": "Requested refund for accidental in-app purchase on reportaproblem.apple.com got denied",
+    "expected_intent": "purchase_refund_billing",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Refund appeal / rejection dispute"
+  },
+  {
+    "id": "test_083",
+    "tweet": "How do I cancel my active Apple Fitness+ subscription before auto-renewing?",
+    "expected_intent": "purchase_refund_billing",
+    "expected_sentiment": "neutral",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Subscription cancellation procedure"
+  },
+  {
+    "id": "test_084",
+    "tweet": "Child made $250 in Roblox purchases on iPad without permission can I get a refund?",
+    "expected_intent": "purchase_refund_billing",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Minor accidental purchase refund"
+  },
+  {
+    "id": "test_085",
+    "tweet": "Apple billed me twice for the same month of Apple One Premier",
+    "expected_intent": "purchase_refund_billing",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Duplicate billing error"
+  },
+  {
+    "id": "test_086",
+    "tweet": "Payment method declined in App Store but card works everywhere else",
+    "expected_intent": "purchase_refund_billing",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Billing card verification decline"
+  },
+  {
+    "id": "test_087",
+    "tweet": "How long does an approved Apple refund take to show back in my bank account?",
+    "expected_intent": "purchase_refund_billing",
+    "expected_sentiment": "neutral",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Refund processing timeline"
+  },
+  {
+    "id": "test_088",
+    "tweet": "Free trial ended yesterday and charged me $69.99 annual fee can I cancel?",
+    "expected_intent": "purchase_refund_billing",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Trial expiration unexpected charge"
+  },
+  {
+    "id": "test_089",
+    "tweet": "Need VAT invoice / tax receipt for my MacBook Pro business purchase",
+    "expected_intent": "purchase_refund_billing",
+    "expected_sentiment": "neutral",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Tax invoice generation inquiry"
+  },
+  {
+    "id": "test_090",
+    "tweet": "Cannot add payment method says 'There is an unpaid balance on a previous purchase'",
+    "expected_intent": "purchase_refund_billing",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "adversarial",
+    "notes": "Unpaid balance account block"
+  },
+  {
+    "id": "test_091",
+    "tweet": "Accidentally cracked my iPhone 14 Pro back glass after dropping on pavement",
+    "expected_intent": "hardware_damage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Broken back glass physical damage"
+  },
+  {
+    "id": "test_092",
+    "tweet": "Dropped phone in swimming pool now speakers crackle and camera has condensation",
+    "expected_intent": "hardware_damage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Liquid ingress / water submersion"
+  },
+  {
+    "id": "test_093",
+    "tweet": "MacBook Pro aluminum chassis bent near hinge after laptop fell off desk",
+    "expected_intent": "hardware_damage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Bent enclosure physical damage"
+  },
+  {
+    "id": "test_094",
+    "tweet": "Spilled a full cup of black coffee on MacBook Air keyboard will it survive?",
+    "expected_intent": "hardware_damage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Liquid spill keyboard emergency"
+  },
+  {
+    "id": "test_095",
+    "tweet": "iPhone front screen shattered into spiderweb cracks need repair estimate",
+    "expected_intent": "hardware_damage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Shattered front glass repair inquiry"
+  },
+  {
+    "id": "test_096",
+    "tweet": "Camera lens glass cracked on iPhone 15 Pro Max causing blurry photos with glare",
+    "expected_intent": "hardware_damage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Camera sapphire lens fracture"
+  },
+  {
+    "id": "test_097",
+    "tweet": "How much does out-of-warranty screen replacement cost at Apple Store?",
+    "expected_intent": "hardware_damage",
+    "expected_sentiment": "neutral",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Repair price quote inquiry"
+  },
+  {
+    "id": "test_098",
+    "tweet": "Volume down button is physically jammed and won't click anymore",
+    "expected_intent": "hardware_damage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Stuck mechanical button"
+  },
+  {
+    "id": "test_099",
+    "tweet": "AirPod run over by a car in driveway completely crushed",
+    "expected_intent": "hardware_damage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Catastrophic accessory destruction"
+  },
+  {
+    "id": "test_100",
+    "tweet": "Lightning cable head broke off flush inside charging port need removal",
+    "expected_intent": "hardware_damage",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "adversarial",
+    "notes": "Foreign object extraction repair"
+  },
+  {
+    "id": "test_101",
+    "tweet": "Left AirPod has zero sound at all while right AirPod works fine",
+    "expected_intent": "audio_speaker_mic",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "One-sided audio playback failure"
+  },
+  {
+    "id": "test_102",
+    "tweet": "People can't hear me on phone calls unless I turn on Speakerphone",
+    "expected_intent": "audio_speaker_mic",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Primary bottom microphone failure"
+  },
+  {
+    "id": "test_103",
+    "tweet": "iPhone ear speaker during calls is extremely muffled and quiet even on max volume",
+    "expected_intent": "audio_speaker_mic",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Earpiece speaker mesh blockage"
+  },
+  {
+    "id": "test_104",
+    "tweet": "AirPods Pro crackling or static noise when walking or in Active Noise Cancellation",
+    "expected_intent": "audio_speaker_mic",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "ANC feedback microphone static"
+  },
+  {
+    "id": "test_105",
+    "tweet": "Bottom loudspeaker sounds distorted and rattles when playing music above 50%",
+    "expected_intent": "audio_speaker_mic",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Blown speaker driver distortion"
+  },
+  {
+    "id": "test_106",
+    "tweet": "Siri can't hear my voice commands but voice memos record fine",
+    "expected_intent": "audio_speaker_mic",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Front top microphone failure for Siri"
+  },
+  {
+    "id": "test_107",
+    "tweet": "Microphone sounds like I'm underwater during FaceTime video calls",
+    "expected_intent": "audio_speaker_mic",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "FaceTime mic audio compression or obstruction"
+  },
+  {
+    "id": "test_108",
+    "tweet": "Audio balance in accessibility shifted completely to right ear",
+    "expected_intent": "audio_speaker_mic",
+    "expected_sentiment": "neutral",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Accessibility audio balance misconfiguration"
+  },
+  {
+    "id": "test_109",
+    "tweet": "Transparency mode on AirPods Pro sounds muffled like my ear is plugged",
+    "expected_intent": "audio_speaker_mic",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "External microphone occlusion in ANC"
+  },
+  {
+    "id": "test_110",
+    "tweet": "No sound coming from MacBook Pro speakers after headphone jack unplugged",
+    "expected_intent": "audio_speaker_mic",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "adversarial",
+    "notes": "Headphone jack optical sensor stuck"
+  },
+  {
+    "id": "test_111",
+    "tweet": "MacBook Pro spinning beach ball of death on every click with high fan noise",
+    "expected_intent": "performance_speed",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "macOS CPU thermal throttling and memory pressure"
+  },
+  {
+    "id": "test_112",
+    "tweet": "iPhone 13 lagging severely when typing on keyboard with 5 second delay",
+    "expected_intent": "performance_speed",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Keyboard input latency and UI lag"
+  },
+  {
+    "id": "test_113",
+    "tweet": "MacBook fans running at maximum RPM even while sitting idle on desktop",
+    "expected_intent": "performance_speed",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Runaway background process fan noise"
+  },
+  {
+    "id": "test_114",
+    "tweet": "Apps taking 20 seconds to open on iPhone 12 running iOS 18",
+    "expected_intent": "performance_speed",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "easy",
+    "notes": "Cold launch performance slowdown"
+  },
+  {
+    "id": "test_115",
+    "tweet": "Why is Kernel Task using 600% CPU in Activity Monitor?",
+    "expected_intent": "performance_speed",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Kernel task thermal management throttling"
+  },
+  {
+    "id": "test_116",
+    "tweet": "iPad Pro M1 stuttering during multitasking with Stage Manager",
+    "expected_intent": "performance_speed",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "GPU frame rate drop during windowing"
+  },
+  {
+    "id": "test_117",
+    "tweet": "iPhone rebooting randomly every 3 minutes panic full log in analytics",
+    "expected_intent": "performance_speed",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "medium",
+    "notes": "Hardware panic watchdog reset"
+  },
+  {
+    "id": "test_118",
+    "tweet": "Camera app takes 5 seconds to take a photo after clicking shutter button",
+    "expected_intent": "performance_speed",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "Shutter lag / Deep Fusion processing delay"
+  },
+  {
+    "id": "test_119",
+    "tweet": "Mac running out of application memory prompt with only Safari open",
+    "expected_intent": "performance_speed",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "hard",
+    "notes": "RAM leak / memory pressure"
+  },
+  {
+    "id": "test_120",
+    "tweet": "Stuttery animations when pulling down notification center or searching spotlight",
+    "expected_intent": "performance_speed",
+    "expected_sentiment": "negative",
+    "expected_escalate": false,
+    "difficulty": "adversarial",
+    "notes": "Springboard frame drop"
+  }
+]

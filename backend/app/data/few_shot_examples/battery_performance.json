@@ -1,0 +1,122 @@
+[
+  {
+    "tweet": "My iPhone 14 dies at 40% battery every single day",
+    "intent": "battery_performance",
+    "sentiment": "negative",
+    "explanation": "Rapid sudden drain before 0%"
+  },
+  {
+    "tweet": "Battery health dropped to 78% after just 8 months on iPhone 15",
+    "intent": "battery_performance",
+    "sentiment": "negative",
+    "explanation": "Battery maximum capacity degradation"
+  },
+  {
+    "tweet": "My phone is burning hot to the touch while browsing Safari and battery drops 1% per minute",
+    "intent": "battery_performance",
+    "sentiment": "negative",
+    "explanation": "Overheating coupled with fast discharge"
+  },
+  {
+    "tweet": "iPhone 13 battery draining overnight from 100% to 15% with no apps running",
+    "intent": "battery_performance",
+    "sentiment": "negative",
+    "explanation": "Idle standby battery drain"
+  },
+  {
+    "tweet": "Should I replace my battery if maximum capacity is at 79%?",
+    "intent": "battery_performance",
+    "sentiment": "neutral",
+    "explanation": "Battery service threshold inquiry"
+  },
+  {
+    "tweet": "My battery icon turned yellow and won't go back to normal",
+    "intent": "battery_performance",
+    "sentiment": "neutral",
+    "explanation": "Low Power Mode indicator inquiry"
+  },
+  {
+    "tweet": "Battery percentage jumps from 50% to 20% then shuts down",
+    "intent": "battery_performance",
+    "sentiment": "negative",
+    "explanation": "Erratic battery gauge calibration issue"
+  },
+  {
+    "tweet": "Why does iOS 18 show battery service recommended on my iPhone 12?",
+    "intent": "battery_performance",
+    "sentiment": "negative",
+    "explanation": "Battery health degradation alert"
+  },
+  {
+    "tweet": "My Apple Watch Series 8 won't last a full 12 hour workday anymore",
+    "intent": "battery_performance",
+    "sentiment": "negative",
+    "explanation": "Wearable battery life deficiency"
+  },
+  {
+    "tweet": "Is it normal for iPhone 15 Pro to lose 30% battery in 1 hour on 5G?",
+    "intent": "battery_performance",
+    "sentiment": "neutral",
+    "explanation": "High cellular drain inquiry"
+  },
+  {
+    "tweet": "Optimized battery charging stopped working at 80%",
+    "intent": "battery_performance",
+    "sentiment": "neutral",
+    "explanation": "Battery feature inquiry"
+  },
+  {
+    "tweet": "Can AppleCare+ replace my degraded battery for free if it's under 80%?",
+    "intent": "battery_performance",
+    "sentiment": "neutral",
+    "explanation": "Battery replacement policy inquiry"
+  },
+  {
+    "tweet": "My MacBook Air M2 battery life went from 15 hours to barely 4 hours",
+    "intent": "battery_performance",
+    "sentiment": "negative",
+    "explanation": "Mac battery runtime drop"
+  },
+  {
+    "tweet": "iPhone gets warm and stops charging past 80% with a temperature alert",
+    "intent": "battery_performance",
+    "sentiment": "negative",
+    "explanation": "Thermal management charging pause"
+  },
+  {
+    "tweet": "Battery usage says Home & Lock Screen is using 65% of battery",
+    "intent": "battery_performance",
+    "sentiment": "negative",
+    "explanation": "Background process battery consumption"
+  },
+  {
+    "tweet": "Does fast charging damage the long term battery health of my iPhone 13?",
+    "intent": "battery_performance",
+    "sentiment": "neutral",
+    "explanation": "Battery lifespan question"
+  },
+  {
+    "tweet": "Phone shut off suddenly in cold weather while showing 35% battery",
+    "intent": "battery_performance",
+    "sentiment": "negative",
+    "explanation": "Cold temperature lithium-ion shutdown"
+  },
+  {
+    "tweet": "Clean energy charging keeps pausing my battery charge",
+    "intent": "battery_performance",
+    "sentiment": "neutral",
+    "explanation": "iOS battery charging setting"
+  },
+  {
+    "tweet": "Battery health percentage hasn't moved from 100% in 11 months, is that a glitch?",
+    "intent": "battery_performance",
+    "sentiment": "neutral",
+    "explanation": "Battery health calibration"
+  },
+  {
+    "tweet": "My phone battery swells slightly near the volume buttons, screen lifting",
+    "intent": "battery_performance",
+    "sentiment": "negative",
+    "explanation": "Physical battery expansion (safety risk)"
+  }
+]

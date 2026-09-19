@@ -1,0 +1,122 @@
+[
+  {
+    "tweet": "@AppleSupport touch screen not working on my iPhone 11 after screen got wet",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "Touch digitizer unresponsive"
+  },
+  {
+    "tweet": "Green line appeared vertically down the middle of my iPhone 13 Pro display",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "OLED panel vertical green line defect"
+  },
+  {
+    "tweet": "Touch screen is ghost clicking apps and typing by itself",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "Ghost touch phantom input"
+  },
+  {
+    "tweet": "Screen is completely black but phone vibrates when I flip silent switch",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "Black screen of death with active logic board"
+  },
+  {
+    "tweet": "Display flickering rapidly when brightness drops below 25%",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "OLED PWM flicker malfunction"
+  },
+  {
+    "tweet": "Top half of my iPhone screen doesn't respond to touch gestures",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "Partial digitizer failure"
+  },
+  {
+    "tweet": "Yellow tint on my new iPhone 15 screen compared to my old iPhone",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "True Tone / Night Shift color calibration"
+  },
+  {
+    "tweet": "White screen of death after dropping phone on carpet",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "WSOD display controller fault"
+  },
+  {
+    "tweet": "Dynamic Island pixel burn-in visible on gray backgrounds",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "OLED image retention / burn-in"
+  },
+  {
+    "tweet": "ProMotion 120Hz feels choppy and locked to 60Hz on iPhone 14 Pro",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "Refresh rate display stutter"
+  },
+  {
+    "tweet": "Always On Display turns off completely in dark rooms is this a setting?",
+    "intent": "display_screen",
+    "sentiment": "neutral",
+    "explanation": "AOD ambient sensor behavior"
+  },
+  {
+    "tweet": "Pink screen crash reboot loop on iPhone 13",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "Kernel panic pink display crash"
+  },
+  {
+    "tweet": "Screen brightness dims automatically outdoors in direct sunlight",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "Thermal display dimming protection"
+  },
+  {
+    "tweet": "Screen rotation lock is off but display won't rotate horizontally in YouTube",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "Orientation sensor display issue"
+  },
+  {
+    "tweet": "Purple blur trailing behind text when scrolling at night",
+    "intent": "display_screen",
+    "sentiment": "neutral",
+    "explanation": "OLED purple smearing at low brightness"
+  },
+  {
+    "tweet": "Horrible touchscreen lag when typing on keyboard after screen protector applied",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "Touch sensitivity attenuation"
+  },
+  {
+    "tweet": "Dead pixels clustered near top right corner of MacBook Pro display",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "Hardware dead pixel cluster"
+  },
+  {
+    "tweet": "My Apple Watch screen popped off the frame",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "Screen detachment (battery swelling or adhesive failure)"
+  },
+  {
+    "tweet": "True Tone toggle disappeared from Display & Brightness settings",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "Ambient light sensor or non-genuine display alert"
+  },
+  {
+    "tweet": "Swipe up home bar gesture doesn't register on lock screen",
+    "intent": "display_screen",
+    "sentiment": "negative",
+    "explanation": "Bottom edge touch unresponsive"
+  }
+]

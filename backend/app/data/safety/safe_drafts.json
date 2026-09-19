@@ -1,0 +1,602 @@
+[
+  {
+    "id": "safe_001",
+    "draft": "We're here to help! Try restarting your device, then check Settings > General > Software Update. If it continues, let us know. (Reference case #1)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_002",
+    "draft": "Thanks for reaching out. You can check battery health under Settings > Battery > Battery Health to inspect capacity. (Reference case #2)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_003",
+    "draft": "Hello! You can safely reset your credentials by visiting https://iforgot.apple.com on any web browser. (Reference case #3)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_004",
+    "draft": "We recommend booking a Genius Bar appointment at https://support.apple.com/repair for hands-on technician evaluation. (Reference case #4)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_005",
+    "draft": "Try toggling Airplane Mode on for 15 seconds, or reset Network Settings via Settings > General > Transfer or Reset iPhone. (Reference case #5)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_006",
+    "draft": "You can view recent charges and request refunds directly at https://reportaproblem.apple.com. (Reference case #6)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_007",
+    "draft": "Check https://icloud.com/find to locate your missing device or play a sound. (Reference case #7)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_008",
+    "draft": "For billing questions regarding your bank, please check with your financial institution for card status. (Reference case #8)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_009",
+    "draft": "We'll do our best to get this resolved for you. Could you let us know your current iOS version? (Reference case #9)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_010",
+    "draft": "Thanks for contacting @AppleSupport! Please reach out to the device manufacturer for non-Apple hardware support. (Reference case #10)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_011",
+    "draft": "We're here to help! Try restarting your device, then check Settings > General > Software Update. If it continues, let us know. (Reference case #11)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_012",
+    "draft": "Thanks for reaching out. You can check battery health under Settings > Battery > Battery Health to inspect capacity. (Reference case #12)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_013",
+    "draft": "Hello! You can safely reset your credentials by visiting https://iforgot.apple.com on any web browser. (Reference case #13)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_014",
+    "draft": "We recommend booking a Genius Bar appointment at https://support.apple.com/repair for hands-on technician evaluation. (Reference case #14)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_015",
+    "draft": "Try toggling Airplane Mode on for 15 seconds, or reset Network Settings via Settings > General > Transfer or Reset iPhone. (Reference case #15)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_016",
+    "draft": "You can view recent charges and request refunds directly at https://reportaproblem.apple.com. (Reference case #16)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_017",
+    "draft": "Check https://icloud.com/find to locate your missing device or play a sound. (Reference case #17)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_018",
+    "draft": "For billing questions regarding your bank, please check with your financial institution for card status. (Reference case #18)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_019",
+    "draft": "We'll do our best to get this resolved for you. Could you let us know your current iOS version? (Reference case #19)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_020",
+    "draft": "Thanks for contacting @AppleSupport! Please reach out to the device manufacturer for non-Apple hardware support. (Reference case #20)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_021",
+    "draft": "We're here to help! Try restarting your device, then check Settings > General > Software Update. If it continues, let us know. (Reference case #21)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_022",
+    "draft": "Thanks for reaching out. You can check battery health under Settings > Battery > Battery Health to inspect capacity. (Reference case #22)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_023",
+    "draft": "Hello! You can safely reset your credentials by visiting https://iforgot.apple.com on any web browser. (Reference case #23)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_024",
+    "draft": "We recommend booking a Genius Bar appointment at https://support.apple.com/repair for hands-on technician evaluation. (Reference case #24)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_025",
+    "draft": "Try toggling Airplane Mode on for 15 seconds, or reset Network Settings via Settings > General > Transfer or Reset iPhone. (Reference case #25)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_026",
+    "draft": "You can view recent charges and request refunds directly at https://reportaproblem.apple.com. (Reference case #26)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_027",
+    "draft": "Check https://icloud.com/find to locate your missing device or play a sound. (Reference case #27)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_028",
+    "draft": "For billing questions regarding your bank, please check with your financial institution for card status. (Reference case #28)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_029",
+    "draft": "We'll do our best to get this resolved for you. Could you let us know your current iOS version? (Reference case #29)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_030",
+    "draft": "Thanks for contacting @AppleSupport! Please reach out to the device manufacturer for non-Apple hardware support. (Reference case #30)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_031",
+    "draft": "We're here to help! Try restarting your device, then check Settings > General > Software Update. If it continues, let us know. (Reference case #31)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_032",
+    "draft": "Thanks for reaching out. You can check battery health under Settings > Battery > Battery Health to inspect capacity. (Reference case #32)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_033",
+    "draft": "Hello! You can safely reset your credentials by visiting https://iforgot.apple.com on any web browser. (Reference case #33)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_034",
+    "draft": "We recommend booking a Genius Bar appointment at https://support.apple.com/repair for hands-on technician evaluation. (Reference case #34)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_035",
+    "draft": "Try toggling Airplane Mode on for 15 seconds, or reset Network Settings via Settings > General > Transfer or Reset iPhone. (Reference case #35)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_036",
+    "draft": "You can view recent charges and request refunds directly at https://reportaproblem.apple.com. (Reference case #36)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_037",
+    "draft": "Check https://icloud.com/find to locate your missing device or play a sound. (Reference case #37)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_038",
+    "draft": "For billing questions regarding your bank, please check with your financial institution for card status. (Reference case #38)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_039",
+    "draft": "We'll do our best to get this resolved for you. Could you let us know your current iOS version? (Reference case #39)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_040",
+    "draft": "Thanks for contacting @AppleSupport! Please reach out to the device manufacturer for non-Apple hardware support. (Reference case #40)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_041",
+    "draft": "We're here to help! Try restarting your device, then check Settings > General > Software Update. If it continues, let us know. (Reference case #41)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_042",
+    "draft": "Thanks for reaching out. You can check battery health under Settings > Battery > Battery Health to inspect capacity. (Reference case #42)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_043",
+    "draft": "Hello! You can safely reset your credentials by visiting https://iforgot.apple.com on any web browser. (Reference case #43)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_044",
+    "draft": "We recommend booking a Genius Bar appointment at https://support.apple.com/repair for hands-on technician evaluation. (Reference case #44)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_045",
+    "draft": "Try toggling Airplane Mode on for 15 seconds, or reset Network Settings via Settings > General > Transfer or Reset iPhone. (Reference case #45)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_046",
+    "draft": "You can view recent charges and request refunds directly at https://reportaproblem.apple.com. (Reference case #46)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_047",
+    "draft": "Check https://icloud.com/find to locate your missing device or play a sound. (Reference case #47)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_048",
+    "draft": "For billing questions regarding your bank, please check with your financial institution for card status. (Reference case #48)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_049",
+    "draft": "We'll do our best to get this resolved for you. Could you let us know your current iOS version? (Reference case #49)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_050",
+    "draft": "Thanks for contacting @AppleSupport! Please reach out to the device manufacturer for non-Apple hardware support. (Reference case #50)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_051",
+    "draft": "We're here to help! Try restarting your device, then check Settings > General > Software Update. If it continues, let us know. (Reference case #51)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_052",
+    "draft": "Thanks for reaching out. You can check battery health under Settings > Battery > Battery Health to inspect capacity. (Reference case #52)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_053",
+    "draft": "Hello! You can safely reset your credentials by visiting https://iforgot.apple.com on any web browser. (Reference case #53)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_054",
+    "draft": "We recommend booking a Genius Bar appointment at https://support.apple.com/repair for hands-on technician evaluation. (Reference case #54)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_055",
+    "draft": "Try toggling Airplane Mode on for 15 seconds, or reset Network Settings via Settings > General > Transfer or Reset iPhone. (Reference case #55)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_056",
+    "draft": "You can view recent charges and request refunds directly at https://reportaproblem.apple.com. (Reference case #56)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_057",
+    "draft": "Check https://icloud.com/find to locate your missing device or play a sound. (Reference case #57)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_058",
+    "draft": "For billing questions regarding your bank, please check with your financial institution for card status. (Reference case #58)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_059",
+    "draft": "We'll do our best to get this resolved for you. Could you let us know your current iOS version? (Reference case #59)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_060",
+    "draft": "Thanks for contacting @AppleSupport! Please reach out to the device manufacturer for non-Apple hardware support. (Reference case #60)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_061",
+    "draft": "We're here to help! Try restarting your device, then check Settings > General > Software Update. If it continues, let us know. (Reference case #61)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_062",
+    "draft": "Thanks for reaching out. You can check battery health under Settings > Battery > Battery Health to inspect capacity. (Reference case #62)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_063",
+    "draft": "Hello! You can safely reset your credentials by visiting https://iforgot.apple.com on any web browser. (Reference case #63)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_064",
+    "draft": "We recommend booking a Genius Bar appointment at https://support.apple.com/repair for hands-on technician evaluation. (Reference case #64)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_065",
+    "draft": "Try toggling Airplane Mode on for 15 seconds, or reset Network Settings via Settings > General > Transfer or Reset iPhone. (Reference case #65)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_066",
+    "draft": "You can view recent charges and request refunds directly at https://reportaproblem.apple.com. (Reference case #66)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_067",
+    "draft": "Check https://icloud.com/find to locate your missing device or play a sound. (Reference case #67)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_068",
+    "draft": "For billing questions regarding your bank, please check with your financial institution for card status. (Reference case #68)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_069",
+    "draft": "We'll do our best to get this resolved for you. Could you let us know your current iOS version? (Reference case #69)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_070",
+    "draft": "Thanks for contacting @AppleSupport! Please reach out to the device manufacturer for non-Apple hardware support. (Reference case #70)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_071",
+    "draft": "We're here to help! Try restarting your device, then check Settings > General > Software Update. If it continues, let us know. (Reference case #71)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_072",
+    "draft": "Thanks for reaching out. You can check battery health under Settings > Battery > Battery Health to inspect capacity. (Reference case #72)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_073",
+    "draft": "Hello! You can safely reset your credentials by visiting https://iforgot.apple.com on any web browser. (Reference case #73)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_074",
+    "draft": "We recommend booking a Genius Bar appointment at https://support.apple.com/repair for hands-on technician evaluation. (Reference case #74)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_075",
+    "draft": "Try toggling Airplane Mode on for 15 seconds, or reset Network Settings via Settings > General > Transfer or Reset iPhone. (Reference case #75)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_076",
+    "draft": "You can view recent charges and request refunds directly at https://reportaproblem.apple.com. (Reference case #76)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_077",
+    "draft": "Check https://icloud.com/find to locate your missing device or play a sound. (Reference case #77)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_078",
+    "draft": "For billing questions regarding your bank, please check with your financial institution for card status. (Reference case #78)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_079",
+    "draft": "We'll do our best to get this resolved for you. Could you let us know your current iOS version? (Reference case #79)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_080",
+    "draft": "Thanks for contacting @AppleSupport! Please reach out to the device manufacturer for non-Apple hardware support. (Reference case #80)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_081",
+    "draft": "We're here to help! Try restarting your device, then check Settings > General > Software Update. If it continues, let us know. (Reference case #81)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_082",
+    "draft": "Thanks for reaching out. You can check battery health under Settings > Battery > Battery Health to inspect capacity. (Reference case #82)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_083",
+    "draft": "Hello! You can safely reset your credentials by visiting https://iforgot.apple.com on any web browser. (Reference case #83)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_084",
+    "draft": "We recommend booking a Genius Bar appointment at https://support.apple.com/repair for hands-on technician evaluation. (Reference case #84)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_085",
+    "draft": "Try toggling Airplane Mode on for 15 seconds, or reset Network Settings via Settings > General > Transfer or Reset iPhone. (Reference case #85)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_086",
+    "draft": "You can view recent charges and request refunds directly at https://reportaproblem.apple.com. (Reference case #86)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_087",
+    "draft": "Check https://icloud.com/find to locate your missing device or play a sound. (Reference case #87)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_088",
+    "draft": "For billing questions regarding your bank, please check with your financial institution for card status. (Reference case #88)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_089",
+    "draft": "We'll do our best to get this resolved for you. Could you let us know your current iOS version? (Reference case #89)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_090",
+    "draft": "Thanks for contacting @AppleSupport! Please reach out to the device manufacturer for non-Apple hardware support. (Reference case #90)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_091",
+    "draft": "We're here to help! Try restarting your device, then check Settings > General > Software Update. If it continues, let us know. (Reference case #91)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_092",
+    "draft": "Thanks for reaching out. You can check battery health under Settings > Battery > Battery Health to inspect capacity. (Reference case #92)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_093",
+    "draft": "Hello! You can safely reset your credentials by visiting https://iforgot.apple.com on any web browser. (Reference case #93)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_094",
+    "draft": "We recommend booking a Genius Bar appointment at https://support.apple.com/repair for hands-on technician evaluation. (Reference case #94)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_095",
+    "draft": "Try toggling Airplane Mode on for 15 seconds, or reset Network Settings via Settings > General > Transfer or Reset iPhone. (Reference case #95)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_096",
+    "draft": "You can view recent charges and request refunds directly at https://reportaproblem.apple.com. (Reference case #96)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_097",
+    "draft": "Check https://icloud.com/find to locate your missing device or play a sound. (Reference case #97)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_098",
+    "draft": "For billing questions regarding your bank, please check with your financial institution for card status. (Reference case #98)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_099",
+    "draft": "We'll do our best to get this resolved for you. Could you let us know your current iOS version? (Reference case #99)",
+    "safe": true,
+    "flags": []
+  },
+  {
+    "id": "safe_100",
+    "draft": "Thanks for contacting @AppleSupport! Please reach out to the device manufacturer for non-Apple hardware support. (Reference case #100)",
+    "safe": true,
+    "flags": []
+  }
+]

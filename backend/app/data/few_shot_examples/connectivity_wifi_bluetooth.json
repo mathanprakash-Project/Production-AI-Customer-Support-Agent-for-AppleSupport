@@ -1,0 +1,122 @@
+[
+  {
+    "tweet": "Wi-Fi toggle switch is grayed out and won't turn on in Settings",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "Hardware Wi-Fi module fault"
+  },
+  {
+    "tweet": "AirPods keep disconnecting and reconnecting every 30 seconds during calls",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "Bluetooth audio link drop"
+  },
+  {
+    "tweet": "iPhone shows 'No Service' or 'Searching...' even with valid active SIM card",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "Baseband modem cellular drop"
+  },
+  {
+    "tweet": "Connected to Wi-Fi without Internet alert while all other devices work fine",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "DHCP / DNS network lease failure"
+  },
+  {
+    "tweet": "Bluetooth devices won't discover my iPhone in pairing mode",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "Bluetooth discoverability failure"
+  },
+  {
+    "tweet": "AirDrop refuses to send photos to my Mac says 'Declined' immediately",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "AirDrop peer-to-peer Wi-Fi failure"
+  },
+  {
+    "tweet": "Personal Hotspot disconnects my laptop every 5 minutes when screen turns off",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "Cellular tethering idle drop"
+  },
+  {
+    "tweet": "eSIM activation failed error 'eSIM cannot be added contact carrier'",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "eSIM profile provisioning error"
+  },
+  {
+    "tweet": "Apple Watch won't sync with iPhone via Bluetooth after unpairing",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "BLE pairing handshake failure"
+  },
+  {
+    "tweet": "Wi-Fi speeds capped at 5Mbps while sitting right next to 1Gbps router",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "WLAN throughput degradation"
+  },
+  {
+    "tweet": "CarPlay wireless connects once then refuses to reconnect automatically",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "Wireless CarPlay Wi-Fi handshake"
+  },
+  {
+    "tweet": "Cellular data not working for specific apps like Safari and Maps",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "Cellular data app permission toggle"
+  },
+  {
+    "tweet": "Bluetooth keeps turning itself back on automatically every morning at 5 AM",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "neutral",
+    "explanation": "Control Center temporary disconnect behavior"
+  },
+  {
+    "tweet": "Unable to join network 'Incorrect password' error on known correct Wi-Fi",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "WPA3 handshake failure"
+  },
+  {
+    "tweet": "5G Standalone toggle missing under Cellular Data Options",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "neutral",
+    "explanation": "Carrier bundle 5G SA configuration"
+  },
+  {
+    "tweet": "AirTag says 'Signal too weak' even when holding iPhone right next to it",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "Ultra Wideband U1 chip issue"
+  },
+  {
+    "tweet": "Dual SIM showing no service on secondary line after iOS update",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "Dual SIM dual standby failure"
+  },
+  {
+    "tweet": "GPS location is drifting 2 miles away in Google Maps",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "negative",
+    "explanation": "GNSS location positioning error"
+  },
+  {
+    "tweet": "AirPods switch randomly to my iPad while I am watching a movie on Apple TV",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "neutral",
+    "explanation": "Automatic device switching annoyance"
+  },
+  {
+    "tweet": "Private Wi-Fi Address warning causing network authentication blocks on hotel Wi-Fi",
+    "intent": "connectivity_wifi_bluetooth",
+    "sentiment": "neutral",
+    "explanation": "MAC randomization network conflict"
+  }
+]

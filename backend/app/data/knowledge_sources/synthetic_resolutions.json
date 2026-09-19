@@ -1,0 +1,982 @@
+[
+  {
+    "intent": "battery_performance",
+    "customer_message": "Battery draining fast on my iPhone 12 (Ref: #1)",
+    "resolution_text": "Check Settings > Battery to identify high-drain apps and review maximum capacity. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Battery draining fast on my iPhone 13 (Ref: #2)",
+    "resolution_text": "Check Settings > Battery to identify high-drain apps and review maximum capacity. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Battery draining fast on my iPhone 14 Pro (Ref: #3)",
+    "resolution_text": "Check Settings > Battery to identify high-drain apps and review maximum capacity. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Battery draining fast on my iPhone 15 (Ref: #4)",
+    "resolution_text": "Check Settings > Battery to identify high-drain apps and review maximum capacity. Let us know if you need additional help with your iPhone 15!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Battery draining fast on my iPad Air (Ref: #5)",
+    "resolution_text": "Check Settings > Battery to identify high-drain apps and review maximum capacity. Let us know if you need additional help with your iPad Air!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Battery draining fast on my MacBook Pro (Ref: #6)",
+    "resolution_text": "Check Settings > Battery to identify high-drain apps and review maximum capacity. Let us know if you need additional help with your MacBook Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Battery draining fast on my Apple Watch (Ref: #7)",
+    "resolution_text": "Check Settings > Battery to identify high-drain apps and review maximum capacity. Let us know if you need additional help with your Apple Watch!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Battery draining fast on my iPhone 12 (Ref: #8)",
+    "resolution_text": "Check Settings > Battery to identify high-drain apps and review maximum capacity. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Battery draining fast on my iPhone 13 (Ref: #9)",
+    "resolution_text": "Check Settings > Battery to identify high-drain apps and review maximum capacity. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Battery draining fast on my iPhone 14 Pro (Ref: #10)",
+    "resolution_text": "Check Settings > Battery to identify high-drain apps and review maximum capacity. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "My iPhone 12 is not charging with the cable (Ref: #1)",
+    "resolution_text": "Inspect the charging port for debris and verify with an Apple-certified charging brick. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "My iPhone 13 is not charging with the cable (Ref: #2)",
+    "resolution_text": "Inspect the charging port for debris and verify with an Apple-certified charging brick. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "My iPhone 14 Pro is not charging with the cable (Ref: #3)",
+    "resolution_text": "Inspect the charging port for debris and verify with an Apple-certified charging brick. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "My iPhone 15 is not charging with the cable (Ref: #4)",
+    "resolution_text": "Inspect the charging port for debris and verify with an Apple-certified charging brick. Let us know if you need additional help with your iPhone 15!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "My iPad Air is not charging with the cable (Ref: #5)",
+    "resolution_text": "Inspect the charging port for debris and verify with an Apple-certified charging brick. Let us know if you need additional help with your iPad Air!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "My MacBook Pro is not charging with the cable (Ref: #6)",
+    "resolution_text": "Inspect the charging port for debris and verify with an Apple-certified charging brick. Let us know if you need additional help with your MacBook Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "My Apple Watch is not charging with the cable (Ref: #7)",
+    "resolution_text": "Inspect the charging port for debris and verify with an Apple-certified charging brick. Let us know if you need additional help with your Apple Watch!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "My iPhone 12 is not charging with the cable (Ref: #8)",
+    "resolution_text": "Inspect the charging port for debris and verify with an Apple-certified charging brick. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "My iPhone 13 is not charging with the cable (Ref: #9)",
+    "resolution_text": "Inspect the charging port for debris and verify with an Apple-certified charging brick. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "My iPhone 14 Pro is not charging with the cable (Ref: #10)",
+    "resolution_text": "Inspect the charging port for debris and verify with an Apple-certified charging brick. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "My iPhone 12 touch screen is unresponsive (Ref: #1)",
+    "resolution_text": "Perform a force restart and ensure your display is free of moisture or damaged screen protectors. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "My iPhone 13 touch screen is unresponsive (Ref: #2)",
+    "resolution_text": "Perform a force restart and ensure your display is free of moisture or damaged screen protectors. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "My iPhone 14 Pro touch screen is unresponsive (Ref: #3)",
+    "resolution_text": "Perform a force restart and ensure your display is free of moisture or damaged screen protectors. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "My iPhone 15 touch screen is unresponsive (Ref: #4)",
+    "resolution_text": "Perform a force restart and ensure your display is free of moisture or damaged screen protectors. Let us know if you need additional help with your iPhone 15!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "My iPad Air touch screen is unresponsive (Ref: #5)",
+    "resolution_text": "Perform a force restart and ensure your display is free of moisture or damaged screen protectors. Let us know if you need additional help with your iPad Air!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "My MacBook Pro touch screen is unresponsive (Ref: #6)",
+    "resolution_text": "Perform a force restart and ensure your display is free of moisture or damaged screen protectors. Let us know if you need additional help with your MacBook Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "My Apple Watch touch screen is unresponsive (Ref: #7)",
+    "resolution_text": "Perform a force restart and ensure your display is free of moisture or damaged screen protectors. Let us know if you need additional help with your Apple Watch!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "My iPhone 12 touch screen is unresponsive (Ref: #8)",
+    "resolution_text": "Perform a force restart and ensure your display is free of moisture or damaged screen protectors. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "My iPhone 13 touch screen is unresponsive (Ref: #9)",
+    "resolution_text": "Perform a force restart and ensure your display is free of moisture or damaged screen protectors. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "My iPhone 14 Pro touch screen is unresponsive (Ref: #10)",
+    "resolution_text": "Perform a force restart and ensure your display is free of moisture or damaged screen protectors. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Encountering a software problem on my iPhone 12 (Ref: #1)",
+    "resolution_text": "Let's get this sorted. Verify your iOS version in Settings > General > About and ensure 10GB free space for updates. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Encountering a software problem on my iPhone 13 (Ref: #2)",
+    "resolution_text": "Let's get this sorted. Verify your iOS version in Settings > General > About and ensure 10GB free space for updates. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Encountering a software problem on my iPhone 14 Pro (Ref: #3)",
+    "resolution_text": "Let's get this sorted. Verify your iOS version in Settings > General > About and ensure 10GB free space for updates. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Encountering a software problem on my iPhone 15 (Ref: #4)",
+    "resolution_text": "Let's get this sorted. Verify your iOS version in Settings > General > About and ensure 10GB free space for updates. Let us know if you need additional help with your iPhone 15!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Encountering a software problem on my iPad Air (Ref: #5)",
+    "resolution_text": "Let's get this sorted. Verify your iOS version in Settings > General > About and ensure 10GB free space for updates. Let us know if you need additional help with your iPad Air!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Encountering a software problem on my MacBook Pro (Ref: #6)",
+    "resolution_text": "Let's get this sorted. Verify your iOS version in Settings > General > About and ensure 10GB free space for updates. Let us know if you need additional help with your MacBook Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Encountering a software problem on my Apple Watch (Ref: #7)",
+    "resolution_text": "Let's get this sorted. Verify your iOS version in Settings > General > About and ensure 10GB free space for updates. Let us know if you need additional help with your Apple Watch!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Encountering a software problem on my iPhone 12 (Ref: #8)",
+    "resolution_text": "Let's get this sorted. Verify your iOS version in Settings > General > About and ensure 10GB free space for updates. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Encountering a software problem on my iPhone 13 (Ref: #9)",
+    "resolution_text": "Let's get this sorted. Verify your iOS version in Settings > General > About and ensure 10GB free space for updates. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Encountering a software problem on my iPhone 14 Pro (Ref: #10)",
+    "resolution_text": "Let's get this sorted. Verify your iOS version in Settings > General > About and ensure 10GB free space for updates. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "app_crashes",
+    "customer_message": "Apps keep crashing on my iPhone 12 (Ref: #1)",
+    "resolution_text": "Force quit the app, check the App Store for updates, and restart your device. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "app_crashes",
+    "customer_message": "Apps keep crashing on my iPhone 13 (Ref: #2)",
+    "resolution_text": "Force quit the app, check the App Store for updates, and restart your device. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "app_crashes",
+    "customer_message": "Apps keep crashing on my iPhone 14 Pro (Ref: #3)",
+    "resolution_text": "Force quit the app, check the App Store for updates, and restart your device. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "app_crashes",
+    "customer_message": "Apps keep crashing on my iPhone 15 (Ref: #4)",
+    "resolution_text": "Force quit the app, check the App Store for updates, and restart your device. Let us know if you need additional help with your iPhone 15!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "app_crashes",
+    "customer_message": "Apps keep crashing on my iPad Air (Ref: #5)",
+    "resolution_text": "Force quit the app, check the App Store for updates, and restart your device. Let us know if you need additional help with your iPad Air!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "app_crashes",
+    "customer_message": "Apps keep crashing on my MacBook Pro (Ref: #6)",
+    "resolution_text": "Force quit the app, check the App Store for updates, and restart your device. Let us know if you need additional help with your MacBook Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "app_crashes",
+    "customer_message": "Apps keep crashing on my Apple Watch (Ref: #7)",
+    "resolution_text": "Force quit the app, check the App Store for updates, and restart your device. Let us know if you need additional help with your Apple Watch!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "app_crashes",
+    "customer_message": "Apps keep crashing on my iPhone 12 (Ref: #8)",
+    "resolution_text": "Force quit the app, check the App Store for updates, and restart your device. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "app_crashes",
+    "customer_message": "Apps keep crashing on my iPhone 13 (Ref: #9)",
+    "resolution_text": "Force quit the app, check the App Store for updates, and restart your device. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "app_crashes",
+    "customer_message": "Apps keep crashing on my iPhone 14 Pro (Ref: #10)",
+    "resolution_text": "Force quit the app, check the App Store for updates, and restart your device. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "connectivity_wifi_bluetooth",
+    "customer_message": "Wi-Fi and Bluetooth dropping on my iPhone 12 (Ref: #1)",
+    "resolution_text": "Toggle Airplane mode for 15 seconds or reset network settings via Settings > General > Transfer or Reset iPhone. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "connectivity_wifi_bluetooth",
+    "customer_message": "Wi-Fi and Bluetooth dropping on my iPhone 13 (Ref: #2)",
+    "resolution_text": "Toggle Airplane mode for 15 seconds or reset network settings via Settings > General > Transfer or Reset iPhone. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "connectivity_wifi_bluetooth",
+    "customer_message": "Wi-Fi and Bluetooth dropping on my iPhone 14 Pro (Ref: #3)",
+    "resolution_text": "Toggle Airplane mode for 15 seconds or reset network settings via Settings > General > Transfer or Reset iPhone. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "connectivity_wifi_bluetooth",
+    "customer_message": "Wi-Fi and Bluetooth dropping on my iPhone 15 (Ref: #4)",
+    "resolution_text": "Toggle Airplane mode for 15 seconds or reset network settings via Settings > General > Transfer or Reset iPhone. Let us know if you need additional help with your iPhone 15!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "connectivity_wifi_bluetooth",
+    "customer_message": "Wi-Fi and Bluetooth dropping on my iPad Air (Ref: #5)",
+    "resolution_text": "Toggle Airplane mode for 15 seconds or reset network settings via Settings > General > Transfer or Reset iPhone. Let us know if you need additional help with your iPad Air!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "connectivity_wifi_bluetooth",
+    "customer_message": "Wi-Fi and Bluetooth dropping on my MacBook Pro (Ref: #6)",
+    "resolution_text": "Toggle Airplane mode for 15 seconds or reset network settings via Settings > General > Transfer or Reset iPhone. Let us know if you need additional help with your MacBook Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "connectivity_wifi_bluetooth",
+    "customer_message": "Wi-Fi and Bluetooth dropping on my Apple Watch (Ref: #7)",
+    "resolution_text": "Toggle Airplane mode for 15 seconds or reset network settings via Settings > General > Transfer or Reset iPhone. Let us know if you need additional help with your Apple Watch!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "connectivity_wifi_bluetooth",
+    "customer_message": "Wi-Fi and Bluetooth dropping on my iPhone 12 (Ref: #8)",
+    "resolution_text": "Toggle Airplane mode for 15 seconds or reset network settings via Settings > General > Transfer or Reset iPhone. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "connectivity_wifi_bluetooth",
+    "customer_message": "Wi-Fi and Bluetooth dropping on my iPhone 13 (Ref: #9)",
+    "resolution_text": "Toggle Airplane mode for 15 seconds or reset network settings via Settings > General > Transfer or Reset iPhone. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "connectivity_wifi_bluetooth",
+    "customer_message": "Wi-Fi and Bluetooth dropping on my iPhone 14 Pro (Ref: #10)",
+    "resolution_text": "Toggle Airplane mode for 15 seconds or reset network settings via Settings > General > Transfer or Reset iPhone. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "icloud_sync_storage",
+    "customer_message": "iCloud storage alerts appearing on my iPhone 12 (Ref: #1)",
+    "resolution_text": "Manage backups and photo sync under Settings > [Your Name] > iCloud > Manage Account Storage. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "icloud_sync_storage",
+    "customer_message": "iCloud storage alerts appearing on my iPhone 13 (Ref: #2)",
+    "resolution_text": "Manage backups and photo sync under Settings > [Your Name] > iCloud > Manage Account Storage. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "icloud_sync_storage",
+    "customer_message": "iCloud storage alerts appearing on my iPhone 14 Pro (Ref: #3)",
+    "resolution_text": "Manage backups and photo sync under Settings > [Your Name] > iCloud > Manage Account Storage. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "icloud_sync_storage",
+    "customer_message": "iCloud storage alerts appearing on my iPhone 15 (Ref: #4)",
+    "resolution_text": "Manage backups and photo sync under Settings > [Your Name] > iCloud > Manage Account Storage. Let us know if you need additional help with your iPhone 15!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "icloud_sync_storage",
+    "customer_message": "iCloud storage alerts appearing on my iPad Air (Ref: #5)",
+    "resolution_text": "Manage backups and photo sync under Settings > [Your Name] > iCloud > Manage Account Storage. Let us know if you need additional help with your iPad Air!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "icloud_sync_storage",
+    "customer_message": "iCloud storage alerts appearing on my MacBook Pro (Ref: #6)",
+    "resolution_text": "Manage backups and photo sync under Settings > [Your Name] > iCloud > Manage Account Storage. Let us know if you need additional help with your MacBook Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "icloud_sync_storage",
+    "customer_message": "iCloud storage alerts appearing on my Apple Watch (Ref: #7)",
+    "resolution_text": "Manage backups and photo sync under Settings > [Your Name] > iCloud > Manage Account Storage. Let us know if you need additional help with your Apple Watch!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "icloud_sync_storage",
+    "customer_message": "iCloud storage alerts appearing on my iPhone 12 (Ref: #8)",
+    "resolution_text": "Manage backups and photo sync under Settings > [Your Name] > iCloud > Manage Account Storage. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "icloud_sync_storage",
+    "customer_message": "iCloud storage alerts appearing on my iPhone 13 (Ref: #9)",
+    "resolution_text": "Manage backups and photo sync under Settings > [Your Name] > iCloud > Manage Account Storage. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "icloud_sync_storage",
+    "customer_message": "iCloud storage alerts appearing on my iPhone 14 Pro (Ref: #10)",
+    "resolution_text": "Manage backups and photo sync under Settings > [Your Name] > iCloud > Manage Account Storage. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "apple_id_account",
+    "customer_message": "Locked out of my Apple ID account on my iPhone 12 (Ref: #1)",
+    "resolution_text": "You can securely reset your password and start account recovery at https://iforgot.apple.com. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "apple_id_account",
+    "customer_message": "Locked out of my Apple ID account on my iPhone 13 (Ref: #2)",
+    "resolution_text": "You can securely reset your password and start account recovery at https://iforgot.apple.com. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "apple_id_account",
+    "customer_message": "Locked out of my Apple ID account on my iPhone 14 Pro (Ref: #3)",
+    "resolution_text": "You can securely reset your password and start account recovery at https://iforgot.apple.com. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "apple_id_account",
+    "customer_message": "Locked out of my Apple ID account on my iPhone 15 (Ref: #4)",
+    "resolution_text": "You can securely reset your password and start account recovery at https://iforgot.apple.com. Let us know if you need additional help with your iPhone 15!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "apple_id_account",
+    "customer_message": "Locked out of my Apple ID account on my iPad Air (Ref: #5)",
+    "resolution_text": "You can securely reset your password and start account recovery at https://iforgot.apple.com. Let us know if you need additional help with your iPad Air!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "apple_id_account",
+    "customer_message": "Locked out of my Apple ID account on my MacBook Pro (Ref: #6)",
+    "resolution_text": "You can securely reset your password and start account recovery at https://iforgot.apple.com. Let us know if you need additional help with your MacBook Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "apple_id_account",
+    "customer_message": "Locked out of my Apple ID account on my Apple Watch (Ref: #7)",
+    "resolution_text": "You can securely reset your password and start account recovery at https://iforgot.apple.com. Let us know if you need additional help with your Apple Watch!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "apple_id_account",
+    "customer_message": "Locked out of my Apple ID account on my iPhone 12 (Ref: #8)",
+    "resolution_text": "You can securely reset your password and start account recovery at https://iforgot.apple.com. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "apple_id_account",
+    "customer_message": "Locked out of my Apple ID account on my iPhone 13 (Ref: #9)",
+    "resolution_text": "You can securely reset your password and start account recovery at https://iforgot.apple.com. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "apple_id_account",
+    "customer_message": "Locked out of my Apple ID account on my iPhone 14 Pro (Ref: #10)",
+    "resolution_text": "You can securely reset your password and start account recovery at https://iforgot.apple.com. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "purchase_refund_billing",
+    "customer_message": "Unrecognized charge on my card from Apple (Ref: #1)",
+    "resolution_text": "Review your purchase history and request refunds directly at https://reportaproblem.apple.com. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "purchase_refund_billing",
+    "customer_message": "Unrecognized charge on my card from Apple (Ref: #2)",
+    "resolution_text": "Review your purchase history and request refunds directly at https://reportaproblem.apple.com. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "purchase_refund_billing",
+    "customer_message": "Unrecognized charge on my card from Apple (Ref: #3)",
+    "resolution_text": "Review your purchase history and request refunds directly at https://reportaproblem.apple.com. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "purchase_refund_billing",
+    "customer_message": "Unrecognized charge on my card from Apple (Ref: #4)",
+    "resolution_text": "Review your purchase history and request refunds directly at https://reportaproblem.apple.com. Let us know if you need additional help with your iPhone 15!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "purchase_refund_billing",
+    "customer_message": "Unrecognized charge on my card from Apple (Ref: #5)",
+    "resolution_text": "Review your purchase history and request refunds directly at https://reportaproblem.apple.com. Let us know if you need additional help with your iPad Air!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "purchase_refund_billing",
+    "customer_message": "Unrecognized charge on my card from Apple (Ref: #6)",
+    "resolution_text": "Review your purchase history and request refunds directly at https://reportaproblem.apple.com. Let us know if you need additional help with your MacBook Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "purchase_refund_billing",
+    "customer_message": "Unrecognized charge on my card from Apple (Ref: #7)",
+    "resolution_text": "Review your purchase history and request refunds directly at https://reportaproblem.apple.com. Let us know if you need additional help with your Apple Watch!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "purchase_refund_billing",
+    "customer_message": "Unrecognized charge on my card from Apple (Ref: #8)",
+    "resolution_text": "Review your purchase history and request refunds directly at https://reportaproblem.apple.com. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "purchase_refund_billing",
+    "customer_message": "Unrecognized charge on my card from Apple (Ref: #9)",
+    "resolution_text": "Review your purchase history and request refunds directly at https://reportaproblem.apple.com. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "purchase_refund_billing",
+    "customer_message": "Unrecognized charge on my card from Apple (Ref: #10)",
+    "resolution_text": "Review your purchase history and request refunds directly at https://reportaproblem.apple.com. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Cracked glass or liquid spill on my iPhone 12 (Ref: #1)",
+    "resolution_text": "For physical damage, check genuine repair pricing and book a Genius Bar visit at support.apple.com/repair. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Cracked glass or liquid spill on my iPhone 13 (Ref: #2)",
+    "resolution_text": "For physical damage, check genuine repair pricing and book a Genius Bar visit at support.apple.com/repair. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Cracked glass or liquid spill on my iPhone 14 Pro (Ref: #3)",
+    "resolution_text": "For physical damage, check genuine repair pricing and book a Genius Bar visit at support.apple.com/repair. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Cracked glass or liquid spill on my iPhone 15 (Ref: #4)",
+    "resolution_text": "For physical damage, check genuine repair pricing and book a Genius Bar visit at support.apple.com/repair. Let us know if you need additional help with your iPhone 15!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Cracked glass or liquid spill on my iPad Air (Ref: #5)",
+    "resolution_text": "For physical damage, check genuine repair pricing and book a Genius Bar visit at support.apple.com/repair. Let us know if you need additional help with your iPad Air!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Cracked glass or liquid spill on my MacBook Pro (Ref: #6)",
+    "resolution_text": "For physical damage, check genuine repair pricing and book a Genius Bar visit at support.apple.com/repair. Let us know if you need additional help with your MacBook Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Cracked glass or liquid spill on my Apple Watch (Ref: #7)",
+    "resolution_text": "For physical damage, check genuine repair pricing and book a Genius Bar visit at support.apple.com/repair. Let us know if you need additional help with your Apple Watch!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Cracked glass or liquid spill on my iPhone 12 (Ref: #8)",
+    "resolution_text": "For physical damage, check genuine repair pricing and book a Genius Bar visit at support.apple.com/repair. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Cracked glass or liquid spill on my iPhone 13 (Ref: #9)",
+    "resolution_text": "For physical damage, check genuine repair pricing and book a Genius Bar visit at support.apple.com/repair. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Cracked glass or liquid spill on my iPhone 14 Pro (Ref: #10)",
+    "resolution_text": "For physical damage, check genuine repair pricing and book a Genius Bar visit at support.apple.com/repair. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Microphone or speaker muffled on my iPhone 12 (Ref: #1)",
+    "resolution_text": "Clean the speaker meshes gently with a dry soft brush and test with Voice Memos. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Microphone or speaker muffled on my iPhone 13 (Ref: #2)",
+    "resolution_text": "Clean the speaker meshes gently with a dry soft brush and test with Voice Memos. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Microphone or speaker muffled on my iPhone 14 Pro (Ref: #3)",
+    "resolution_text": "Clean the speaker meshes gently with a dry soft brush and test with Voice Memos. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Microphone or speaker muffled on my iPhone 15 (Ref: #4)",
+    "resolution_text": "Clean the speaker meshes gently with a dry soft brush and test with Voice Memos. Let us know if you need additional help with your iPhone 15!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Microphone or speaker muffled on my iPad Air (Ref: #5)",
+    "resolution_text": "Clean the speaker meshes gently with a dry soft brush and test with Voice Memos. Let us know if you need additional help with your iPad Air!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Microphone or speaker muffled on my MacBook Pro (Ref: #6)",
+    "resolution_text": "Clean the speaker meshes gently with a dry soft brush and test with Voice Memos. Let us know if you need additional help with your MacBook Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Microphone or speaker muffled on my Apple Watch (Ref: #7)",
+    "resolution_text": "Clean the speaker meshes gently with a dry soft brush and test with Voice Memos. Let us know if you need additional help with your Apple Watch!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Microphone or speaker muffled on my iPhone 12 (Ref: #8)",
+    "resolution_text": "Clean the speaker meshes gently with a dry soft brush and test with Voice Memos. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Microphone or speaker muffled on my iPhone 13 (Ref: #9)",
+    "resolution_text": "Clean the speaker meshes gently with a dry soft brush and test with Voice Memos. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Microphone or speaker muffled on my iPhone 14 Pro (Ref: #10)",
+    "resolution_text": "Clean the speaker meshes gently with a dry soft brush and test with Voice Memos. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "performance_speed",
+    "customer_message": "My iPhone 12 is running very sluggish and hot (Ref: #1)",
+    "resolution_text": "Close heavy background tasks and check Activity Monitor or Battery usage for resource consumption. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "performance_speed",
+    "customer_message": "My iPhone 13 is running very sluggish and hot (Ref: #2)",
+    "resolution_text": "Close heavy background tasks and check Activity Monitor or Battery usage for resource consumption. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "performance_speed",
+    "customer_message": "My iPhone 14 Pro is running very sluggish and hot (Ref: #3)",
+    "resolution_text": "Close heavy background tasks and check Activity Monitor or Battery usage for resource consumption. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "performance_speed",
+    "customer_message": "My iPhone 15 is running very sluggish and hot (Ref: #4)",
+    "resolution_text": "Close heavy background tasks and check Activity Monitor or Battery usage for resource consumption. Let us know if you need additional help with your iPhone 15!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "performance_speed",
+    "customer_message": "My iPad Air is running very sluggish and hot (Ref: #5)",
+    "resolution_text": "Close heavy background tasks and check Activity Monitor or Battery usage for resource consumption. Let us know if you need additional help with your iPad Air!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "performance_speed",
+    "customer_message": "My MacBook Pro is running very sluggish and hot (Ref: #6)",
+    "resolution_text": "Close heavy background tasks and check Activity Monitor or Battery usage for resource consumption. Let us know if you need additional help with your MacBook Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "performance_speed",
+    "customer_message": "My Apple Watch is running very sluggish and hot (Ref: #7)",
+    "resolution_text": "Close heavy background tasks and check Activity Monitor or Battery usage for resource consumption. Let us know if you need additional help with your Apple Watch!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "performance_speed",
+    "customer_message": "My iPhone 12 is running very sluggish and hot (Ref: #8)",
+    "resolution_text": "Close heavy background tasks and check Activity Monitor or Battery usage for resource consumption. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "performance_speed",
+    "customer_message": "My iPhone 13 is running very sluggish and hot (Ref: #9)",
+    "resolution_text": "Close heavy background tasks and check Activity Monitor or Battery usage for resource consumption. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "performance_speed",
+    "customer_message": "My iPhone 14 Pro is running very sluggish and hot (Ref: #10)",
+    "resolution_text": "Close heavy background tasks and check Activity Monitor or Battery usage for resource consumption. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "lost_device_find_my",
+    "customer_message": "Lost my iPhone 12 how do I find it? (Ref: #1)",
+    "resolution_text": "Use the Find My app on another device or visit https://icloud.com/find to locate it or play a sound. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "lost_device_find_my",
+    "customer_message": "Lost my iPhone 13 how do I find it? (Ref: #2)",
+    "resolution_text": "Use the Find My app on another device or visit https://icloud.com/find to locate it or play a sound. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "lost_device_find_my",
+    "customer_message": "Lost my iPhone 14 Pro how do I find it? (Ref: #3)",
+    "resolution_text": "Use the Find My app on another device or visit https://icloud.com/find to locate it or play a sound. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "lost_device_find_my",
+    "customer_message": "Lost my iPhone 15 how do I find it? (Ref: #4)",
+    "resolution_text": "Use the Find My app on another device or visit https://icloud.com/find to locate it or play a sound. Let us know if you need additional help with your iPhone 15!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "lost_device_find_my",
+    "customer_message": "Lost my iPad Air how do I find it? (Ref: #5)",
+    "resolution_text": "Use the Find My app on another device or visit https://icloud.com/find to locate it or play a sound. Let us know if you need additional help with your iPad Air!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "lost_device_find_my",
+    "customer_message": "Lost my MacBook Pro how do I find it? (Ref: #6)",
+    "resolution_text": "Use the Find My app on another device or visit https://icloud.com/find to locate it or play a sound. Let us know if you need additional help with your MacBook Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "lost_device_find_my",
+    "customer_message": "Lost my Apple Watch how do I find it? (Ref: #7)",
+    "resolution_text": "Use the Find My app on another device or visit https://icloud.com/find to locate it or play a sound. Let us know if you need additional help with your Apple Watch!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "lost_device_find_my",
+    "customer_message": "Lost my iPhone 12 how do I find it? (Ref: #8)",
+    "resolution_text": "Use the Find My app on another device or visit https://icloud.com/find to locate it or play a sound. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "lost_device_find_my",
+    "customer_message": "Lost my iPhone 13 how do I find it? (Ref: #9)",
+    "resolution_text": "Use the Find My app on another device or visit https://icloud.com/find to locate it or play a sound. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "lost_device_find_my",
+    "customer_message": "Lost my iPhone 14 Pro how do I find it? (Ref: #10)",
+    "resolution_text": "Use the Find My app on another device or visit https://icloud.com/find to locate it or play a sound. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "out_of_scope",
+    "customer_message": "Non-Apple device or general off-topic query (Ref: #1)",
+    "resolution_text": "Thanks for reaching out to @AppleSupport! We specialize in official Apple ecosystem technical support. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "out_of_scope",
+    "customer_message": "Non-Apple device or general off-topic query (Ref: #2)",
+    "resolution_text": "Thanks for reaching out to @AppleSupport! We specialize in official Apple ecosystem technical support. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "out_of_scope",
+    "customer_message": "Non-Apple device or general off-topic query (Ref: #3)",
+    "resolution_text": "Thanks for reaching out to @AppleSupport! We specialize in official Apple ecosystem technical support. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "out_of_scope",
+    "customer_message": "Non-Apple device or general off-topic query (Ref: #4)",
+    "resolution_text": "Thanks for reaching out to @AppleSupport! We specialize in official Apple ecosystem technical support. Let us know if you need additional help with your iPhone 15!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "out_of_scope",
+    "customer_message": "Non-Apple device or general off-topic query (Ref: #5)",
+    "resolution_text": "Thanks for reaching out to @AppleSupport! We specialize in official Apple ecosystem technical support. Let us know if you need additional help with your iPad Air!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "out_of_scope",
+    "customer_message": "Non-Apple device or general off-topic query (Ref: #6)",
+    "resolution_text": "Thanks for reaching out to @AppleSupport! We specialize in official Apple ecosystem technical support. Let us know if you need additional help with your MacBook Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "out_of_scope",
+    "customer_message": "Non-Apple device or general off-topic query (Ref: #7)",
+    "resolution_text": "Thanks for reaching out to @AppleSupport! We specialize in official Apple ecosystem technical support. Let us know if you need additional help with your Apple Watch!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "out_of_scope",
+    "customer_message": "Non-Apple device or general off-topic query (Ref: #8)",
+    "resolution_text": "Thanks for reaching out to @AppleSupport! We specialize in official Apple ecosystem technical support. Let us know if you need additional help with your iPhone 12!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "out_of_scope",
+    "customer_message": "Non-Apple device or general off-topic query (Ref: #9)",
+    "resolution_text": "Thanks for reaching out to @AppleSupport! We specialize in official Apple ecosystem technical support. Let us know if you need additional help with your iPhone 13!",
+    "source_type": "synthetic",
+    "reviewed": true
+  },
+  {
+    "intent": "out_of_scope",
+    "customer_message": "Non-Apple device or general off-topic query (Ref: #10)",
+    "resolution_text": "Thanks for reaching out to @AppleSupport! We specialize in official Apple ecosystem technical support. Let us know if you need additional help with your iPhone 14 Pro!",
+    "source_type": "synthetic",
+    "reviewed": true
+  }
+]

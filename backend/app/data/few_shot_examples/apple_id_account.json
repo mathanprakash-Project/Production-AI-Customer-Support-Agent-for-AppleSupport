@@ -1,0 +1,122 @@
+[
+  {
+    "tweet": "Locked out of my Apple ID and cannot remember security questions or trusted phone number",
+    "intent": "apple_id_account",
+    "sentiment": "negative",
+    "explanation": "Account lock and lost credentials"
+  },
+  {
+    "tweet": "Verification code not sending to my trusted phone number for 2FA login",
+    "intent": "apple_id_account",
+    "sentiment": "negative",
+    "explanation": "Two-factor authentication code delivery failure"
+  },
+  {
+    "tweet": "Someone from another state is trying to sign into my Apple ID got popup notification",
+    "intent": "apple_id_account",
+    "sentiment": "negative",
+    "explanation": "Unauthorized login alert / account security"
+  },
+  {
+    "tweet": "How do I change my primary Apple ID email from Yahoo to Gmail?",
+    "intent": "apple_id_account",
+    "sentiment": "neutral",
+    "explanation": "Apple ID username update inquiry"
+  },
+  {
+    "tweet": "Account Recovery at iforgot.apple.com says waiting period is 14 days can this be expedited?",
+    "intent": "apple_id_account",
+    "sentiment": "negative",
+    "explanation": "Account recovery waiting period dispute"
+  },
+  {
+    "tweet": "Apple ID disabled for security reasons error message on App Store",
+    "intent": "apple_id_account",
+    "sentiment": "negative",
+    "explanation": "Security lock trigger"
+  },
+  {
+    "tweet": "Inherited deceased parent's iPhone how to remove Activation Lock with death certificate?",
+    "intent": "apple_id_account",
+    "sentiment": "neutral",
+    "explanation": "Digital Legacy / bereavement unlock"
+  },
+  {
+    "tweet": "Cannot sign out of Apple ID in Settings, 'Sign Out' button is grayed out",
+    "intent": "apple_id_account",
+    "sentiment": "negative",
+    "explanation": "Screen Time restrictions blocking sign out"
+  },
+  {
+    "tweet": "Trusted phone number on my account is an old number I no longer own",
+    "intent": "apple_id_account",
+    "sentiment": "negative",
+    "explanation": "Outdated 2FA recovery number"
+  },
+  {
+    "tweet": "Apple ID password reset email never arrives in my inbox or spam folder",
+    "intent": "apple_id_account",
+    "sentiment": "negative",
+    "explanation": "Recovery email routing issue"
+  },
+  {
+    "tweet": "Forgot Screen Time passcode on my child's iPad how do I reset it?",
+    "intent": "apple_id_account",
+    "sentiment": "neutral",
+    "explanation": "Screen Time parent PIN reset"
+  },
+  {
+    "tweet": "Account recovery key lost and 2FA device broken am I permanently locked out?",
+    "intent": "apple_id_account",
+    "sentiment": "negative",
+    "explanation": "Recovery key policy constraint"
+  },
+  {
+    "tweet": "Someone added their email as a Family Organizer on my Apple ID without my consent",
+    "intent": "apple_id_account",
+    "sentiment": "negative",
+    "explanation": "Account compromise / hijack"
+  },
+  {
+    "tweet": "How to generate an app-specific password for third party email client?",
+    "intent": "apple_id_account",
+    "sentiment": "neutral",
+    "explanation": "Security credential generation"
+  },
+  {
+    "tweet": "Activation Lock screen says device linked to Apple ID k*****@gmail.com not my account",
+    "intent": "apple_id_account",
+    "sentiment": "negative",
+    "explanation": "Used device linked to previous owner"
+  },
+  {
+    "tweet": "Apple ID balance not showing up after redeeming $50 gift card",
+    "intent": "apple_id_account",
+    "sentiment": "negative",
+    "explanation": "Redeemed balance synchronization"
+  },
+  {
+    "tweet": "How do I setup a Legacy Contact for my Apple ID?",
+    "intent": "apple_id_account",
+    "sentiment": "neutral",
+    "explanation": "Legacy Contact feature setup"
+  },
+  {
+    "tweet": "Device keeps popping up asking to enter Apple ID password every 10 minutes",
+    "intent": "apple_id_account",
+    "sentiment": "negative",
+    "explanation": "Credential authentication loop"
+  },
+  {
+    "tweet": "Can I merge two separate Apple IDs into one master account?",
+    "intent": "apple_id_account",
+    "sentiment": "neutral",
+    "explanation": "Account merging policy inquiry"
+  },
+  {
+    "tweet": "Emergency SOS contact notified that my Apple ID location was shared",
+    "intent": "apple_id_account",
+    "sentiment": "neutral",
+    "explanation": "Emergency contact notification"
+  }
+]

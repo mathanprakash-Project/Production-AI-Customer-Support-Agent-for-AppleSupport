@@ -1,0 +1,122 @@
+[
+  {
+    "tweet": "My iPhone won't charge when plugged into the wall with official cable",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "Wired charging failure"
+  },
+  {
+    "tweet": "Accessory may not be supported pop up keeps appearing when I plug in charger",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "MFi accessory recognition error"
+  },
+  {
+    "tweet": "iPhone 15 USB-C port is loose and cable keeps falling out",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "Physical port debris or connection issue"
+  },
+  {
+    "tweet": "MagSafe wireless charger charges for 5 seconds then stops flashing orange",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "Wireless charging fault"
+  },
+  {
+    "tweet": "Lightning cable only charges if I bend it at a specific angle",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "Damaged charging cable wire"
+  },
+  {
+    "tweet": "Water detected in Lightning connector alert won't go away even after 24 hours drying",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "Liquid detection sensor lock"
+  },
+  {
+    "tweet": "iPad Pro 11 inch not charging from MacBook USB-C port",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "Low-wattage port charging issue"
+  },
+  {
+    "tweet": "My iPhone vibrates repeatedly every 2 seconds when plugged into charger",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "Intermittent charging loop"
+  },
+  {
+    "tweet": "Charging port has lint stuck inside how do I safely clean it out?",
+    "intent": "charging_issues",
+    "sentiment": "neutral",
+    "explanation": "Port cleaning inquiry"
+  },
+  {
+    "tweet": "20W Apple fast charger brick gets burning hot and smells like burnt plastic",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "Hardware power brick safety hazard"
+  },
+  {
+    "tweet": "iPhone won't charge past 80% even though optimized charging is turned off",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "80% charge limit or thermal hold"
+  },
+  {
+    "tweet": "AirPods Pro 2 case won't charge via Qi wireless pad",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "Case charging malfunction"
+  },
+  {
+    "tweet": "iPhone completely dead won't turn on or show red battery icon when plugged in",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "Dead device charging failure"
+  },
+  {
+    "tweet": "Reverse wireless charging / power delivery between iPad and iPhone not working",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "USB-C power pass-through problem"
+  },
+  {
+    "tweet": "CarPlay USB port connects for music but doesn't charge my iPhone 14",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "Vehicle low amperage charging"
+  },
+  {
+    "tweet": "MagSafe battery pack not transferring charge to my iPhone 12 Mini",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "Battery pack handshake failure"
+  },
+  {
+    "tweet": "Green charging indicator light on MacBook MagSafe 3 cable is flickering amber",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "MacBook MagSafe status error"
+  },
+  {
+    "tweet": "My phone charges extremely slow, taking 8 hours to reach 50%",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "Slow charging rate problem"
+  },
+  {
+    "tweet": "Does iPhone 16 support 45W fast charging bricks?",
+    "intent": "charging_issues",
+    "sentiment": "neutral",
+    "explanation": "Wattage specification inquiry"
+  },
+  {
+    "tweet": "Pin broke off inside my Lightning port, can Apple repair this?",
+    "intent": "charging_issues",
+    "sentiment": "negative",
+    "explanation": "Broken connector pin in port"
+  }
+]

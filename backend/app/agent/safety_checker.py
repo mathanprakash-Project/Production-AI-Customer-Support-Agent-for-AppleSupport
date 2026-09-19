@@ -15,6 +15,8 @@ from urllib.parse import urlparse
 import yaml
 from pydantic import BaseModel, Field
 
+from app.data.loaders.safety_loader import SafetyLoader
+
 logger = logging.getLogger(__name__)
 
 DEFAULT_APPROVED_DOMAINS = [
@@ -60,7 +62,15 @@ class SafetyChecker:
             except Exception as e:
                 logger.warning(f"Could not load safety_keywords.yaml ({e}), using default rules.")
 
-        self.approved_domains = self.rules.get("approved_domains", DEFAULT_APPROVED_DOMAINS)
+        # Load approved domains dynamically from SafetyLoader whitelist
+        self.safety_loader = SafetyLoader()
+        domains = set(self.rules.get("approved_domains", DEFAULT_APPROVED_DOMAINS))
+        try:
+            domains.update(self.safety_loader.load_approved_urls())
+        except Exception as e:
+            logger.warning(f"Error loading approved URLs from safety_loader: {e}")
+        self.approved_domains = list(domains)
+
         self.unauthorized_promises = self.rules.get("unauthorized_promises", DEFAULT_PROMISES)
         self.medical_terms = self.rules.get("medical_terms", ["diagnosis", "medical condition", "prescribe"])
         self.discouraged_phrases = self.rules.get("discouraged_phrases", ["sorry for the inconvenience", "user error"])

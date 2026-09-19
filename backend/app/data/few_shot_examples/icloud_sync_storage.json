@@ -1,0 +1,122 @@
+[
+  {
+    "tweet": "iCloud storage full notification won't disappear even after deleting 5,000 photos",
+    "intent": "icloud_sync_storage",
+    "sentiment": "negative",
+    "explanation": "Recently Deleted album storage hold"
+  },
+  {
+    "tweet": "Photos not syncing between my iPhone and MacBook Air on same Apple ID",
+    "intent": "icloud_sync_storage",
+    "sentiment": "negative",
+    "explanation": "iCloud Photos sync pause"
+  },
+  {
+    "tweet": "iCloud backup failed with 'Not enough storage' despite having 200GB plan",
+    "intent": "icloud_sync_storage",
+    "sentiment": "negative",
+    "explanation": "Backup sizing larger than available cloud quota"
+  },
+  {
+    "tweet": "Messages in iCloud disabled and downloading messages stuck at 1%",
+    "intent": "icloud_sync_storage",
+    "sentiment": "negative",
+    "explanation": "iMessage cloud sync stall"
+  },
+  {
+    "tweet": "How do I upgrade from 50GB to 200GB iCloud+ plan with family sharing?",
+    "intent": "icloud_sync_storage",
+    "sentiment": "neutral",
+    "explanation": "iCloud plan upgrade inquiry"
+  },
+  {
+    "tweet": "Notes app deleted all my notes after toggling iCloud sync off and on",
+    "intent": "icloud_sync_storage",
+    "sentiment": "negative",
+    "explanation": "Local vs Cloud notes sync overwrite"
+  },
+  {
+    "tweet": "WhatsApp iCloud chat backup stuck at 99% for 3 days",
+    "intent": "icloud_sync_storage",
+    "sentiment": "negative",
+    "explanation": "Third party iCloud container backup pause"
+  },
+  {
+    "tweet": "Shared iCloud Photo Library invitations not delivering to family members",
+    "intent": "icloud_sync_storage",
+    "sentiment": "negative",
+    "explanation": "Shared library invite failure"
+  },
+  {
+    "tweet": "iCloud Drive files showing cloud icon with down arrow and won't download offline",
+    "intent": "icloud_sync_storage",
+    "sentiment": "negative",
+    "explanation": "On-demand cloud file download failure"
+  },
+  {
+    "tweet": "Keychain passwords not syncing to new iPhone 15 from iCloud",
+    "intent": "icloud_sync_storage",
+    "sentiment": "negative",
+    "explanation": "iCloud Keychain sync delay"
+  },
+  {
+    "tweet": "Accidentally emptied iCloud Drive Trash can I restore deleted documents?",
+    "intent": "icloud_sync_storage",
+    "sentiment": "negative",
+    "explanation": "iCloud file recovery window inquiry"
+  },
+  {
+    "tweet": "Can I share my 2TB iCloud storage plan with friends outside my family group?",
+    "intent": "icloud_sync_storage",
+    "sentiment": "neutral",
+    "explanation": "Family sharing eligibility inquiry"
+  },
+  {
+    "tweet": "iPhone backup size says 45GB why is it so huge?",
+    "intent": "icloud_sync_storage",
+    "sentiment": "neutral",
+    "explanation": "Backup component inspection"
+  },
+  {
+    "tweet": "iCloud Photos says 'Syncing Paused: Low Battery / Low Power Mode'",
+    "intent": "icloud_sync_storage",
+    "sentiment": "neutral",
+    "explanation": "Sync paused due to device state"
+  },
+  {
+    "tweet": "Contacts synced with iCloud duplicated 4 times across my address book",
+    "intent": "icloud_sync_storage",
+    "sentiment": "negative",
+    "explanation": "CardDAV contact duplication bug"
+  },
+  {
+    "tweet": "iCloud web portal icloud.com won't load my mail on Windows PC",
+    "intent": "icloud_sync_storage",
+    "sentiment": "negative",
+    "explanation": "Browser iCloud web access failure"
+  },
+  {
+    "tweet": "System Data took over iCloud storage quota unexpectedly",
+    "intent": "icloud_sync_storage",
+    "sentiment": "negative",
+    "explanation": "Cloud storage misattribution"
+  },
+  {
+    "tweet": "How to download original high resolution photos from iCloud to external hard drive?",
+    "intent": "icloud_sync_storage",
+    "sentiment": "neutral",
+    "explanation": "Photo export guidance"
+  },
+  {
+    "tweet": "iCloud Private Relay is unavailable with current Wi-Fi network",
+    "intent": "icloud_sync_storage",
+    "sentiment": "neutral",
+    "explanation": "Private relay DNS incompatibility"
+  },
+  {
+    "tweet": "Hide My Email forwarding stopped sending verification codes to my inbox",
+    "intent": "icloud_sync_storage",
+    "sentiment": "negative",
+    "explanation": "Relay email forwarding stoppage"
+  }
+]

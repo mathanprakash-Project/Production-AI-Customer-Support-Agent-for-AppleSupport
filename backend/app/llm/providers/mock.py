@@ -69,6 +69,20 @@ class MockProvider(LLMProvider):
             if raw_intent:
                 extracted_intent = raw_intent.split()[0]
 
+        # Extract device model mention if present
+        device_match = re.search(
+            r"\b(iphone\s*(?:1[1-6](?:\s*pro\s*max|\s*pro|\s*plus|\s*mini)?|[6-8](?:\s*plus)?|x[rs]?|se)|ipad\s*(?:pro|air|mini)?|macbook\s*(?:pro|air)?|apple\s*watch|airpods(?:\s*pro|\s*max)?)\b",
+            target_text,
+            re.IGNORECASE
+        )
+        detected_device = device_match.group(0).strip() if device_match else None
+        # Format nice device name (e.g. iPhone 12)
+        if detected_device:
+            detected_device = re.sub(r"(?i)\biphone\b", "iPhone", detected_device)
+            detected_device = re.sub(r"(?i)\bipad\b", "iPad", detected_device)
+            detected_device = re.sub(r"(?i)\bmacbook\b", "MacBook", detected_device)
+            detected_device = re.sub(r"(?i)\bairpods\b", "AirPods", detected_device)
+
         # 1. Out-of-Scope / Non-Apple Inquiries (produce, personal, pricing/cost, competitor hardware, APK)
         is_apk = bool(re.search(r"\b(apk|apks|sideload|sideloading|android package)\b", target_text))
         is_produce = any(kw in clean_text for kw in ["1 kg", "per kg", "how much for apple", "fruit", "grocery", "produce", "kilo", "gram", "apple price"])
@@ -81,6 +95,9 @@ class MockProvider(LLMProvider):
 
         # Charging issues (strictly bounded, avoiding bare 'port' collision with '@AppleSupport')
         is_charging = bool(re.search(r"\b(charge|charging|charger|lightning cable|usbc cable|usb-c cable|charging cable|charging port|lightning port|usb-c port)\b", clean_text)) or ("cable" in clean_text and "not" in clean_text)
+
+        # Software / iOS Update issues
+        is_software_update = bool(re.search(r"\b(software|ios\b|ios\s*\d+|os\b|firmware|glitch|bug|system\b|update|recovery mode|stuck on)\b", clean_text))
 
         if is_apk:
             intent_label = "out_of_scope"
@@ -99,19 +116,25 @@ class MockProvider(LLMProvider):
             draft_text = "Thanks for reaching out to @AppleSupport! We only provide technical support for Apple hardware and software. For assistance with your device, please reach out to the manufacturer's official customer support team."
         elif is_display_touch:
             intent_label = "display_screen"
-            draft_text = "If your iPhone touch screen is unresponsive or showing display issues, please perform a force restart (press Volume Up, Volume Down, then hold the Side button until the Apple logo appears). If the issue persists, let us know or visit https://support.apple.com to book a service appointment."
+            dev = detected_device or "iPhone"
+            draft_text = f"If your {dev} touch screen is unresponsive or showing display issues, please perform a force restart (press Volume Up, Volume Down, then hold the Side button until the Apple logo appears). If the issue persists, let us know or visit https://support.apple.com to book a service appointment."
         elif "lost" in clean_text or "find" in clean_text or "stolen" in clean_text or "locate" in clean_text or "find my" in clean_text or "earpod" in clean_text:
             intent_label = "lost_device_find_my"
             draft_text = "You can locate your lost EarPods or AirPods using the Find My app on your iPhone or at https://www.icloud.com/find. Select your EarPods under Devices to view their location or play a sound."
         elif "battery" in clean_text or "overheating" in clean_text or "drain" in clean_text:
             intent_label = "battery_performance"
-            draft_text = "Hello! Battery health is important. Check Settings > Battery > Battery Health to inspect peak performance capability."
+            dev_str = f" on your {detected_device}" if detected_device else ""
+            draft_text = f"Hello! Battery health{dev_str} is important. Check Settings > Battery > Battery Health to inspect peak performance capability."
         elif is_charging:
             intent_label = "charging_issues"
-            draft_text = "Hi there, let's get your device charging again. Inspect the charging port for debris and test with an Apple-certified cable."
-        elif "stuck on" in clean_text or "ios 18" in clean_text or "ios 17" in clean_text or "recovery mode" in clean_text or "update" in clean_text:
+            dev_str = f"your {detected_device}" if detected_device else "your device"
+            draft_text = f"Hi there, let's get {dev_str} charging again. Inspect the charging port for debris and test with an Apple-certified cable."
+        elif is_software_update:
             intent_label = "ios_update_bugs"
-            draft_text = "Let's resolve the update error. Restart your device and ensure you have sufficient storage space before downloading."
+            if detected_device:
+                draft_text = f"We'd be glad to help with your {detected_device}! Could you share what iOS version you're on and describe what happens when the software issue occurs?"
+            else:
+                draft_text = "Let's resolve the update error. Restart your device and ensure you have sufficient storage space before downloading."
         elif "crash" in clean_text or "freeze" in clean_text or "quitting" in clean_text or "instagram" in clean_text or "tiktok" in clean_text or any(w in clean_text.split() for w in ["app", "apps"]):
             intent_label = "app_crashes"
             draft_text = "To resolve app issues, force quit the app, check for updates in the App Store, and reinstall if necessary."
@@ -138,14 +161,24 @@ class MockProvider(LLMProvider):
             draft_text = "Check Activity Monitor or Settings > General > Background App Refresh to see what processes are consuming resources."
         else:
             intent_label = "out_of_scope"
-            draft_text = "Thanks for reaching out to @AppleSupport! We are here to help with your Apple devices and ecosystem services. Could you please share more details about your Apple device or software issue so we can assist?"
+            if detected_device:
+                draft_text = f"Thanks for reaching out to @AppleSupport! We'd be glad to assist with your {detected_device}. Could you please describe what specific symptoms or errors you are seeing so we can help?"
+            else:
+                draft_text = "Thanks for reaching out to @AppleSupport! We are here to help with your Apple devices and ecosystem services. Could you please share more details about your Apple device or software issue so we can assist?"
 
         # If an explicit intent was provided in the prompt (e.g. Drafter pipeline), harmonize draft_text with it
         if extracted_intent:
             if extracted_intent == "display_screen":
-                draft_text = "If your iPhone touch screen is unresponsive or showing display issues, please perform a force restart (press Volume Up, Volume Down, then hold the Side button until the Apple logo appears). If the issue persists, let us know or visit https://support.apple.com to book a service appointment."
+                dev = detected_device or "iPhone"
+                draft_text = f"If your {dev} touch screen is unresponsive or showing display issues, please perform a force restart (press Volume Up, Volume Down, then hold the Side button until the Apple logo appears). If the issue persists, let us know or visit https://support.apple.com to book a service appointment."
             elif extracted_intent == "charging_issues":
-                draft_text = "Hi there, let's get your device charging again. Inspect the charging port for debris and test with an Apple-certified cable."
+                dev_str = f"your {detected_device}" if detected_device else "your device"
+                draft_text = f"Hi there, let's get {dev_str} charging again. Inspect the charging port for debris and test with an Apple-certified cable."
+            elif extracted_intent in ["ios_update_bugs", "software_update_bugs"]:
+                if detected_device:
+                    draft_text = f"We'd be glad to help with your {detected_device}! Could you share what iOS version you're on and describe what happens when the software issue occurs?"
+                else:
+                    draft_text = "Let's resolve the update error. Restart your device and ensure you have sufficient storage space before downloading."
             elif extracted_intent == "app_crashes":
                 draft_text = "To resolve app issues, force quit the app, check for updates in the App Store, and reinstall if necessary."
             elif extracted_intent == "out_of_scope":
@@ -158,7 +191,10 @@ class MockProvider(LLMProvider):
                 elif is_competitor:
                     draft_text = "Thanks for reaching out to @AppleSupport! We only provide technical support for Apple hardware and software. For assistance with your device, please reach out to the manufacturer's official customer support team."
                 else:
-                    draft_text = "Thanks for reaching out to @AppleSupport! We are here to help with your Apple devices and ecosystem services. Could you please share more details about your Apple device or software issue so we can assist?"
+                    if detected_device:
+                        draft_text = f"Thanks for reaching out to @AppleSupport! We'd be glad to assist with your {detected_device}. Could you please describe what specific symptoms or errors you are seeing so we can help?"
+                    else:
+                        draft_text = "Thanks for reaching out to @AppleSupport! We are here to help with your Apple devices and ecosystem services. Could you please share more details about your Apple device or software issue so we can assist?"
 
         parsed_obj: Optional[BaseModel] = None
 
@@ -234,4 +270,8 @@ class MockProvider(LLMProvider):
             norm = sum(x * x for x in vec) ** 0.5 or 1.0
             results.append([x / norm for x in vec])
         return results
+
+
+# Alias for backward compatibility with scripts and loaders
+MockLLMProvider = MockProvider
 

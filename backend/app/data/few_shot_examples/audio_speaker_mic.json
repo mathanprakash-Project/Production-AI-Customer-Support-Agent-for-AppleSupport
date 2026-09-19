@@ -1,0 +1,122 @@
+[
+  {
+    "tweet": "Left AirPod has zero sound at all while right AirPod works fine",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "One-sided audio playback failure"
+  },
+  {
+    "tweet": "People can't hear me on phone calls unless I turn on Speakerphone",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "Primary bottom microphone failure"
+  },
+  {
+    "tweet": "iPhone ear speaker during calls is extremely muffled and quiet even on max volume",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "Earpiece speaker mesh blockage"
+  },
+  {
+    "tweet": "AirPods Pro crackling or static noise when walking or in Active Noise Cancellation",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "ANC feedback microphone static"
+  },
+  {
+    "tweet": "Bottom loudspeaker sounds distorted and rattles when playing music above 50%",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "Blown speaker driver distortion"
+  },
+  {
+    "tweet": "Siri can't hear my voice commands but voice memos record fine",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "Front top microphone failure for Siri"
+  },
+  {
+    "tweet": "Microphone sounds like I'm underwater during FaceTime video calls",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "FaceTime mic audio compression or obstruction"
+  },
+  {
+    "tweet": "Audio balance in accessibility shifted completely to right ear",
+    "intent": "audio_speaker_mic",
+    "sentiment": "neutral",
+    "explanation": "Accessibility audio balance misconfiguration"
+  },
+  {
+    "tweet": "Transparency mode on AirPods Pro sounds muffled like my ear is plugged",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "External microphone occlusion in ANC"
+  },
+  {
+    "tweet": "No sound coming from MacBook Pro speakers after headphone jack unplugged",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "Headphone jack optical sensor stuck"
+  },
+  {
+    "tweet": "Bluetooth audio stutters and cuts out when phone is in my back pocket",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "Audio packet drop due to body interference"
+  },
+  {
+    "tweet": "Voice isolation mic mode not working during cellular phone calls",
+    "intent": "audio_speaker_mic",
+    "sentiment": "neutral",
+    "explanation": "Mic mode DSP feature setting"
+  },
+  {
+    "tweet": "Left AirPod battery dies after 15 minutes while right lasts 4 hours",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "AirPod single-bud battery failure"
+  },
+  {
+    "tweet": "Audio plays through iPhone speakers instead of connected car Bluetooth",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "Audio output routing failure"
+  },
+  {
+    "tweet": "Volume buttons won't adjust ringer volume only media volume",
+    "intent": "audio_speaker_mic",
+    "sentiment": "neutral",
+    "explanation": "Change with buttons ringer setting"
+  },
+  {
+    "tweet": "Headphone safety alert volume limit keeps reducing my music volume automatically",
+    "intent": "audio_speaker_mic",
+    "sentiment": "neutral",
+    "explanation": "Decibel volume safety limit"
+  },
+  {
+    "tweet": "AirPods microphone picks up background wind noise and drowns out my voice",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "Beamforming microphone noise suppression"
+  },
+  {
+    "tweet": "Sound completely cuts out on videos recorded with the back camera",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "Rear camera microphone defect"
+  },
+  {
+    "tweet": "Spatial audio with dynamic head tracking not moving with head turn",
+    "intent": "audio_speaker_mic",
+    "sentiment": "neutral",
+    "explanation": "Spatial audio gyroscope tracking"
+  },
+  {
+    "tweet": "Ringtone doesn't ring out loud when someone calls, phone only vibrates",
+    "intent": "audio_speaker_mic",
+    "sentiment": "negative",
+    "explanation": "Silent switch or Attention Aware ringer dimming"
+  }
+]

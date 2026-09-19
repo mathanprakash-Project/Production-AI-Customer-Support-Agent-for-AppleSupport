@@ -1,0 +1,122 @@
+[
+  {
+    "tweet": "apple 1 kg how much?",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Grocery / fruit produce pricing inquiry"
+  },
+  {
+    "tweet": "why apple products are costly in indai",
+    "intent": "out_of_scope",
+    "sentiment": "negative",
+    "explanation": "Regional pricing and tax policy complaint"
+  },
+  {
+    "tweet": "my wife not talking to me can you give me advice",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Personal relationship advice"
+  },
+  {
+    "tweet": "what is the weather in New York City right now?",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "General weather inquiry"
+  },
+  {
+    "tweet": "my Samsung Galaxy S23 screen is shattered can Apple repair it?",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Competitor Android smartphone hardware inquiry"
+  },
+  {
+    "tweet": "I can't download APK in my iphone x",
+    "intent": "out_of_scope",
+    "sentiment": "negative",
+    "explanation": "Inquiry about downloading Android APK packages on iOS"
+  },
+  {
+    "tweet": "How do I sideload Android apps on my iPad?",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Android package compatibility inquiry"
+  },
+  {
+    "tweet": "Where can I buy fresh organic Honeycrisp apples near me?",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Produce grocery store search"
+  },
+  {
+    "tweet": "Who won the Champions League soccer match last night?",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Sports score question"
+  },
+  {
+    "tweet": "Can you help me fix my Nintendo Switch joycon drift?",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Competitor gaming hardware issue"
+  },
+  {
+    "tweet": "Why is iPhone so expensive compared to Xiaomi?",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Price comparison complaint"
+  },
+  {
+    "tweet": "What is the best recipe for baking apple pie from scratch?",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Cooking recipe inquiry"
+  },
+  {
+    "tweet": "My Dell Windows 11 laptop won't turn on can Apple fix it?",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Non-Apple PC hardware issue"
+  },
+  {
+    "tweet": "When will Apple stock reach $300 per share?",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Financial market / stock speculation"
+  },
+  {
+    "tweet": "Playstation 5 controller Bluetooth won't connect to Sony TV",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Non-Apple console issue"
+  },
+  {
+    "tweet": "Tell me a joke about robots",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Off-topic casual chatbot prompt"
+  },
+  {
+    "tweet": "Can I return a cup of coffee I bought at Starbucks?",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Third-party retail inquiry"
+  },
+  {
+    "tweet": "Why is petrol price increasing in my city?",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Political / macroeconomic question"
+  },
+  {
+    "tweet": "My Google Pixel 8 camera glass shattered can you send a replacement?",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Competitor phone hardware request"
+  },
+  {
+    "tweet": "Translate this French paragraph into Spanish for my homework",
+    "intent": "out_of_scope",
+    "sentiment": "neutral",
+    "explanation": "Homework translation task"
+  }
+]

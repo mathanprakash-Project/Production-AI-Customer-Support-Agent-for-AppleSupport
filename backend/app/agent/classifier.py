@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional
 from app.llm.base import LLMProvider
 from app.prompts.registry import prompt_registry
 from app.schemas.inference import IntentClassificationSchema, IntentAlternative
+from app.data.loaders.few_shot_loader import FewShotLoader
 
 logger = logging.getLogger(__name__)
 
@@ -25,8 +26,8 @@ DEFAULT_TAXONOMY: List[Dict[str, Any]] = [
     },
     {
         "label": "ios_update_bugs",
-        "description": "Errors downloading or installing iOS update, device stuck on Apple logo during reboot.",
-        "examples": ["update error 4013", "stuck on Apple logo after iOS 18", "not enough space to update"],
+        "description": "Errors downloading or installing iOS update, software glitches or bugs, operating system issues, device stuck on Apple logo during reboot.",
+        "examples": ["update error 4013", "stuck on Apple logo after iOS 18", "not enough space to update", "problem with my software with my apple iphone 12", "iOS software glitches"],
     },
     {
         "label": "app_crashes",
@@ -117,18 +118,32 @@ class IntentClassifier:
         provider: LLMProvider,
         taxonomy: Optional[List[Dict[str, Any]]] = None,
         prompt_version: str = "v1",
+        few_shot_loader: Optional[FewShotLoader] = None,
     ):
         self.provider = provider
         self.taxonomy = taxonomy or DEFAULT_TAXONOMY
         self.prompt_version = prompt_version
+        self.few_shot_loader = few_shot_loader or FewShotLoader()
 
-    async def classify(self, customer_message: str) -> IntentClassificationSchema:
+    async def classify(
+        self,
+        customer_message: str,
+        use_few_shot: bool = True,
+    ) -> IntentClassificationSchema:
         """Execute intent classification."""
+        few_shots = []
+        if use_few_shot and self.few_shot_loader:
+            try:
+                few_shots = self.few_shot_loader.get_few_shot_examples(n=3, query=customer_message)
+            except Exception as e:
+                logger.debug(f"Could not load dynamic few-shot examples: {e}")
+
         prompt = prompt_registry.render(
             "classifier",
             version=self.prompt_version,
             taxonomy=self.taxonomy,
             customer_message=customer_message,
+            few_shot_examples=few_shots,
         )
 
         safe_default = IntentClassificationSchema(

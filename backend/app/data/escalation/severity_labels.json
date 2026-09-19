@@ -1,0 +1,66 @@
+{
+  "critical_triggers": [
+    {
+      "pattern": "account_security",
+      "description": "Hacking, unauthorized account takeover, stolen credentials",
+      "auto_escalate": true,
+      "severity": 0.9
+    },
+    {
+      "pattern": "physical_safety",
+      "description": "Battery fire, explosion, burn injury, smoke, electric shock",
+      "auto_escalate": true,
+      "severity": 0.95
+    },
+    {
+      "pattern": "monetary_loss",
+      "description": "Unauthorized financial charges, disputed bank debits > $50",
+      "auto_escalate": true,
+      "severity": 0.85
+    }
+  ],
+  "high_triggers": [
+    {
+      "pattern": "legal_threat",
+      "description": "Mentions of attorney, lawyer, lawsuit, sue, court action",
+      "auto_escalate": true,
+      "severity": 0.8
+    },
+    {
+      "pattern": "regulatory_threat",
+      "description": "Mentions of FTC, BBB, Consumer Protection Bureau",
+      "auto_escalate": true,
+      "severity": 0.75
+    },
+    {
+      "pattern": "repeat_complaint",
+      "description": "Multiple failed attempts, chronic unresolved incident",
+      "auto_escalate": true,
+      "severity": 0.7
+    },
+    {
+      "pattern": "human_agent_demand",
+      "description": "Explicit refusal of AI assistance, request for human operator",
+      "auto_escalate": true,
+      "severity": 0.75
+    }
+  ],
+  "medium_triggers": [
+    {
+      "pattern": "pii_detected",
+      "description": "Message includes credit card, phone number, IMEI, or email",
+      "auto_escalate": true,
+      "severity": 0.6
+    },
+    {
+      "pattern": "low_rag_similarity",
+      "description": "Top RAG similarity below 60% threshold",
+      "auto_escalate": true,
+      "severity": 0.7
+    }
+  ],
+  "low_confidence_escalation": {
+    "threshold": 0.6,
+    "description": "If intent classification confidence < 0.60, escalate to Human-in-the-Loop review"
+  }
+}

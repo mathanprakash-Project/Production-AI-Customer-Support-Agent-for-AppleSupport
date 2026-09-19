@@ -1,0 +1,23 @@
+[
+  {
+    "intent": "display_screen",
+    "customer_message": "@AppleSupport touch screen not working properly after drop",
+    "resolution_text": "If your display is unresponsive, perform a force restart by pressing Volume Up, Volume Down, then holding Side button until the Apple logo appears. Visit support.apple.com/repair if physical damage occurred.",
+    "source_type": "seed_dataset",
+    "original_tweet_id": "thread-001"
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "@apple support hey i have a few problem with my software with my apple iphone 12",
+    "resolution_text": "We'd be glad to help with your iPhone 12! Could you share what iOS version you're on and describe what happens when the software issue occurs?",
+    "source_type": "seed_dataset",
+    "original_tweet_id": "thread-002"
+  },
+  {
+    "intent": "out_of_scope",
+    "customer_message": "I can't download APK in my iphone x",
+    "resolution_text": "Thanks for reaching out to @AppleSupport! iOS devices only support applications downloaded directly from the official Apple App Store and do not support Android APK installation packages.",
+    "source_type": "seed_dataset",
+    "original_tweet_id": "thread-003"
+  }
+]

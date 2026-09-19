@@ -1,0 +1,122 @@
+[
+  {
+    "tweet": "@apple support hey i have a few problem with my software with my apple iphone 12",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "General iPhone 12 iOS software problem"
+  },
+  {
+    "tweet": "iOS 18 update stuck on 'Estimating time remaining...' for 4 hours",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "OTA update download stalled"
+  },
+  {
+    "tweet": "iPhone stuck on Apple logo boot loop after installing latest iOS 17.5.1 update",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "Post-update bootloop failure"
+  },
+  {
+    "tweet": "Update error 4013 occurred while restoring iPhone through Finder on Mac",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "DFU restore error code"
+  },
+  {
+    "tweet": "Software update says 'Unable to Verify Update: Failed verification because you are no longer connected to the internet'",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "Verification handshake error"
+  },
+  {
+    "tweet": "System Data taking up 85GB of storage preventing me from updating iOS",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "System storage bug blocking update"
+  },
+  {
+    "tweet": "How do I downgrade back to iOS 17 from iOS 18 developer beta?",
+    "intent": "ios_update_bugs",
+    "sentiment": "neutral",
+    "explanation": "Beta unenrollment downgrade request"
+  },
+  {
+    "tweet": "Control center keeps crashing and respringing to lockscreen after software update",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "Springboard software glitch"
+  },
+  {
+    "tweet": "iPhone says 'An error occurred while checking for a software update'",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "Update server query failure"
+  },
+  {
+    "tweet": "Widgets disappeared from home screen and won't reload after the update",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "Post-update widget subsystem glitch"
+  },
+  {
+    "tweet": "Cannot exit recovery mode after failed over-the-air update",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "Device stuck in recovery state"
+  },
+  {
+    "tweet": "WatchOS 10 update failing to pair with iPhone on iOS 18",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "Cross-OS compatibility handshake"
+  },
+  {
+    "tweet": "Software glitch causing keyboard to freeze and duplicate letters on iPhone 12",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "iOS keyboard software bug"
+  },
+  {
+    "tweet": "Phone displays 'Support.apple.com/iphone/restore' with a laptop graphic",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "Restore mode screen after corrupt update"
+  },
+  {
+    "tweet": "Auto-update installed overnight without my permission and broke my alarms",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "Automatic update bug complaint"
+  },
+  {
+    "tweet": "My iPad is stuck on 'Verifying update' screen with spinning wheel",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "Update verification freeze"
+  },
+  {
+    "tweet": "Software update button grayed out in Settings > General",
+    "intent": "ios_update_bugs",
+    "sentiment": "neutral",
+    "explanation": "MDM profile or low battery update block"
+  },
+  {
+    "tweet": "Stuck in a loop asking for iPhone passcode after software restart",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "Post-boot passcode loop"
+  },
+  {
+    "tweet": "Error 1110 when updating iPhone with full internal storage",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "Storage depletion restore error"
+  },
+  {
+    "tweet": "Having software issues with camera black screen on iPhone 13 running iOS 18",
+    "intent": "ios_update_bugs",
+    "sentiment": "negative",
+    "explanation": "Camera framework software bug"
+  }
+]

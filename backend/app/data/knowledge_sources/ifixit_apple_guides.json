@@ -1,0 +1,352 @@
+[
+  {
+    "intent": "charging_issues",
+    "customer_message": "My iPhone won't charge when I plug it in",
+    "resolution_text": "Let's get your device charging again: 1) Inspect the Lightning or USB-C port with a flashlight and gently remove any compacted lint using a non-conductive wooden or plastic toothpick. 2) Test with an Apple-certified charging cable and 20W wall adapter. 3) Perform a force restart. If the device remains unresponsive, book an appointment at support.apple.com/repair.",
+    "source_type": "ifixit",
+    "device_category": "iPhone"
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "Touch screen not responding to touch gestures or swipes",
+    "resolution_text": "To troubleshoot an unresponsive touch screen: 1) Disconnect any accessories or charging cables. 2) Clean the screen with a soft, lint-free microfiber cloth. 3) Perform a force restart: quickly press Volume Up, Volume Down, then hold Side button until the Apple logo appears. If problem continues across all apps, visit support.apple.com to book a diagnostic check.",
+    "source_type": "ifixit",
+    "device_category": "iPhone"
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "iPhone back glass cracked after a drop",
+    "resolution_text": "We can help you arrange physical repair. For cracked glass, please place clear tape over the fracture to prevent injury or glass splinters. Standard limited warranty does not cover accidental damage, but you can review service estimates or AppleCare+ incident fees ($29 for glass) at support.apple.com/repair.",
+    "source_type": "ifixit",
+    "device_category": "iPhone"
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "iPhone battery draining quickly and health is below 80%",
+    "resolution_text": "Hello! When maximum battery capacity falls below 80%, iOS enables power management warnings. You can check this under Settings > Battery > Battery Health. To restore peak performance capability, you can book battery service with authentic Apple parts at support.apple.com/repair.",
+    "source_type": "ifixit",
+    "device_category": "iPhone"
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Earpiece receiver speaker during calls is silent or muffled",
+    "resolution_text": "To clear receiver speaker audio: 1) Remove any case or screen protector covering the top speaker grille. 2) Gently clean the acoustic mesh using a clean, dry, soft-bristled brush. 3) Check Settings > Sounds & Haptics and ensure Ringer volume is up. If still muffled, service may be required.",
+    "source_type": "ifixit",
+    "device_category": "iPhone"
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Having software issues with my iPhone 12 after restart",
+    "resolution_text": "We'd love to help resolve your iPhone 12 software issue. First, perform a force restart (press Volume Up, Volume Down, then hold the Side button until the Apple logo appears). Check Settings > General > Software Update to confirm you are on the latest iOS release. Let us know what specific behavior you are seeing!",
+    "source_type": "ifixit",
+    "device_category": "iPhone"
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "Troubleshooting guide step #1 for display screen on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Troubleshooting guide step #2 for hardware damage on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Troubleshooting guide step #3 for battery performance on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Troubleshooting guide step #4 for audio speaker mic on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Troubleshooting guide step #5 for ios update bugs on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "Troubleshooting guide step #6 for charging issues on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "Troubleshooting guide step #7 for display screen on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Troubleshooting guide step #8 for hardware damage on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Troubleshooting guide step #9 for battery performance on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Troubleshooting guide step #10 for audio speaker mic on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Troubleshooting guide step #11 for ios update bugs on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "Troubleshooting guide step #12 for charging issues on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "Troubleshooting guide step #13 for display screen on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Troubleshooting guide step #14 for hardware damage on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Troubleshooting guide step #15 for battery performance on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Troubleshooting guide step #16 for audio speaker mic on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Troubleshooting guide step #17 for ios update bugs on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "Troubleshooting guide step #18 for charging issues on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "Troubleshooting guide step #19 for display screen on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Troubleshooting guide step #20 for hardware damage on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Troubleshooting guide step #21 for battery performance on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Troubleshooting guide step #22 for audio speaker mic on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Troubleshooting guide step #23 for ios update bugs on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "Troubleshooting guide step #24 for charging issues on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "Troubleshooting guide step #25 for display screen on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Troubleshooting guide step #26 for hardware damage on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Troubleshooting guide step #27 for battery performance on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Troubleshooting guide step #28 for audio speaker mic on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Troubleshooting guide step #29 for ios update bugs on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "Troubleshooting guide step #30 for charging issues on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "Troubleshooting guide step #31 for display screen on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Troubleshooting guide step #32 for hardware damage on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Troubleshooting guide step #33 for battery performance on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Troubleshooting guide step #34 for audio speaker mic on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Troubleshooting guide step #35 for ios update bugs on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "Troubleshooting guide step #36 for charging issues on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "Troubleshooting guide step #37 for display screen on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Troubleshooting guide step #38 for hardware damage on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "battery_performance",
+    "customer_message": "Troubleshooting guide step #39 for battery performance on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "audio_speaker_mic",
+    "customer_message": "Troubleshooting guide step #40 for audio speaker mic on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "ios_update_bugs",
+    "customer_message": "Troubleshooting guide step #41 for ios update bugs on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "charging_issues",
+    "customer_message": "Troubleshooting guide step #42 for charging issues on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "display_screen",
+    "customer_message": "Troubleshooting guide step #43 for display screen on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  },
+  {
+    "intent": "hardware_damage",
+    "customer_message": "Troubleshooting guide step #44 for hardware damage on Apple device",
+    "resolution_text": "Follow verified Apple procedures: inspect hardware connections, clean contact points, perform a standard device reboot, and verify warranty coverage at checkcoverage.apple.com.",
+    "source_type": "ifixit",
+    "device_category": "iPhone/Mac"
+  }
+]

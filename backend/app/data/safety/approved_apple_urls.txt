@@ -1,0 +1,13 @@
+apple.com
+support.apple.com
+iforgot.apple.com
+appleid.apple.com
+icloud.com
+discussions.apple.com
+developer.apple.com
+apps.apple.com
+store.apple.com
+getsupport.apple.com
+locate.apple.com
+reportaproblem.apple.com
+checkcoverage.apple.com

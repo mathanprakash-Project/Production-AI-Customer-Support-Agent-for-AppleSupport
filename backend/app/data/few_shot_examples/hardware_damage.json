@@ -1,0 +1,122 @@
+[
+  {
+    "tweet": "Accidentally cracked my iPhone 14 Pro back glass after dropping on pavement",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Broken back glass physical damage"
+  },
+  {
+    "tweet": "Dropped phone in swimming pool now speakers crackle and camera has condensation",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Liquid ingress / water submersion"
+  },
+  {
+    "tweet": "MacBook Pro aluminum chassis bent near hinge after laptop fell off desk",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Bent enclosure physical damage"
+  },
+  {
+    "tweet": "Spilled a full cup of black coffee on MacBook Air keyboard will it survive?",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Liquid spill keyboard emergency"
+  },
+  {
+    "tweet": "iPhone front screen shattered into spiderweb cracks need repair estimate",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Shattered front glass repair inquiry"
+  },
+  {
+    "tweet": "Camera lens glass cracked on iPhone 15 Pro Max causing blurry photos with glare",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Camera sapphire lens fracture"
+  },
+  {
+    "tweet": "How much does out-of-warranty screen replacement cost at Apple Store?",
+    "intent": "hardware_damage",
+    "sentiment": "neutral",
+    "explanation": "Repair price quote inquiry"
+  },
+  {
+    "tweet": "Volume down button is physically jammed and won't click anymore",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Stuck mechanical button"
+  },
+  {
+    "tweet": "AirPod run over by a car in driveway completely crushed",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Catastrophic accessory destruction"
+  },
+  {
+    "tweet": "Lightning cable head broke off flush inside charging port need removal",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Foreign object extraction repair"
+  },
+  {
+    "tweet": "Screen popped loose from phone frame after small drop",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Adhesive separation / frame damage"
+  },
+  {
+    "tweet": "Dog chewed through MagSafe charging cable wire exposed copper",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Exposed frayed cable safety risk"
+  },
+  {
+    "tweet": "Dropped iPhone in ocean saltwater is it covered under AppleCare+?",
+    "intent": "hardware_damage",
+    "sentiment": "neutral",
+    "explanation": "Saltwater corrosion warranty terms"
+  },
+  {
+    "tweet": "Face ID hardware disabled after screen was replaced by unauthorized third party shop",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Serialized part pairing lock"
+  },
+  {
+    "tweet": "Microphone mesh grill torn on AirPods Pro",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Acoustic mesh damage"
+  },
+  {
+    "tweet": "iPhone frame has sharp dent near speaker holes",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Frame dent cosmetic defect"
+  },
+  {
+    "tweet": "Dropped Apple Watch on tile sapphire crystal cracked",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Wearable crystal fracture"
+  },
+  {
+    "tweet": "Can Apple Store repair my phone same day if I book Genius Bar appointment?",
+    "intent": "hardware_damage",
+    "sentiment": "neutral",
+    "explanation": "Same-day turnaround inquiry"
+  },
+  {
+    "tweet": "Liquid contact indicator turned red inside SIM card slot",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "LCI moisture indicator inspection"
+  },
+  {
+    "tweet": "Haptic feedback Taptic engine makes loud buzzing rattle vibration",
+    "intent": "hardware_damage",
+    "sentiment": "negative",
+    "explanation": "Internal actuator mechanical failure"
+  }
+]

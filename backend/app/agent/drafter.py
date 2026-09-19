@@ -8,8 +8,30 @@ from typing import List, Optional, Tuple
 from app.llm.base import LLMProvider
 from app.prompts.registry import prompt_registry
 from app.schemas.inference import DraftReplySchema, RetrievedThreadItem
+from app.data.loaders.safety_loader import SafetyLoader
 
 logger = logging.getLogger(__name__)
+
+
+def extract_device_model(text: str) -> Optional[str]:
+    """Extracts mentioned Apple hardware model to personalize response."""
+    patterns = [
+        r"\b(iphone\s*(?:1[1-6](?:\s*pro\s*max|\s*pro|\s*plus|\s*mini)?|[6-8](?:\s*plus)?|x[rs]?|se))\b",
+        r"\b(ipad\s*(?:pro|air|mini)?(?:\s*\d+)?)\b",
+        r"\b(macbook\s*(?:pro|air)?)\b",
+        r"\b(apple\s*watch(?:\s*(?:ultra\s*2|ultra|series\s*\d+|se))?)\b",
+        r"\b(airpods(?:\s*(?:pro\s*2|pro|max|\d+))?)\b",
+    ]
+    for pat in patterns:
+        m = re.search(pat, text, re.IGNORECASE)
+        if m:
+            val = m.group(0).strip()
+            val = re.sub(r"(?i)\biphone\b", "iPhone", val)
+            val = re.sub(r"(?i)\bipad\b", "iPad", val)
+            val = re.sub(r"(?i)\bmacbook\b", "MacBook", val)
+            val = re.sub(r"(?i)\bairpods\b", "AirPods", val)
+            return val
+    return None
 
 
 class ReplyDrafter:
@@ -19,9 +41,11 @@ class ReplyDrafter:
         self,
         provider: LLMProvider,
         prompt_version: str = "v1",
+        safety_loader: Optional[SafetyLoader] = None,
     ):
         self.provider = provider
         self.prompt_version = prompt_version
+        self.safety_loader = safety_loader or SafetyLoader()
 
     async def draft(
         self,
@@ -97,15 +121,30 @@ class ReplyDrafter:
             )
             return (out_of_scope_draft, 1, 0, 0)
 
+        detected_device = extract_device_model(customer_message)
         max_sim = max([t.similarity for t in retrieved_threads], default=0.0)
         if intent == "out_of_scope" or not retrieved_threads or max_sim < 0.60:
+            if detected_device:
+                if intent == "ios_update_bugs" or "software" in lower_msg or "ios" in lower_msg:
+                    reply_text = f"Thanks for reaching out to @AppleSupport! We'd be glad to help with your {detected_device}. Could you share what iOS version you're on and describe what happens with the software so we can assist?"
+                else:
+                    reply_text = f"Thanks for reaching out to @AppleSupport! We'd be glad to help with your {detected_device}. Could you please describe what specific symptoms or errors you are experiencing so we can assist?"
+            else:
+                reply_text = "Thanks for reaching out to @AppleSupport! We are here to help with your Apple devices and ecosystem services. Could you please share more details about your Apple device model or inquiry so we can assist?"
             no_rag_draft = DraftReplySchema(
-                reply="Thanks for reaching out to @AppleSupport! We are here to help with your Apple devices and ecosystem services. Could you please share more details about your Apple device model or inquiry so we can assist?",
+                reply=reply_text,
                 confidence=0.80,
                 grounded_thread_ids=[],
-                reasoning="No historical RAG matches found or RAG similarity < 60%. Provided polite Apple ecosystem inquiry response.",
+                reasoning=f"No historical RAG matches found or RAG similarity < 60%. Provided polite Apple ecosystem inquiry response{' recognizing ' + detected_device if detected_device else ''}.",
             )
             return (no_rag_draft, 1, 0, 0)
+
+        tone_guidelines = ""
+        if self.safety_loader:
+            try:
+                tone_guidelines = self.safety_loader.format_tone_rules_for_prompt(limit=3)
+            except Exception as e:
+                logger.debug(f"Could not format tone guidelines: {e}")
 
         prompt = prompt_registry.render(
             "drafter",
@@ -113,6 +152,7 @@ class ReplyDrafter:
             customer_message=customer_message,
             intent=intent,
             retrieved_threads=retrieved_threads,
+            tone_guidelines=tone_guidelines,
         )
 
         safe_default = DraftReplySchema(
