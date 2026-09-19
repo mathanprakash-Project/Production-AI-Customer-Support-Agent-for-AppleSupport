@@ -88,7 +88,22 @@ async def init_db(target_engine=None, target_factory=None):
             )
             session.add_all([admin, agent])
             await session.commit()
-            logger.info("Default users created: admin@tweetsupport.local and agent@tweetsupport.local")
+        # One-time migration: delete pre-seeded mathanprakashselvam@gmail.com from main DB so user can self-register
+        mig_check = await session.execute(
+            select(SystemConfig).where(SystemConfig.key == "migration_cleanup_preseeded_manager_done")
+        )
+        if not mig_check.scalars().first():
+            logger.info("Executing one-time cleanup of preseeded mathanprakashselvam@gmail.com...")
+            await session.execute(text("DELETE FROM users WHERE email = 'mathanprakashselvam@gmail.com'"))
+            session.add(
+                SystemConfig(
+                    key="migration_cleanup_preseeded_manager_done",
+                    value={"done": True},
+                    description="One-time deletion of preseeded manager user so user can self-register",
+                )
+            )
+            await session.commit()
+            logger.info("One-time cleanup of preseeded mathanprakashselvam@gmail.com completed successfully.")
 
         # Seed reference historical AppleSupport threads idempotently
         embedder = get_embedding_service()

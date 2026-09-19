@@ -126,6 +126,11 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
                   Admin Lead
                 </span>
               )}
+              {isManager && (
+                <span className="text-[10px] bg-amber-500/10 text-amber-600 dark:text-amber-400 px-2 py-0.5 rounded-full font-bold border border-amber-500/20">
+                  Manager
+                </span>
+              )}
             </div>
             <nav className="space-y-1">
               {governanceNav.map((item: any) => {
