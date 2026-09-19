@@ -90,19 +90,6 @@ async def init_db(target_engine=None, target_factory=None):
             await session.commit()
             logger.info("Default users created: admin@tweetsupport.local and agent@tweetsupport.local")
 
-        # Ensure Manager-Users account exists idempotently
-        mgr_check = await session.execute(select(User).where(User.email == "mathanprakashselvam@gmail.com"))
-        if not mgr_check.scalars().first():
-            mgr = User(
-                email="mathanprakashselvam@gmail.com",
-                password_hash=get_password_hash("Tweetsupportadmin123"),
-                full_name="Manager-Users",
-                role="manager",
-            )
-            session.add(mgr)
-            await session.commit()
-            logger.info("Manager user mathanprakashselvam@gmail.com seeded successfully.")
-
         # Seed reference historical AppleSupport threads idempotently
         embedder = get_embedding_service()
         sample_threads = [
