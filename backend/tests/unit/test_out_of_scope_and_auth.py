@@ -1,0 +1,136 @@
+import pytest
+from app.agent.classifier import IntentClassifier
+from app.agent.drafter import ReplyDrafter
+from app.agent.escalation import EscalationEngine
+from app.agent.pipeline import AgentPipeline
+from app.llm.providers.mock import MockProvider
+from app.schemas.inference import RetrievedThreadItem
+
+
+@pytest.fixture
+def mock_provider():
+    return MockProvider()
+
+
+@pytest.fixture
+def escalation_engine():
+    return EscalationEngine()
+
+
+@pytest.fixture
+def pipeline(mock_provider):
+    return AgentPipeline(provider=mock_provider)
+
+
+@pytest.mark.asyncio
+async def test_out_of_scope_produce_query(pipeline):
+    """Test that 'apple 1 kg how much?' is classified as out_of_scope and does NOT mention battery or apps."""
+    res = await pipeline.run("apple 1 kg how much?")
+    assert res.intent.intent == "out_of_scope"
+    assert "battery" not in res.draft.reply.lower()
+    assert "settings > battery" not in res.draft.reply.lower()
+    assert "produce" in res.draft.reply.lower() or "grocery" in res.draft.reply.lower() or "apple ecosystem" in res.draft.reply.lower()
+    assert res.escalation.decision == "escalate"
+    assert any("HITL" in reason or "out of scope" in reason.lower() for reason in res.escalation.reasons)
+
+
+@pytest.mark.asyncio
+async def test_out_of_scope_cost_inquiry(pipeline):
+    """Test that 'why apple products are costly in indai' drafts polite ecosystem guidance and not battery."""
+    res = await pipeline.run("why apple products are costly in indai")
+    assert res.intent.intent == "out_of_scope"
+    assert "battery" not in res.draft.reply.lower()
+    assert "apple.com" in res.draft.reply.lower() or "ecosystem" in res.draft.reply.lower()
+    assert res.escalation.decision == "escalate"
+
+
+@pytest.mark.asyncio
+async def test_out_of_scope_marriage_query(pipeline):
+    """Test that personal query 'my wife not talking to me' does not draft charging advice."""
+    res = await pipeline.run("my wife not talking to me")
+    assert res.intent.intent == "out_of_scope"
+    assert "charging port" not in res.draft.reply.lower()
+    assert "cable" not in res.draft.reply.lower()
+    assert "personal" in res.draft.reply.lower() or "ecosystem" in res.draft.reply.lower()
+    assert res.escalation.decision == "escalate"
+
+
+def test_rag_similarity_below_60_triggers_hitl(escalation_engine):
+    """Test that top RAG similarity < 0.60 forces HITL approval."""
+    decision = escalation_engine.decide(
+        customer_message="My iPhone is having an unusual screen issue.",
+        intent="display_screen",
+        intent_confidence=0.85,
+        draft_confidence=0.85,
+        has_similar_history=True,
+        rag_similarity=0.45,  # 45% < 60%
+    )
+    assert decision.decision == "escalate"
+    assert any("below 60% threshold" in r for r in decision.reasons)
+
+
+@pytest.mark.asyncio
+async def test_touch_screen_not_working_query(pipeline, mock_provider):
+    """Test that '@AppleSupport touch screen not working ' is classified as display_screen and NOT charging."""
+    res = await pipeline.run("@AppleSupport touch screen not working ")
+    assert res.intent.intent == "display_screen"
+    assert "charging port" not in res.draft.reply.lower()
+    assert "cable" not in res.draft.reply.lower()
+    # Without RAG database, it must escalate to HITL and provide polite ecosystem request
+    assert res.escalation.decision == "escalate"
+    assert "apple devices and ecosystem services" in res.draft.reply.lower() or "details" in res.draft.reply.lower()
+
+    # When grounded RAG context is available (>= 60%), drafter produces display troubleshooting
+    drafter = ReplyDrafter(provider=mock_provider)
+    grounded_threads = [
+        RetrievedThreadItem(
+            thread_id="seed-109",
+            similarity=0.88,
+            customer_msg="My iPhone touch screen is not working",
+            brand_reply="Try a force restart for unresponsive touch screen.",
+            intent_label="display_screen",
+        )
+    ]
+    draft, _, _, _ = await drafter.draft(
+        customer_message="@AppleSupport touch screen not working ",
+        intent="display_screen",
+        retrieved_threads=grounded_threads,
+    )
+    assert "force restart" in draft.reply.lower() or "display" in draft.reply.lower() or "touch screen" in draft.reply.lower()
+    assert "charging port" not in draft.reply.lower()
+
+
+
+@pytest.mark.asyncio
+async def test_apk_download_query(pipeline):
+    """Test that 'I can't download APK in my iphone x' clarifies App Store / APK incompatibility."""
+    res = await pipeline.run("I can't download APK in my iphone x")
+    assert res.intent.intent == "out_of_scope"
+    assert "charging port" not in res.draft.reply.lower()
+    assert "apk" in res.draft.reply.lower()
+    assert "app store" in res.draft.reply.lower()
+    assert res.escalation.decision == "escalate"
+
+
+@pytest.mark.asyncio
+async def test_low_rag_match_draft_polite_reply(mock_provider):
+    """Test that low RAG similarity (< 60%) produces a polite Apple ecosystem inquiry."""
+    drafter = ReplyDrafter(provider=mock_provider)
+    low_rag_threads = [
+        RetrievedThreadItem(
+            thread_id="test-1",
+            similarity=0.42,  # < 0.60
+            customer_msg="Unrelated issue",
+            brand_reply="Try something else",
+            intent_label="general",
+        )
+    ]
+    draft, _, _, _ = await drafter.draft(
+        customer_message="Unrecognized problem with device",
+        intent="display_screen",
+        retrieved_threads=low_rag_threads,
+    )
+    assert "apple devices and ecosystem services" in draft.reply.lower() or "details" in draft.reply.lower()
+    assert draft.confidence == 0.80
+
+

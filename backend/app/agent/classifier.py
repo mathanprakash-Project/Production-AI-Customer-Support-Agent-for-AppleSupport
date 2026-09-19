@@ -15,8 +15,8 @@ logger = logging.getLogger(__name__)
 DEFAULT_TAXONOMY: List[Dict[str, Any]] = [
     {
         "label": "battery_performance",
-        "description": "Rapid battery percentage drop, overheating phone, battery health degradation warnings.",
-        "examples": ["battery dying in 3 hours", "phone super hot and losing charge", "battery health 75%"],
+        "description": "Rapid battery percentage drop, battery draining fast, overheating phone, battery health degradation warnings.",
+        "examples": ["battery dying in 3 hours", "battery draining fast from 100% to 20%", "phone super hot and losing charge", "battery health 75%"],
     },
     {
         "label": "charging_issues",
@@ -78,6 +78,17 @@ DEFAULT_TAXONOMY: List[Dict[str, Any]] = [
         "description": "Locating lost or stolen EarPods, AirPods, iPhone, iPad, or Mac using Find My app or iCloud.com.",
         "examples": ["my EarPods i lost i need to find", "lost my right AirPod in park", "how to track lost iPhone with Find My"],
     },
+    {
+        "label": "out_of_scope",
+        "description": "General non-technical questions, regional pricing/tax inquiries, personal matters, grocery/produce questions, or non-Apple hardware.",
+        "examples": [
+            "why apple products are costly in indai",
+            "apple 1 kg how much?",
+            "my wife not talking to me",
+            "what is the weather today",
+            "my Samsung Galaxy screen is broken",
+        ],
+    },
 ]
 
 V1_TO_V2_INTENT_MAP: Dict[str, str] = {
@@ -92,7 +103,8 @@ V1_TO_V2_INTENT_MAP: Dict[str, str] = {
     "mac_performance_macos": "performance_speed",
     "app_store_downloads": "app_crashes",
     "watch_fitness_sync": "audio_speaker_mic",
-    "other_inquiry": "display_screen",
+    "other_inquiry": "out_of_scope",
+    "out_of_scope": "out_of_scope",
     "lost_device_find_my": "lost_device_find_my",
 }
 
@@ -120,9 +132,9 @@ class IntentClassifier:
         )
 
         safe_default = IntentClassificationSchema(
-            intent="other_inquiry",
+            intent="out_of_scope",
             confidence=0.50,
-            reasoning="Fallback default classification due to extraction error.",
+            reasoning="Fallback default classification due to extraction error or non-Apple inquiry.",
             alternatives=[],
         )
 

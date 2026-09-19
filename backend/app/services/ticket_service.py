@@ -35,3 +35,6 @@ class TicketService:
     async def update_status(self, ticket_id: str, new_status: str) -> Optional[Ticket]:
         return await self.repo.update_status(ticket_id, new_status)
 
+    async def delete_ticket(self, ticket_id: str) -> bool:
+        return await self.repo.delete(ticket_id)
+

@@ -3,6 +3,7 @@ RAG-grounded Reply Drafter using historical brand resolutions.
 """
 
 import logging
+import re
 from typing import List, Optional, Tuple
 from app.llm.base import LLMProvider
 from app.prompts.registry import prompt_registry
@@ -39,6 +40,54 @@ class ReplyDrafter:
             "pixel", "android", "playstation", "ps4", "ps5", "xbox", "nintendo",
             "dell", "lenovo", "thinkpad", "surface pro", "hp laptop", "windows 10", "windows 11"
         ]
+        produce_terms = ["1 kg", "per kg", "how much for apple", "fruit", "grocery", "produce", "kilo"]
+        cost_terms = ["costly in indai", "costly in india", "why apple products are costly", "costly", "expensive"]
+        personal_terms = ["my wife", "husband", "girlfriend", "boyfriend", "not talking to me", "weather"]
+
+        if re.search(r"\b(apk|apks|sideload|sideloading)\b", lower_msg):
+            return (
+                DraftReplySchema(
+                    reply="Thanks for reaching out to @AppleSupport! iPhone and iOS devices only support applications downloaded directly from the official Apple App Store and do not support Android APK installation packages. If you need assistance finding an app in the App Store, please let us know!",
+                    confidence=0.95,
+                    grounded_thread_ids=[],
+                    reasoning="Inquiry regarding Android APK on iOS. Provided polite App Store clarification.",
+                ),
+                1, 0, 0,
+            )
+
+        if any(term in lower_msg for term in produce_terms):
+            return (
+                DraftReplySchema(
+                    reply="Thanks for reaching out to @AppleSupport! We provide official technical support for the Apple ecosystem (iPhone, iPad, Mac, Apple Watch). We do not sell or provide pricing for fresh produce or grocery items. Let us know if you need assistance with an Apple product!",
+                    confidence=0.98,
+                    grounded_thread_ids=[],
+                    reasoning="Detected produce/grocery inquiry. Provided polite Apple ecosystem clarification.",
+                ),
+                1, 0, 0,
+            )
+
+        if any(term in lower_msg for term in cost_terms):
+            return (
+                DraftReplySchema(
+                    reply="Thanks for reaching out to @AppleSupport! We are dedicated to technical troubleshooting across the Apple ecosystem. For questions regarding product pricing, regional taxes, or purchasing options in India, please visit https://www.apple.com/in or check with an authorized Apple retailer. If you need technical support for your Apple devices, let us know how we can assist!",
+                    confidence=0.95,
+                    grounded_thread_ids=[],
+                    reasoning="Detected pricing/regional cost inquiry. Provided official Apple India store guidance and technical support offer.",
+                ),
+                1, 0, 0,
+            )
+
+        if any(term in lower_msg for term in personal_terms):
+            return (
+                DraftReplySchema(
+                    reply="Thanks for reaching out to @AppleSupport! Our team is dedicated to technical support for the Apple ecosystem. We are unable to assist with personal inquiries, but please let us know if you ever need technical help with any of your Apple devices or services!",
+                    confidence=0.98,
+                    grounded_thread_ids=[],
+                    reasoning="Detected personal / off-topic inquiry. Provided polite Apple ecosystem support offer.",
+                ),
+                1, 0, 0,
+            )
+
         if any(term in lower_msg for term in non_apple_terms):
             out_of_scope_draft = DraftReplySchema(
                 reply="Thanks for reaching out to @AppleSupport! We only provide technical support for Apple hardware and software. For assistance with your device, please reach out to the manufacturer's official customer care team.",
@@ -47,6 +96,16 @@ class ReplyDrafter:
                 reasoning="Detected out-of-scope / non-Apple device inquiry. Provided polite manufacturer deflection.",
             )
             return (out_of_scope_draft, 1, 0, 0)
+
+        max_sim = max([t.similarity for t in retrieved_threads], default=0.0)
+        if intent == "out_of_scope" or not retrieved_threads or max_sim < 0.60:
+            no_rag_draft = DraftReplySchema(
+                reply="Thanks for reaching out to @AppleSupport! We are here to help with your Apple devices and ecosystem services. Could you please share more details about your Apple device model or inquiry so we can assist?",
+                confidence=0.80,
+                grounded_thread_ids=[],
+                reasoning="No historical RAG matches found or RAG similarity < 60%. Provided polite Apple ecosystem inquiry response.",
+            )
+            return (no_rag_draft, 1, 0, 0)
 
         prompt = prompt_registry.render(
             "drafter",
@@ -57,7 +116,7 @@ class ReplyDrafter:
         )
 
         safe_default = DraftReplySchema(
-            reply="Thanks for contacting @AppleSupport! We are here to help. Could you share your device model and iOS version so we can assist further?",
+            reply="Thanks for contacting @AppleSupport! We are here to help with your Apple ecosystem devices and services. Could you share your device model and iOS version so we can assist further?",
             confidence=0.60,
             grounded_thread_ids=[],
             reasoning="Safe default fallback response.",

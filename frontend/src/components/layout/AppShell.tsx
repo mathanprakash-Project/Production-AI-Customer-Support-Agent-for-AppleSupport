@@ -13,6 +13,7 @@ import {
   Shield,
   UserCheck,
   Twitter,
+  Users,
 } from 'lucide-react';
 import { useAuthStore } from '../../stores/authStore';
 import { useTheme } from '../../context/ThemeContext';
@@ -28,6 +29,8 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   const { theme, toggleTheme } = useTheme();
 
   const isAdmin = user?.role === 'admin';
+  const isManager = user?.role === 'manager' || user?.email?.toLowerCase() === 'mathanprakashselvam@gmail.com';
+  const canMonitorUsers = isAdmin || isManager;
 
   const handleLogout = () => {
     logout();
@@ -43,6 +46,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
     { label: 'Knowledge Base', path: '/knowledge', icon: BookOpen },
     { label: 'Evaluation Benchmark', path: '/eval', icon: ShieldCheck, adminOnly: true },
     { label: 'Intent Taxonomy', path: '/intents', icon: Sparkles },
+    { label: 'User Monitoring', path: '/users', icon: Users, privilegedOnly: true },
     { label: 'System & Rules', path: '/settings', icon: Settings, adminOnly: true },
   ];
 
@@ -124,7 +128,10 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
               )}
             </div>
             <nav className="space-y-1">
-              {governanceNav.map((item) => {
+              {governanceNav.map((item: any) => {
+                if (item.adminOnly && !isAdmin) return null;
+                if (item.privilegedOnly && !canMonitorUsers) return null;
+
                 const Icon = item.icon;
                 const isActive = location.pathname.startsWith(item.path);
                 return (
@@ -142,12 +149,13 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
                       <span>{item.label}</span>
                     </div>
                     {item.adminOnly && (
-                      <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold border ${
-                        isAdmin
-                          ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20'
-                          : 'bg-slate-100 dark:bg-neutral-800 text-slate-400 dark:text-neutral-500 border-transparent'
-                      }`}>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full font-bold border bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20">
                         Admin
+                      </span>
+                    )}
+                    {item.privilegedOnly && (
+                      <span className="text-[10px] px-2 py-0.5 rounded-full font-bold border bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20">
+                        Lead
                       </span>
                     )}
                   </Link>
@@ -162,20 +170,26 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3 overflow-hidden">
               <div className={`h-9 w-9 rounded-full flex items-center justify-center text-xs font-bold text-white shadow-sm flex-shrink-0 ${
-                isAdmin ? 'bg-purple-600' : 'bg-sky-600'
+                isManager ? 'bg-amber-600' : isAdmin ? 'bg-purple-600' : 'bg-sky-600'
               }`}>
                 {isAdmin ? <Shield className="h-4 w-4" /> : <UserCheck className="h-4 w-4" />}
               </div>
               <div className="truncate">
                 <p className="text-xs font-bold text-slate-900 dark:text-white truncate">
-                  {user?.full_name || (isAdmin ? 'Operations Admin' : 'Support Agent')}
+                  {user?.full_name || (isManager ? 'Manager-Users' : isAdmin ? 'Operations Admin' : 'Support Agent')}
                 </p>
                 <div className="flex items-center space-x-1.5 mt-0.5">
-                  <span className={`inline-block w-1.5 h-1.5 rounded-full ${isAdmin ? 'bg-purple-500' : 'bg-emerald-500'}`} />
+                  <span className={`inline-block w-1.5 h-1.5 rounded-full ${
+                    isManager ? 'bg-amber-500' : isAdmin ? 'bg-purple-500' : 'bg-emerald-500'
+                  }`} />
                   <span className={`text-[10px] font-bold tracking-tight uppercase ${
-                    isAdmin ? 'text-purple-600 dark:text-purple-400' : 'text-emerald-600 dark:text-emerald-400'
+                    isManager
+                      ? 'text-amber-600 dark:text-amber-400'
+                      : isAdmin
+                      ? 'text-purple-600 dark:text-purple-400'
+                      : 'text-emerald-600 dark:text-emerald-400'
                   }`}>
-                    {isAdmin ? 'Operations Lead' : 'Tier-1 Agent'}
+                    {isManager ? 'Manager-Users' : isAdmin ? 'Operations Lead' : 'Tier-1 Agent'}
                   </span>
                 </div>
               </div>

@@ -9,6 +9,21 @@ rules:
     threshold: 0.60
     severity: 0.35
 
+  - id: "low_rag_similarity"
+    name: "Low RAG Grounding Similarity (< 60%)"
+    description: "Route to Human-in-the-Loop (HITL) approval when top RAG similarity is below 60%"
+    enabled: true
+    threshold: 0.60
+    severity: 0.70
+
+  - id: "out_of_scope_inquiry"
+    name: "Out of Scope / Non-Apple Inquiry"
+    description: "Inquiries unrelated to Apple technical support (e.g. personal, fruit produce, regional cost, competitor hardware)"
+    enabled: true
+    severity: 0.75
+    intents:
+      - "out_of_scope"
+
   - id: "low_draft_confidence"
     name: "Low Draft Confidence"
     description: "Escalate when reply drafter confidence is low"

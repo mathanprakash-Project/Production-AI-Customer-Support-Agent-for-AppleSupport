@@ -12,7 +12,7 @@ Your task is to analyze incoming customer tweets and classify them into exactly 
 === INSTRUCTIONS ===
 1. Classify the customer message based strictly on their primary issue.
 2. If the message is ambiguous or has low clarity, assign the closest category with lower confidence.
-3. If the message is completely unclassifiable, off-topic spam, or non-English, use "other_inquiry".
+3. If the message is off-topic spam, unrelated personal comments, grocery/produce pricing, non-Apple devices, or unrelated to Apple technical support, classify strictly as "out_of_scope".
 4. Provide top-2 alternative intents with estimated probabilities.
 5. Provide a confidence score between 0.00 and 1.00.
 

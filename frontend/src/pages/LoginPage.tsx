@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Twitter, Lock, Mail, User as UserIcon, ArrowRight, Sun, Moon, Shield } from 'lucide-react';
+import { Twitter, Lock, Mail, User as UserIcon, ArrowRight, Sun, Moon, Shield, KeyRound, UserCheck } from 'lucide-react';
 import { api } from '../services/apiClient';
 import { useAuthStore } from '../stores/authStore';
 import { useTheme } from '../context/ThemeContext';
@@ -14,7 +14,8 @@ export const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
-  const [role, setRole] = useState<'agent' | 'admin'>('agent');
+  const [role, setRole] = useState<'agent' | 'admin' | 'manager'>('agent');
+  const [securityAnswer, setSecurityAnswer] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -31,10 +32,11 @@ export const LoginPage: React.FC = () => {
         setAuth(data.access_token, data.user);
         navigate('/inbox');
       } else {
-        await api.register(email, password, fullName || 'Support Agent', role);
+        await api.register(email, password, fullName || 'Support Agent', role, securityAnswer);
         setSuccess('Account created successfully! Please sign in with your credentials.');
         setMode('login');
         setPassword('');
+        setSecurityAnswer('');
       }
     } catch (err: any) {
       setError(
@@ -161,33 +163,70 @@ export const LoginPage: React.FC = () => {
                   <label className="block text-[11px] font-bold text-slate-500 dark:text-neutral-400 uppercase tracking-wider mb-1.5">
                     Workspace Role
                   </label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-3 gap-2">
                     <button
                       type="button"
                       onClick={() => setRole('agent')}
-                      className={`p-2.5 rounded-xl border text-xs font-bold flex items-center justify-center space-x-2 transition ${
+                      className={`p-2 rounded-xl border text-xs font-bold flex flex-col items-center justify-center space-y-1 transition ${
                         role === 'agent'
                           ? 'border-sky-500 bg-sky-500/10 text-sky-600 dark:text-sky-400'
                           : 'border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400'
                       }`}
                     >
-                      <UserIcon className="h-3.5 w-3.5" />
+                      <UserIcon className="h-4 w-4" />
                       <span>Support Agent</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => setRole('admin')}
-                      className={`p-2.5 rounded-xl border text-xs font-bold flex items-center justify-center space-x-2 transition ${
+                      className={`p-2 rounded-xl border text-xs font-bold flex flex-col items-center justify-center space-y-1 transition ${
                         role === 'admin'
                           ? 'border-purple-500 bg-purple-500/10 text-purple-600 dark:text-purple-400'
                           : 'border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400'
                       }`}
                     >
-                      <Shield className="h-3.5 w-3.5" />
+                      <Shield className="h-4 w-4" />
                       <span>Operations Lead</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setRole('manager')}
+                      className={`p-2 rounded-xl border text-xs font-bold flex flex-col items-center justify-center space-y-1 transition ${
+                        role === 'manager'
+                          ? 'border-amber-500 bg-amber-500/10 text-amber-600 dark:text-amber-400'
+                          : 'border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400'
+                      }`}
+                    >
+                      <UserCheck className="h-4 w-4" />
+                      <span>Manager-Users</span>
                     </button>
                   </div>
                 </div>
+
+                {(role === 'admin' || role === 'manager') && (
+                  <div className="p-3.5 bg-amber-500/10 border border-amber-500/20 rounded-xl space-y-2 animate-in fade-in duration-200">
+                    <div className="flex items-center space-x-1.5 text-amber-600 dark:text-amber-400">
+                      <KeyRound className="h-4 w-4" />
+                      <span className="text-[11px] font-bold uppercase tracking-wider">
+                        Security Verification Required
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-amber-700 dark:text-amber-300 leading-snug">
+                      Security Question: What is the Administrator Verification Passphrase?
+                    </p>
+                    <div className="relative">
+                      <Lock className="absolute left-3.5 top-2.5 h-4 w-4 text-amber-500" />
+                      <input
+                        type="password"
+                        value={securityAnswer}
+                        onChange={(e) => setSecurityAnswer(e.target.value)}
+                        required
+                        className="w-full pl-10 pr-3.5 py-2 text-xs bg-white dark:bg-black border border-amber-500/30 rounded-lg text-slate-900 dark:text-neutral-100 placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                        placeholder="Enter secret answer (e.g. Tweetsupportadmin123)"
+                      />
+                    </div>
+                  </div>
+                )}
               </>
             )}
 

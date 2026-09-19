@@ -214,6 +214,7 @@ export const KnowledgeBasePage: React.FC = () => {
             <option value="performance_speed">Performance & Speed</option>
             <option value="purchase_refund_billing">Purchase / Refund / Billing</option>
             <option value="lost_device_find_my">Lost Device / Find My</option>
+            <option value="out_of_scope">Out of Scope / Non-Apple</option>
           </select>
         </div>
       </div>

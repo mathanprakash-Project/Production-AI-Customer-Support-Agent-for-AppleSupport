@@ -56,8 +56,30 @@ export const api = {
     return res.data;
   },
 
-  async register(email: string, password: string, full_name = 'Support Agent', role = 'agent'): Promise<{ access_token: string; user: User }> {
-    const res = await apiClient.post('/auth/register', { email, password, full_name, role });
+  async register(
+    email: string,
+    password: string,
+    full_name = 'Support Agent',
+    role = 'agent',
+    security_answer?: string
+  ): Promise<{ access_token: string; user: User }> {
+    const res = await apiClient.post('/auth/register', {
+      email,
+      password,
+      full_name,
+      role,
+      security_answer,
+    });
+    return res.data;
+  },
+
+  async getUsers(): Promise<User[]> {
+    const res = await apiClient.get('/auth/users');
+    return res.data;
+  },
+
+  async deleteUser(userId: string): Promise<{ message: string }> {
+    const res = await apiClient.delete(`/auth/users/${userId}`);
     return res.data;
   },
 
@@ -76,6 +98,11 @@ export const api = {
 
   async createTicket(customer_text: string, tweet_author = '@customer'): Promise<Ticket> {
     const res = await apiClient.post('/tickets', { customer_text, tweet_author });
+    return res.data;
+  },
+
+  async deleteTicket(ticketId: string): Promise<{ message: string }> {
+    const res = await apiClient.delete(`/tickets/${ticketId}`);
     return res.data;
   },
 

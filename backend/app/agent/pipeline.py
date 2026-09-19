@@ -67,36 +67,46 @@ class AgentPipeline:
         classification_ms = int((time.time() - t1) * 1000)
 
         # ==========================================
-        # STAGE 2: ESCALATION ENGINE (Pre-Draft Check)
+        # STAGE 2: SEMANTIC RAG RETRIEVAL
         # ==========================================
         t2 = time.time()
+        if intent_result.intent == "out_of_scope":
+            retrieved_threads = []
+        else:
+            retrieved_threads = await self.retriever.retrieve(
+                query=customer_message,
+                top_k=top_k,
+                filter_dm=True,
+                intent_filter=intent_result.intent,
+            )
+        retrieval_ms = int((time.time() - t2) * 1000)
+
+        max_rag_similarity = max([t.similarity for t in retrieved_threads], default=0.0)
+        has_history = len(retrieved_threads) > 0
+
+        # ==========================================
+        # STAGE 3: ESCALATION ENGINE (Grounding & Safety Check)
+        # ==========================================
+        t3 = time.time()
         escalation_result = self.escalation.decide(
             customer_message=customer_message,
             intent=intent_result.intent,
             intent_confidence=intent_result.confidence,
             draft_confidence=0.8,
-            has_similar_history=True,
+            has_similar_history=has_history,
+            rag_similarity=max_rag_similarity,
         )
-        escalation_ms = int((time.time() - t2) * 1000)
-
-        # ==========================================
-        # STAGE 3: SEMANTIC RAG RETRIEVAL
-        # ==========================================
-        t3 = time.time()
-        retrieved_threads = await self.retriever.retrieve(
-            query=customer_message,
-            top_k=top_k,
-            filter_dm=True,
-            intent_filter=intent_result.intent,
-        )
-        retrieval_ms = int((time.time() - t3) * 1000)
+        escalation_ms = int((time.time() - t3) * 1000)
 
         # ==========================================
         # STAGE 4: RESPONSE DRAFTING
         # ==========================================
         t4 = time.time()
-        if escalation_result.decision == "escalate":
-            # For escalated tickets, draft an empathetic holding response
+        # If escalated due to out-of-scope or low RAG grounding, generate polite ecosystem deflection
+        is_grounding_or_scope_escalation = intent_result.intent == "out_of_scope" or not has_history or (max_rag_similarity < 0.60)
+        
+        if escalation_result.decision == "escalate" and not is_grounding_or_scope_escalation:
+            # For security, PII, or legal escalations, draft an empathetic holding response
             draft_result = DraftReplySchema(
                 reply="We've received your request and an Apple specialist will assist you shortly to verify your details securely.",
                 confidence=0.60,

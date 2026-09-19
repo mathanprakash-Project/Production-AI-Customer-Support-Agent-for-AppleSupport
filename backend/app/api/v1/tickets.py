@@ -84,3 +84,24 @@ async def submit_feedback(
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+
+@router.delete("/{ticket_id}", status_code=status.HTTP_200_OK)
+async def delete_ticket(
+    ticket_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Delete a ticket (restricted to mathanprakashselvam@gmail.com or manager role)."""
+    is_super = current_user.email.lower() == "mathanprakashselvam@gmail.com" or current_user.role == "manager"
+    if not is_super:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only the designated administrator (mathanprakashselvam@gmail.com) has permission to delete tickets.",
+        )
+    service = TicketService(db)
+    success = await service.delete_ticket(ticket_id)
+    if not success:
+        raise HTTPException(status_code=404, detail=f"Ticket '{ticket_id}' not found.")
+    await db.commit()
+    return {"message": f"Ticket '{ticket_id}' successfully deleted."}
+

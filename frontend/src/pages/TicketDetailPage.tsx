@@ -21,8 +21,10 @@ import {
   Share2,
   BadgeCheck,
   Twitter,
+  Trash2,
 } from 'lucide-react';
 import { api } from '../services/apiClient';
+import { useAuthStore } from '../stores/authStore';
 import { InferenceResponse, Ticket } from '../types';
 import { FormattedTweet } from '../components/common/FormattedTweet';
 
@@ -30,6 +32,7 @@ export const TicketDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
+  const { user: currentUser } = useAuthStore();
   const [activeTab, setActiveTab] = useState<'cockpit' | 'twitter'>('cockpit');
   const [ticket, setTicket] = useState<Ticket | null>(null);
   const [inference, setInference] = useState<InferenceResponse | null>(null);
@@ -39,6 +42,27 @@ export const TicketDetailPage: React.FC = () => {
   const [replyText, setReplyText] = useState('');
   const [actionSuccess, setActionSuccess] = useState<string | null>(null);
   const [submittingAction, setSubmittingAction] = useState(false);
+  const [deletingTicket, setDeletingTicket] = useState(false);
+
+  const canDeleteTicket =
+    currentUser?.email?.toLowerCase() === 'mathanprakashselvam@gmail.com' ||
+    currentUser?.role === 'manager';
+
+  const handleDeleteTicket = async () => {
+    if (!id) return;
+    if (!window.confirm('Are you sure you want to permanently delete this ticket? This action cannot be undone.')) {
+      return;
+    }
+    setDeletingTicket(true);
+    try {
+      await api.deleteTicket(id);
+      setActionSuccess('Ticket deleted successfully.');
+      setTimeout(() => navigate('/inbox'), 700);
+    } catch (err: any) {
+      alert(err?.response?.data?.detail || 'Failed to delete ticket.');
+      setDeletingTicket(false);
+    }
+  };
 
   const fetchTicketAndInference = async (refreshInference = false) => {
     if (!id) return;
@@ -197,6 +221,18 @@ export const TicketDetailPage: React.FC = () => {
             <RotateCw className={`h-3.5 w-3.5 ${inferring ? 'animate-spin text-sky-500' : ''}`} />
             <span>Re-run AI</span>
           </button>
+
+          {canDeleteTicket && (
+            <button
+              onClick={handleDeleteTicket}
+              disabled={deletingTicket}
+              className="inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-bold text-rose-600 dark:text-rose-400 bg-rose-500/10 hover:bg-rose-500/20 rounded-full border border-rose-500/20 transition"
+              title="Permanently delete ticket"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+              <span>{deletingTicket ? 'Deleting...' : 'Delete Ticket'}</span>
+            </button>
+          )}
         </div>
       </header>
 

@@ -90,67 +90,89 @@ async def init_db(target_engine=None, target_factory=None):
             await session.commit()
             logger.info("Default users created: admin@tweetsupport.local and agent@tweetsupport.local")
 
-        # Check if seed threads exist
-        thread_check = await session.execute(select(Thread).limit(1))
-        if not thread_check.scalars().first():
-            logger.info("Seeding reference historical AppleSupport threads...")
-            embedder = get_embedding_service()
-            
-            sample_threads = [
-                (
-                    "seed-101",
-                    "My iPhone 13 won't charge with any cable. Port seems clean but completely dead.",
-                    "We'd love to help get your iPhone charging again. Try restarting your phone and testing with an Apple-certified Lightning cable and wall outlet. If it persists, inspect port carefully under light.",
-                    "iphone_wont_charge",
-                ),
-                (
-                    "seed-102",
-                    "Battery draining super fast after the latest iOS update! 100% to 20% in 2 hours.",
-                    "We can help with your battery. Immediately after an iOS update, background re-indexing can temporarily impact battery. Check Settings > Battery to see which apps are consuming power.",
-                    "battery_drain",
-                ),
-                (
-                    "seed-103",
-                    "I am locked out of my Apple ID and cannot remember security questions or password.",
-                    "We understand how important account access is. You can safely reset your password and begin account recovery at https://iforgot.apple.com from any trusted browser.",
-                    "apple_id_account_access",
-                ),
-                (
-                    "seed-104",
-                    "iOS 17 update keeps failing with 'An error occurred downloading iOS'. Plenty of storage.",
-                    "Let's get this resolved. Delete the downloaded update file from Settings > General > iPhone Storage, restart your device, and try downloading again over a strong Wi-Fi network.",
-                    "ios_update_issue",
-                ),
-                (
-                    "seed-105",
-                    "Left AirPod has no sound at all. Right one works fine.",
-                    "We're here to help with your AirPods. Place both in the charging case, close the lid for 30 seconds, then hold the setup button on the back for 15 seconds to reset.",
-                    "airpods_sound_connectivity",
-                ),
-                (
-                    "seed-106",
-                    "Accidentally cracked my iPhone screen while running. Can I get a free replacement?",
-                    "Accidental physical damage is not covered under Apple's standard limited warranty. You can check repair options and AppleCare+ incident fees at support.apple.com/repair.",
-                    "hardware_damage_repair",
-                ),
-                (
-                    "seed-107",
-                    "Unauthorized charge of $9.99 from Apple.com/bill on my credit card statement!",
-                    "We take billing inquiries seriously. You can view all active subscriptions and purchase history at reportaproblem.apple.com to identify or request a refund for the charge.",
-                    "purchase_refund_billing",
-                ),
-                (
-                    "seed-108",
-                    "my EarPods i lost i need to find give me a idea for it",
-                    "You can locate your lost EarPods or AirPods using the Find My app on your iPhone or at icloud.com/find. Select your EarPods under Devices to view their location or play a sound.",
-                    "lost_device_find_my",
-                ),
-            ]
+        # Ensure Manager-Users account exists idempotently
+        mgr_check = await session.execute(select(User).where(User.email == "mathanprakashselvam@gmail.com"))
+        if not mgr_check.scalars().first():
+            mgr = User(
+                email="mathanprakashselvam@gmail.com",
+                password_hash=get_password_hash("Tweetsupportadmin123"),
+                full_name="Manager-Users",
+                role="manager",
+            )
+            session.add(mgr)
+            await session.commit()
+            logger.info("Manager user mathanprakashselvam@gmail.com seeded successfully.")
 
-            threads_to_add = []
-            for tid, cust, brand, intent in sample_threads:
+        # Seed reference historical AppleSupport threads idempotently
+        embedder = get_embedding_service()
+        sample_threads = [
+            (
+                "seed-101",
+                "My iPhone 13 won't charge with any cable. Port seems clean but completely dead.",
+                "We'd love to help get your iPhone charging again. Try restarting your phone and testing with an Apple-certified Lightning cable and wall outlet. If it persists, inspect port carefully under light.",
+                "charging_issues",
+            ),
+            (
+                "seed-102",
+                "Battery draining super fast after the latest iOS update! 100% to 20% in 2 hours.",
+                "We can help with your battery. Immediately after an iOS update, background re-indexing can temporarily impact battery. Check Settings > Battery to see which apps are consuming power.",
+                "battery_performance",
+            ),
+            (
+                "seed-103",
+                "I am locked out of my Apple ID and cannot remember security questions or password.",
+                "We understand how important account access is. You can safely reset your password and begin account recovery at https://iforgot.apple.com from any trusted browser.",
+                "apple_id_account",
+            ),
+            (
+                "seed-104",
+                "iOS 17 update keeps failing with 'An error occurred downloading iOS'. Plenty of storage.",
+                "Let's get this resolved. Delete the downloaded update file from Settings > General > iPhone Storage, restart your device, and try downloading again over a strong Wi-Fi network.",
+                "ios_update_bugs",
+            ),
+            (
+                "seed-105",
+                "Left AirPod has no sound at all. Right one works fine.",
+                "We're here to help with your AirPods. Place both in the charging case, close the lid for 30 seconds, then hold the setup button on the back for 15 seconds to reset.",
+                "audio_speaker_mic",
+            ),
+            (
+                "seed-106",
+                "Accidentally cracked my iPhone screen while running. Can I get a free replacement?",
+                "Accidental physical damage is not covered under Apple's standard limited warranty. You can check repair options and AppleCare+ incident fees at support.apple.com/repair.",
+                "hardware_damage",
+            ),
+            (
+                "seed-107",
+                "Unauthorized charge of $9.99 from Apple.com/bill on my credit card statement!",
+                "We take billing inquiries seriously. You can view all active subscriptions and purchase history at reportaproblem.apple.com to identify or request a refund for the charge.",
+                "purchase_refund_billing",
+            ),
+            (
+                "seed-108",
+                "my EarPods i lost i need to find give me a idea for it",
+                "You can locate your lost EarPods or AirPods using the Find My app on your iPhone or at icloud.com/find. Select your EarPods under Devices to view their location or play a sound.",
+                "lost_device_find_my",
+            ),
+            (
+                "seed-109",
+                "My iPhone touch screen is not working or responding to touch at all.",
+                "If your iPhone touch screen is unresponsive, please try a force restart (press Volume Up, Volume Down, then hold the Side button until the Apple logo appears). If the issue persists, visit https://support.apple.com to book a service appointment.",
+                "display_screen",
+            ),
+            (
+                "seed-110",
+                "Apps keep crashing or won't download from App Store on my iPhone.",
+                "To resolve app issues, force restart your device, ensure you are connected to Wi-Fi, and check the App Store for updates. Note that iOS only supports apps installed from the official Apple App Store.",
+                "app_crashes",
+            ),
+        ]
+
+        for tid, cust, brand, intent in sample_threads:
+            th_res = await session.execute(select(Thread).where(Thread.tweet_id == tid))
+            if not th_res.scalars().first():
                 vec = embedder.embed_text(cust)
-                threads_to_add.append(
+                session.add(
                     Thread(
                         tweet_id=tid,
                         customer_message=cust,
@@ -163,52 +185,46 @@ async def init_db(target_engine=None, target_factory=None):
                     )
                 )
 
-            session.add_all(threads_to_add)
-
-            # Seed knowledge base entries
-            kb_check = await session.execute(select(KnowledgeEntry).limit(1))
-            if not kb_check.scalars().first():
-                logger.info("Seeding initial KnowledgeBase entries...")
-                kb_entries = []
-                for tid, cust, brand, intent in sample_threads:
-                    vec = embedder.embed_text(cust)
-                    kb_entries.append(
-                        KnowledgeEntry(
-                            source_type="seed_dataset",
-                            customer_message=cust,
-                            resolution_text=brand,
-                            intent=intent,
-                            embedding=vec,
-                            times_retrieved=1,
-                            times_helpful=1,
-                            helpfulness_ratio=1.0,
-                            is_active=True,
-                        )
+        for tid, cust, brand, intent in sample_threads:
+            kb_res = await session.execute(select(KnowledgeEntry).where(KnowledgeEntry.customer_message == cust))
+            if not kb_res.scalars().first():
+                vec = embedder.embed_text(cust)
+                session.add(
+                    KnowledgeEntry(
+                        source_type="seed_dataset",
+                        customer_message=cust,
+                        resolution_text=brand,
+                        intent=intent,
+                        embedding=vec,
+                        times_retrieved=1,
+                        times_helpful=1,
+                        helpfulness_ratio=1.0,
+                        is_active=True,
                     )
-                session.add_all(kb_entries)
+                )
 
-            # Seed default system configuration
-            cfg_check = await session.execute(select(SystemConfig).limit(1))
-            if not cfg_check.scalars().first():
-                logger.info("Seeding default system configuration...")
-                default_configs = [
-                    SystemConfig(
-                        key="escalation_thresholds",
-                        value={"min_intent_confidence": 0.65, "min_draft_confidence": 0.65},
-                        description="Minimum confidence score thresholds before triggering automated escalation.",
-                    ),
-                    SystemConfig(
-                        key="rag_weights",
-                        value={"vector_weight": 0.7, "helpfulness_weight": 0.3},
-                        description="Linear combination weights for pgvector similarity vs agent helpfulness ratio.",
-                    ),
-                    SystemConfig(
-                        key="brand_rules",
-                        value={"max_tweet_chars": 280, "max_dm_chars": 500, "tone": "empathetic"},
-                        description="Brand voice guidelines for response drafting.",
-                    ),
-                ]
-                session.add_all(default_configs)
+        # Seed default system configuration
+        cfg_check = await session.execute(select(SystemConfig).limit(1))
+        if not cfg_check.scalars().first():
+            logger.info("Seeding default system configuration...")
+            default_configs = [
+                SystemConfig(
+                    key="escalation_thresholds",
+                    value={"min_intent_confidence": 0.65, "min_draft_confidence": 0.65},
+                    description="Minimum confidence score thresholds before triggering automated escalation.",
+                ),
+                SystemConfig(
+                    key="rag_weights",
+                    value={"vector_weight": 0.7, "helpfulness_weight": 0.3},
+                    description="Linear combination weights for pgvector similarity vs agent helpfulness ratio.",
+                ),
+                SystemConfig(
+                    key="brand_rules",
+                    value={"max_tweet_chars": 280, "max_dm_chars": 500, "tone": "empathetic"},
+                    description="Brand voice guidelines for response drafting.",
+                ),
+            ]
+            session.add_all(default_configs)
 
             # Seed an initial open ticket for the demo inbox
             demo_ticket = Ticket(

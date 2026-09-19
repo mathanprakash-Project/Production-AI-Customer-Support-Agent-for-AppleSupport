@@ -8,11 +8,12 @@ from pydantic import BaseModel, ConfigDict, Field, SecretStr
 class UserBase(BaseModel):
     email: str = Field(..., min_length=3)
     full_name: str = "Support Agent"
-    role: str = "agent"
+    role: str = "agent"  # 'agent' | 'admin' | 'manager'
 
 
 class UserCreate(UserBase):
     password: SecretStr = Field(..., min_length=6)
+    security_answer: Optional[SecretStr] = None
 
 
 class UserLogin(BaseModel):

@@ -5,6 +5,7 @@ Does not require any external runtime or API keys.
 
 import hashlib
 import json
+import re
 import time
 from typing import AsyncIterator, List, Optional, Type
 from pydantic import BaseModel
@@ -43,59 +44,121 @@ class MockProvider(LLMProvider):
         
         # Isolate customer query from prompt template to avoid matching taxonomy keywords
         lower = prompt.lower()
-        if "=== customer message ===" in lower:
-            target_text = lower.split("=== customer message ===")[-1].split("respond strictly")[0]
+        if "=== incoming customer message ===" in lower:
+            target_text = lower.split("=== incoming customer message ===")[-1].split("respond strictly")[0].replace('"""', '').strip()
+        elif "=== customer message ===" in lower:
+            target_text = lower.split("=== customer message ===")[-1].split("respond strictly")[0].replace('"""', '').strip()
         elif "customer message:" in lower:
-            target_text = lower.split("customer message:")[-1]
+            target_text = lower.split("customer message:")[-1].replace('"""', '').strip()
         elif "customer inquiry:" in lower:
-            target_text = lower.split("customer inquiry:")[-1]
+            target_text = lower.split("customer inquiry:")[-1].replace('"""', '').strip()
         elif "inquiry:" in lower:
-            target_text = lower.split("inquiry:")[-1]
+            target_text = lower.split("inquiry:")[-1].replace('"""', '').strip()
         else:
-            target_text = lower
+            target_text = lower.strip()
 
-        if "lost" in target_text or "find" in target_text or "stolen" in target_text or "locate" in target_text or "find my" in target_text or "earpod" in target_text:
+        # Clean handle and brand names to prevent accidental substring collisions
+        # e.g., "@AppleSupport" contains "port" which would otherwise trigger "charging_issues"!
+        clean_text = re.sub(r"@?applesupport\b", "", target_text)
+        clean_text = re.sub(r"\bapple\b", "", clean_text).strip()
+
+        # Check if the prompt already provides a pre-classified intent (e.g. in drafter prompt)
+        extracted_intent = None
+        if "=== classified intent ===" in lower:
+            raw_intent = lower.split("=== classified intent ===")[-1].split("===")[0].strip()
+            if raw_intent:
+                extracted_intent = raw_intent.split()[0]
+
+        # 1. Out-of-Scope / Non-Apple Inquiries (produce, personal, pricing/cost, competitor hardware, APK)
+        is_apk = bool(re.search(r"\b(apk|apks|sideload|sideloading|android package)\b", target_text))
+        is_produce = any(kw in clean_text for kw in ["1 kg", "per kg", "how much for apple", "fruit", "grocery", "produce", "kilo", "gram", "apple price"])
+        is_personal = any(kw in clean_text for kw in ["my wife", "husband", "girlfriend", "boyfriend", "not talking to me", "weather", "pizza", "football", "recipe"])
+        is_cost_pricing = any(kw in clean_text for kw in ["costly in indai", "costly in india", "costly", "why apple products are costly", "expensive", "tax in india"])
+        is_competitor = any(kw in clean_text for kw in ["samsung", "galaxy", "pixel", "playstation", "xbox", "nintendo", "dell", "lenovo", "thinkpad", "windows 10", "windows 11"])
+
+        # Display and Touch Screen issues
+        is_display_touch = bool(re.search(r"\b(touch|touchscreen|touch screen|unresponsive touch|display|screen|flicker|flickering|green line|black screen)\b", clean_text))
+
+        # Charging issues (strictly bounded, avoiding bare 'port' collision with '@AppleSupport')
+        is_charging = bool(re.search(r"\b(charge|charging|charger|lightning cable|usbc cable|usb-c cable|charging cable|charging port|lightning port|usb-c port)\b", clean_text)) or ("cable" in clean_text and "not" in clean_text)
+
+        if is_apk:
+            intent_label = "out_of_scope"
+            draft_text = "Thanks for reaching out to @AppleSupport! iPhone and iOS devices only support applications downloaded directly from the official Apple App Store and do not support Android APK installation packages. If you need assistance finding an app in the App Store, please let us know!"
+        elif is_produce:
+            intent_label = "out_of_scope"
+            draft_text = "Thanks for reaching out to @AppleSupport! We provide official technical support for the Apple ecosystem (iPhone, iPad, Mac, Apple Watch). We do not sell or provide pricing for fresh produce or grocery items. Let us know if you need assistance with an Apple product!"
+        elif is_cost_pricing:
+            intent_label = "out_of_scope"
+            draft_text = "Thanks for reaching out to @AppleSupport! We are dedicated to technical troubleshooting across the Apple ecosystem. For questions regarding product pricing, regional taxes, or purchasing options in India, please visit https://www.apple.com/in or check with an authorized Apple retailer. If you need technical support for your Apple devices, let us know how we can assist!"
+        elif is_personal:
+            intent_label = "out_of_scope"
+            draft_text = "Thanks for reaching out to @AppleSupport! Our team is dedicated to technical support for the Apple ecosystem. We are unable to assist with personal inquiries, but please let us know if you ever need technical help with any of your Apple devices or services!"
+        elif is_competitor:
+            intent_label = "out_of_scope"
+            draft_text = "Thanks for reaching out to @AppleSupport! We only provide technical support for Apple hardware and software. For assistance with your device, please reach out to the manufacturer's official customer support team."
+        elif is_display_touch:
+            intent_label = "display_screen"
+            draft_text = "If your iPhone touch screen is unresponsive or showing display issues, please perform a force restart (press Volume Up, Volume Down, then hold the Side button until the Apple logo appears). If the issue persists, let us know or visit https://support.apple.com to book a service appointment."
+        elif "lost" in clean_text or "find" in clean_text or "stolen" in clean_text or "locate" in clean_text or "find my" in clean_text or "earpod" in clean_text:
             intent_label = "lost_device_find_my"
             draft_text = "You can locate your lost EarPods or AirPods using the Find My app on your iPhone or at https://www.icloud.com/find. Select your EarPods under Devices to view their location or play a sound."
-        elif "battery" in target_text or "overheating" in target_text or "drain" in target_text:
+        elif "battery" in clean_text or "overheating" in clean_text or "drain" in clean_text:
             intent_label = "battery_performance"
             draft_text = "Hello! Battery health is important. Check Settings > Battery > Battery Health to inspect peak performance capability."
-        elif "charge" in target_text or "charging" in target_text or "cable" in target_text or "port" in target_text:
+        elif is_charging:
             intent_label = "charging_issues"
             draft_text = "Hi there, let's get your device charging again. Inspect the charging port for debris and test with an Apple-certified cable."
-        elif "stuck on" in target_text or "ios 18" in target_text or "ios 17" in target_text or "recovery mode" in target_text or "update" in target_text:
+        elif "stuck on" in clean_text or "ios 18" in clean_text or "ios 17" in clean_text or "recovery mode" in clean_text or "update" in clean_text:
             intent_label = "ios_update_bugs"
             draft_text = "Let's resolve the update error. Restart your device and ensure you have sufficient storage space before downloading."
-        elif "crash" in target_text or "freeze" in target_text or "quitting" in target_text or "app" in target_text or "instagram" in target_text or "tiktok" in target_text:
+        elif "crash" in clean_text or "freeze" in clean_text or "quitting" in clean_text or "instagram" in clean_text or "tiktok" in clean_text or any(w in clean_text.split() for w in ["app", "apps"]):
             intent_label = "app_crashes"
             draft_text = "To resolve app issues, force quit the app, check for updates in the App Store, and reinstall if necessary."
-        elif "wifi" in target_text or "wi-fi" in target_text or "bluetooth" in target_text or "cellular" in target_text:
+        elif "wifi" in clean_text or "wi-fi" in clean_text or "bluetooth" in clean_text or "cellular" in clean_text:
             intent_label = "connectivity_wifi_bluetooth"
             draft_text = "Try toggling Airplane Mode on for 15 seconds, or reset Network Settings via Settings > General > Transfer or Reset iPhone."
-        elif "icloud" in target_text or "storage full" in target_text or "backup" in target_text:
+        elif "icloud" in clean_text or "storage full" in clean_text or "backup" in clean_text:
             intent_label = "icloud_sync_storage"
             draft_text = "You can manage your iCloud storage allocation and photo library sync under Settings > [Your Name] > iCloud."
-        elif "apple id" in target_text or "password" in target_text or "locked" in target_text or "hacked" in target_text:
+        elif "apple id" in clean_text or "password" in clean_text or "locked" in clean_text or "hacked" in clean_text:
             intent_label = "apple_id_account"
             draft_text = "We can help with your Apple ID. You can reset your password securely via https://iforgot.apple.com."
-        elif "refund" in target_text or "bill" in target_text or "charge" in target_text or "subscription" in target_text or "$" in target_text:
+        elif "refund" in clean_text or "bill" in clean_text or "subscription" in clean_text or "$" in clean_text:
             intent_label = "purchase_refund_billing"
             draft_text = "You can review purchase history and request refunds directly at https://reportaproblem.apple.com."
-        elif "cracked" in target_text or "shattered" in target_text or "water" in target_text or "liquid" in target_text or "repair" in target_text or "camera" in target_text or "imei" in target_text or "coffee" in target_text or "glass" in target_text or "human" in target_text or "sue" in target_text:
+        elif "cracked" in clean_text or "shattered" in clean_text or "water" in clean_text or "liquid" in clean_text or "repair" in clean_text or "camera" in clean_text or "imei" in clean_text or "coffee" in clean_text or "glass" in clean_text or "human" in clean_text or "sue" in clean_text:
             intent_label = "hardware_damage"
             draft_text = "For physical hardware damage, you can check repair estimates and book a Genius Bar appointment at https://support.apple.com."
-        elif "mic" in target_text or "speaker" in target_text or "airpod" in target_text or "audio" in target_text or "sound" in target_text or "earpiece" in target_text:
+        elif "mic" in clean_text or "speaker" in clean_text or "airpod" in clean_text or "audio" in clean_text or "sound" in clean_text or "earpiece" in clean_text:
             intent_label = "audio_speaker_mic"
             draft_text = "We're here to help with your audio. Try resetting your AirPods in the case or checking microphone permissions."
-        elif "screen" in target_text or "display" in target_text or "flicker" in target_text or "touch" in target_text or "green line" in target_text:
-            intent_label = "display_screen"
-            draft_text = "If your display is unresponsive or showing lines, perform a force restart and check if the issue persists across apps."
-        elif "slow" in target_text or "lag" in target_text or "fan" in target_text or "spinning" in target_text or "boot" in target_text:
+        elif "slow" in clean_text or "lag" in clean_text or "fan" in clean_text or "spinning" in clean_text or "boot" in clean_text:
             intent_label = "performance_speed"
             draft_text = "Check Activity Monitor or Settings > General > Background App Refresh to see what processes are consuming resources."
         else:
-            intent_label = "display_screen"
-            draft_text = "Thanks for reaching out! We'd be glad to take a closer look and help resolve this for you."
+            intent_label = "out_of_scope"
+            draft_text = "Thanks for reaching out to @AppleSupport! We are here to help with your Apple devices and ecosystem services. Could you please share more details about your Apple device or software issue so we can assist?"
+
+        # If an explicit intent was provided in the prompt (e.g. Drafter pipeline), harmonize draft_text with it
+        if extracted_intent:
+            if extracted_intent == "display_screen":
+                draft_text = "If your iPhone touch screen is unresponsive or showing display issues, please perform a force restart (press Volume Up, Volume Down, then hold the Side button until the Apple logo appears). If the issue persists, let us know or visit https://support.apple.com to book a service appointment."
+            elif extracted_intent == "charging_issues":
+                draft_text = "Hi there, let's get your device charging again. Inspect the charging port for debris and test with an Apple-certified cable."
+            elif extracted_intent == "app_crashes":
+                draft_text = "To resolve app issues, force quit the app, check for updates in the App Store, and reinstall if necessary."
+            elif extracted_intent == "out_of_scope":
+                if is_apk:
+                    draft_text = "Thanks for reaching out to @AppleSupport! iPhone and iOS devices only support applications downloaded directly from the official Apple App Store and do not support Android APK installation packages. If you need assistance finding an app in the App Store, please let us know!"
+                elif is_produce:
+                    draft_text = "Thanks for reaching out to @AppleSupport! We provide official technical support for the Apple ecosystem (iPhone, iPad, Mac, Apple Watch). We do not sell or provide pricing for fresh produce or grocery items. Let us know if you need assistance with an Apple product!"
+                elif is_cost_pricing:
+                    draft_text = "Thanks for reaching out to @AppleSupport! We are dedicated to technical troubleshooting across the Apple ecosystem. For questions regarding product pricing, regional taxes, or purchasing options in India, please visit https://www.apple.com/in or check with an authorized Apple retailer. If you need technical support for your Apple devices, let us know how we can assist!"
+                elif is_competitor:
+                    draft_text = "Thanks for reaching out to @AppleSupport! We only provide technical support for Apple hardware and software. For assistance with your device, please reach out to the manufacturer's official customer support team."
+                else:
+                    draft_text = "Thanks for reaching out to @AppleSupport! We are here to help with your Apple devices and ecosystem services. Could you please share more details about your Apple device or software issue so we can assist?"
 
         parsed_obj: Optional[BaseModel] = None
 

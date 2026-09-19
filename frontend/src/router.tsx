@@ -9,6 +9,7 @@ import { IntentsPage } from './pages/IntentsPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { AnalyticsPage } from './pages/AnalyticsPage';
 import { KnowledgeBasePage } from './pages/KnowledgeBasePage';
+import { UserManagementPage } from './pages/UserManagementPage';
 import { useAuthStore } from './stores/authStore';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -83,6 +84,14 @@ export const AppRouter: React.FC = () => {
           element={
             <ProtectedRoute>
               <SettingsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <ProtectedRoute>
+              <UserManagementPage />
             </ProtectedRoute>
           }
         />

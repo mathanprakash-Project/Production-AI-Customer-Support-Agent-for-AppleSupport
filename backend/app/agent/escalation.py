@@ -41,6 +41,7 @@ class EscalationEngine:
         intent_confidence: float,
         draft_confidence: float = 0.8,
         has_similar_history: bool = True,
+        rag_similarity: Optional[float] = None,
     ) -> EscalationDecision:
         """
         Evaluate message against all active escalation rules.
@@ -64,6 +65,21 @@ class EscalationEngine:
                     reasons.append(
                         f"Low intent confidence ({intent_confidence:.2f} < {threshold:.2f}): ambiguous customer query"
                     )
+                    risk_score += severity
+
+            # Rule: Low RAG similarity (< 60% threshold)
+            elif rule_id == "low_rag_similarity":
+                threshold = rule.get("threshold", 0.60)
+                if rag_similarity is not None and rag_similarity < threshold:
+                    reasons.append(
+                        f"RAG historical match similarity ({rag_similarity * 100:.0f}%) is below 60% threshold: routed to Human-in-the-Loop (HITL) approval"
+                    )
+                    risk_score += severity
+
+            # Rule: Out of scope inquiry
+            elif rule_id == "out_of_scope_inquiry":
+                if intent in rule.get("intents", ["out_of_scope"]):
+                    reasons.append("Inquiry is out of scope / non-technical: routed to Human-in-the-Loop (HITL) review")
                     risk_score += severity
 
             # Rule: Low draft confidence
@@ -107,7 +123,7 @@ class EscalationEngine:
 
         # Fallback rule: no retrieved historical context
         if not has_similar_history:
-            reasons.append("Zero similar historical resolutions found in knowledge base")
+            reasons.append("Zero similar historical resolutions found in knowledge base: routed to Human-in-the-Loop (HITL) approval")
             risk_score += 0.40
 
         risk_score = min(1.0, risk_score)
