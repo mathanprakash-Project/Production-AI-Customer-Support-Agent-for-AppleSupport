@@ -44,7 +44,7 @@ discouraged_phrases:
 
 # Tone and safety requirements
 brand_voice:
-  max_tweet_chars: 280
+  max_tweet_chars: 469
   max_dm_chars: 500
   required_tone: "warm, professional, empathetic, actionable"
 

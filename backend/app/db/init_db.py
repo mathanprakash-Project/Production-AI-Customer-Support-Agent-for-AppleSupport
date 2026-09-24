@@ -229,7 +229,7 @@ async def init_db(target_engine=None, target_factory=None):
                 ),
                 SystemConfig(
                     key="brand_rules",
-                    value={"max_tweet_chars": 280, "max_dm_chars": 500, "tone": "empathetic"},
+                    value={"max_tweet_chars": 469, "max_dm_chars": 500, "tone": "empathetic"},
                     description="Brand voice guidelines for response drafting.",
                 ),
             ]

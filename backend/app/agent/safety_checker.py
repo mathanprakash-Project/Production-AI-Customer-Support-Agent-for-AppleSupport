@@ -114,7 +114,9 @@ class SafetyChecker:
                 flags.append(f"Discouraged/canned phrase detected: '{phrase}'")
 
         # 5. Character length check
-        max_len = 280 if response_type == "tweet" else 500
+        max_tweet = self.rules.get("brand_voice", {}).get("max_tweet_chars", 469)
+        max_dm = self.rules.get("brand_voice", {}).get("max_dm_chars", 500)
+        max_len = max_tweet if response_type == "tweet" else max_dm
         if len(draft_text) > max_len:
             flags.append(f"Response length ({len(draft_text)} chars) exceeds maximum {max_len} limit for {response_type}")
 

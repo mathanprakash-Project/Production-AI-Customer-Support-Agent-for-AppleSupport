@@ -499,7 +499,7 @@ export const TicketDetailPage: React.FC = () => {
                     <span className="text-xs font-bold text-sky-500">
                       {inference ? `Quality Score: ${(inference.draft.confidence * 100).toFixed(0)}%` : 'Manual Draft'}
                     </span>
-                    <p className="text-[10px] text-slate-400 dark:text-neutral-500 font-mono">{replyText.length} / 280 chars</p>
+                    <p className="text-[10px] text-slate-400 dark:text-neutral-500 font-mono">{replyText.length} / 469 chars</p>
                   </div>
                 </div>
 

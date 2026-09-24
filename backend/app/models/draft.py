@@ -35,7 +35,7 @@ class Draft(Base):
     safety_flags: Mapped[Optional[List[str]]] = mapped_column(JSON, default=list)
 
     # Response metadata
-    response_type: Mapped[str] = mapped_column(String(20), default="tweet")  # 'tweet' (280) | 'dm' (500)
+    response_type: Mapped[str] = mapped_column(String(20), default="tweet")  # 'tweet' (469) | 'dm' (500)
     char_count: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
     
     # Observability & Provenance
