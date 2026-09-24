@@ -14,7 +14,7 @@ export const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
-  const [role, setRole] = useState<'agent' | 'admin' | 'manager'>('agent');
+  const [role, setRole] = useState<'agent' | 'admin'>('agent');
   const [securityAnswer, setSecurityAnswer] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -163,14 +163,14 @@ export const LoginPage: React.FC = () => {
                   <label className="block section-title mb-1.5">
                     Workspace Role
                   </label>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-2 gap-3">
                     <button
                       type="button"
                       onClick={() => setRole('agent')}
-                      className={`p-2 rounded-xl border text-xs font-bold flex flex-col items-center justify-center space-y-1 transition ${
+                      className={`p-2.5 rounded-xl border text-xs font-bold flex flex-col items-center justify-center space-y-1 transition ${
                         role === 'agent'
                           ? 'border-sky-500 bg-sky-500/10 text-sky-600 dark:text-sky-400'
-                          : 'border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400'
+                          : 'border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400 hover:border-slate-300 dark:hover:border-neutral-700'
                       }`}
                     >
                       <UserIcon className="h-4 w-4" />
@@ -179,31 +179,19 @@ export const LoginPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setRole('admin')}
-                      className={`p-2 rounded-xl border text-xs font-bold flex flex-col items-center justify-center space-y-1 transition ${
+                      className={`p-2.5 rounded-xl border text-xs font-bold flex flex-col items-center justify-center space-y-1 transition ${
                         role === 'admin'
                           ? 'border-purple-500 bg-purple-500/10 text-purple-600 dark:text-purple-400'
-                          : 'border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400'
+                          : 'border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400 hover:border-slate-300 dark:hover:border-neutral-700'
                       }`}
                     >
                       <Shield className="h-4 w-4" />
                       <span>Operations Lead</span>
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => setRole('manager')}
-                      className={`p-2 rounded-xl border text-xs font-bold flex flex-col items-center justify-center space-y-1 transition ${
-                        role === 'manager'
-                          ? 'border-amber-500 bg-amber-500/10 text-amber-600 dark:text-amber-400'
-                          : 'border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400'
-                      }`}
-                    >
-                      <UserCheck className="h-4 w-4" />
-                      <span>Manager-Users</span>
-                    </button>
                   </div>
                 </div>
 
-                {(role === 'admin' || role === 'manager') && (
+                {role === 'admin' && (
                   <div className="p-3.5 bg-amber-500/10 border border-amber-500/20 rounded-xl space-y-2 animate-in fade-in duration-200">
                     <div className="flex items-center space-x-1.5 text-amber-600 dark:text-amber-400">
                       <KeyRound className="h-4 w-4" />

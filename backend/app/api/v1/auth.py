@@ -49,10 +49,17 @@ async def register(user_in: UserCreate, db: AsyncSession = Depends(get_db)):
             detail="An account with this email address already exists.",
         )
 
-    target_role = user_in.role if user_in.role in ["agent", "admin", "manager"] else "agent"
+    # Manager profile creation is restricted - there is only one executive manager (Mathanprakash)
+    if user_in.role == "manager":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Manager profile creation is restricted. Only the designated executive manager (Mathanprakash) can hold this profile.",
+        )
 
-    # Security check for privileged roles (Operations Lead & Manager-Users)
-    if target_role in ["admin", "manager"]:
+    target_role = user_in.role if user_in.role in ["agent", "admin"] else "agent"
+
+    # Security check for privileged role (Operations Lead / admin)
+    if target_role == "admin":
         raw_secret = ""
         if user_in.security_answer:
             raw_secret = (
@@ -64,13 +71,7 @@ async def register(user_in: UserCreate, db: AsyncSession = Depends(get_db)):
         if raw_secret != ADMIN_SECURITY_PASSPHRASE:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
-                detail="Invalid security passphrase for privileged profile creation. Operations Lead and Manager accounts require valid administrator authorization.",
-            )
-
-        if target_role == "manager" and user_in.email.lower() != SUPERADMIN_EMAIL.lower():
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail=f"Only the designated administrator email ({SUPERADMIN_EMAIL}) is permitted to register the Manager-Users profile.",
+                detail="Invalid security passphrase for privileged profile creation. Operations Lead accounts require valid administrator authorization.",
             )
 
     raw_password = user_in.password.get_secret_value() if hasattr(user_in.password, "get_secret_value") else user_in.password

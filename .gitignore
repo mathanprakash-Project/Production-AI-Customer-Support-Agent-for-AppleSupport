@@ -72,3 +72,5 @@ charts/**/charts/*.tgz
 .system_generated/
 *.db
 eval_results.json
+DEEP_DIVE_LEARNING_GUIDE.md
+DEEP_DIVE_LEARNING_GUIDE.pdf
