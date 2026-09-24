@@ -16,7 +16,7 @@ import { EvalSummaryResponse } from '../types';
 
 export const EvalDashboardPage: React.FC = () => {
   const { user } = useAuthStore();
-  const isAdmin = user?.role === 'admin';
+  const isAdmin = user?.role === 'admin' || user?.role === 'manager';
 
   const [summary, setSummary] = useState<EvalSummaryResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -41,7 +41,7 @@ export const EvalDashboardPage: React.FC = () => {
 
   const handleTriggerEval = async (smoke: boolean) => {
     if (!isAdmin) {
-      alert('Administrative Privileges Required: Only Operations Admins can trigger model evaluation benchmarks.');
+      alert('Managerial Privileges Required: Only Managers can trigger model evaluation benchmarks.');
       return;
     }
     setTriggering(true);
@@ -139,13 +139,13 @@ export const EvalDashboardPage: React.FC = () => {
           )}
           <span>
             {isAdmin ? (
-              <strong>Operations Admin Access:</strong>
+              <strong>Manager Access:</strong>
             ) : (
               <strong>Auditor / Agent Read-Only Mode:</strong>
             )}{' '}
             {isAdmin
               ? 'You have execution clearance to trigger model evaluation benchmarks and update accuracy baselines.'
-              : 'You can review accuracy benchmarks and failure diagnostics. Triggering model evaluation runs requires an Operations Admin account.'}
+              : 'You can review accuracy benchmarks and failure diagnostics. Triggering model evaluation runs requires a Manager account.'}
           </span>
         </div>
         <span className={`px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider text-[10px] border ${
@@ -153,7 +153,7 @@ export const EvalDashboardPage: React.FC = () => {
             ? 'bg-purple-500/20 text-purple-600 dark:text-purple-400 border-purple-500/30' 
             : 'bg-sky-500/20 text-sky-600 dark:text-sky-400 border-sky-500/30'
         }`}>
-          {isAdmin ? 'Admin Clearance' : 'Read-Only'}
+          {isAdmin ? 'Manager Clearance' : 'Read-Only'}
         </span>
       </div>
 

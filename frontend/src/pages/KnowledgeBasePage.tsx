@@ -21,7 +21,7 @@ import { FormattedTweet } from '../components/common/FormattedTweet';
 
 export const KnowledgeBasePage: React.FC = () => {
   const { user } = useAuthStore();
-  const isAdmin = user?.role === 'admin';
+  const isAdmin = user?.role === 'admin' || user?.role === 'manager';
 
   const [loading, setLoading] = useState(true);
   const [entries, setEntries] = useState<KnowledgeEntry[]>([]);
@@ -52,7 +52,7 @@ export const KnowledgeBasePage: React.FC = () => {
 
   const handleToggle = async (entry: KnowledgeEntry) => {
     if (!isAdmin) {
-      alert('Administrative Privileges Required: Only Operations Admins can enable or disable knowledge base entries from RAG retrieval.');
+      alert('Managerial Privileges Required: Only Managers can enable or disable knowledge base entries from RAG retrieval.');
       return;
     }
     setTogglingId(entry.id);
@@ -115,13 +115,13 @@ export const KnowledgeBasePage: React.FC = () => {
           )}
           <span>
             {isAdmin ? (
-              <strong>Operations Admin Access:</strong>
+              <strong>Manager Access:</strong>
             ) : (
               <strong>Tier-1 Support Agent View:</strong>
             )}{' '}
             {isAdmin
               ? 'You have full curation privileges to enable or disable historical solutions in live RAG retrieval.'
-              : 'You can browse and search verified Apple Support resolutions. Toggling retrieval status requires an Operations Admin account.'}
+              : 'You can browse and search verified Apple Support resolutions. Toggling retrieval status requires a Manager account.'}
           </span>
         </div>
         <span className={`px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider text-[10px] border ${

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Twitter, Lock, Mail, User as UserIcon, ArrowRight, Sun, Moon, Shield, KeyRound, UserCheck } from 'lucide-react';
+import { Twitter, Lock, Mail, User as UserIcon, ArrowRight, Sun, Moon, UserCheck } from 'lucide-react';
 import { api } from '../services/apiClient';
 import { useAuthStore } from '../stores/authStore';
 import { useTheme } from '../context/ThemeContext';
@@ -14,8 +14,6 @@ export const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
-  const [role, setRole] = useState<'agent' | 'admin'>('agent');
-  const [securityAnswer, setSecurityAnswer] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -32,11 +30,10 @@ export const LoginPage: React.FC = () => {
         setAuth(data.access_token, data.user);
         navigate('/inbox');
       } else {
-        await api.register(email, password, fullName || 'Support Agent', role, securityAnswer);
-        setSuccess('Account created successfully! Please sign in with your credentials.');
+        await api.register(email, password, fullName || 'Support Agent', 'agent');
+        setSuccess('Support Agent account created successfully! Please sign in with your credentials.');
         setMode('login');
         setPassword('');
-        setSecurityAnswer('');
       }
     } catch (err: any) {
       setError(
@@ -122,8 +119,8 @@ export const LoginPage: React.FC = () => {
             </h2>
             <p className="text-xs text-slate-500 dark:text-neutral-400 mt-1">
               {mode === 'login'
-                ? 'Access incoming customer tweets, AI drafts, and evaluation benchmarks.'
-                : 'Join the @AppleSupport AI customer service operations team.'}
+                ? 'Sign in with your Support Agent or Manager credentials.'
+                : 'Register a new Tier-1 Support Agent account for @AppleSupport frontline operations.'}
             </p>
           </div>
 
@@ -159,62 +156,10 @@ export const LoginPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block section-title mb-1.5">
-                    Workspace Role
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setRole('agent')}
-                      className={`p-2.5 rounded-xl border text-xs font-bold flex flex-col items-center justify-center space-y-1 transition ${
-                        role === 'agent'
-                          ? 'border-sky-500 bg-sky-500/10 text-sky-600 dark:text-sky-400'
-                          : 'border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400 hover:border-slate-300 dark:hover:border-neutral-700'
-                      }`}
-                    >
-                      <UserIcon className="h-4 w-4" />
-                      <span>Support Agent</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setRole('admin')}
-                      className={`p-2.5 rounded-xl border text-xs font-bold flex flex-col items-center justify-center space-y-1 transition ${
-                        role === 'admin'
-                          ? 'border-purple-500 bg-purple-500/10 text-purple-600 dark:text-purple-400'
-                          : 'border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400 hover:border-slate-300 dark:hover:border-neutral-700'
-                      }`}
-                    >
-                      <Shield className="h-4 w-4" />
-                      <span>Operations Lead</span>
-                    </button>
-                  </div>
+                <div className="flex items-center space-x-2.5 px-3.5 py-2.5 bg-sky-500/10 border border-sky-500/20 rounded-xl text-sky-600 dark:text-sky-400 text-xs font-medium">
+                  <UserCheck className="h-4 w-4 flex-shrink-0" />
+                  <span>Role: <strong>Tier-1 Support Agent</strong></span>
                 </div>
-
-                {role === 'admin' && (
-                  <div className="p-3.5 bg-amber-500/10 border border-amber-500/20 rounded-xl space-y-2 animate-in fade-in duration-200">
-                    <div className="flex items-center space-x-1.5 text-amber-600 dark:text-amber-400">
-                      <KeyRound className="h-4 w-4" />
-                      <span className="section-title">
-                        Security Verification Required
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-amber-700 dark:text-amber-300 leading-snug">
-                      Security Question: What is the Administrator Verification Passphrase?
-                    </p>
-                    <div className="relative">
-                      <Lock className="absolute left-3.5 top-2.5 h-4 w-4 text-amber-500" />
-                      <input
-                        type="password"
-                        value={securityAnswer}
-                        onChange={(e) => setSecurityAnswer(e.target.value)}
-                        required
-                        className="input-field pl-10 !border-amber-500/30 focus:!ring-amber-500"
-                        placeholder="Enter secret answer (e.g. Tweetsupportadmin123)"
-                      />
-                    </div>
-                  </div>
-                )}
               </>
             )}
 

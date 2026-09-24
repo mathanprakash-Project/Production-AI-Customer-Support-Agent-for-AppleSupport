@@ -42,11 +42,11 @@ async def get_current_user(
 
 
 async def require_admin(current_user: User = Depends(get_current_user)) -> User:
-    """Ensure user has admin role."""
-    if current_user.role != "admin":
+    """Ensure user has admin or manager role."""
+    if current_user.role not in ["admin", "manager"]:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Administrative privileges required.",
+            detail="Administrative or managerial privileges required.",
         )
     return current_user
 

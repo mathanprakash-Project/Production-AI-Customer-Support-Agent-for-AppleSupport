@@ -29,6 +29,13 @@ async def login(credentials: UserLogin, db: AsyncSession = Depends(get_db)):
             detail="Incorrect email or password.",
         )
 
+    # Operations Lead profile login is disabled (only agent and manager can login)
+    if user.role == "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Operations Lead login is disabled. Only Support Agents and Managers can sign in.",
+        )
+
     token = create_access_token({"sub": user.id, "email": user.email, "role": user.role})
     return TokenResponse(
         access_token=token,
@@ -49,31 +56,14 @@ async def register(user_in: UserCreate, db: AsyncSession = Depends(get_db)):
             detail="An account with this email address already exists.",
         )
 
-    # Manager profile creation is restricted - there is only one executive manager (Mathanprakash)
-    if user_in.role == "manager":
+    # Operations Lead and Manager profile creation is restricted - new signups are only for Support Agents
+    if user_in.role in ["admin", "manager"]:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Manager profile creation is restricted. Only the designated executive manager (Mathanprakash) can hold this profile.",
+            detail="Privileged profile creation is disabled. New accounts can only be created for Support Agents.",
         )
 
-    target_role = user_in.role if user_in.role in ["agent", "admin"] else "agent"
-
-    # Security check for privileged role (Operations Lead / admin)
-    if target_role == "admin":
-        raw_secret = ""
-        if user_in.security_answer:
-            raw_secret = (
-                user_in.security_answer.get_secret_value()
-                if hasattr(user_in.security_answer, "get_secret_value")
-                else str(user_in.security_answer)
-            )
-
-        if raw_secret != ADMIN_SECURITY_PASSPHRASE:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Invalid security passphrase for privileged profile creation. Operations Lead accounts require valid administrator authorization.",
-            )
-
+    target_role = "agent"
     raw_password = user_in.password.get_secret_value() if hasattr(user_in.password, "get_secret_value") else user_in.password
 
     new_user = User(
@@ -99,13 +89,14 @@ async def list_users(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    """List all registered users (restricted to admin and manager roles)."""
+    """List all registered users (restricted to manager role; operations lead hidden)."""
     if current_user.role not in ["admin", "manager"]:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Access restricted to Operations Lead and Manager-Users accounts.",
+            detail="Access restricted to Manager accounts.",
         )
-    res = await db.execute(select(User).order_by(User.created_at.desc()))
+    # Hide any disabled operations lead/admin users from user monitoring
+    res = await db.execute(select(User).where(User.role != "admin").order_by(User.created_at.desc()))
     users = res.scalars().all()
     return [UserResponse.model_validate(u) for u in users]
 

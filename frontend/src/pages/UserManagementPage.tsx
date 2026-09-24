@@ -64,9 +64,10 @@ export const UserManagementPage: React.FC = () => {
 
   const filteredUsers = users.filter(
     (u) =>
-      u.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      u.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      u.role.toLowerCase().includes(searchTerm.toLowerCase())
+      u.role !== 'admin' &&
+      (u.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        u.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        u.role.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   const getRoleBadge = (role: string) => {

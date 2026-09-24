@@ -5,7 +5,7 @@ import { useAuthStore } from '../stores/authStore';
 
 export const SettingsPage: React.FC = () => {
   const { user } = useAuthStore();
-  const isAdmin = user?.role === 'admin';
+  const isAdmin = user?.role === 'admin' || user?.role === 'manager';
 
   const [health, setHealth] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -52,7 +52,7 @@ export const SettingsPage: React.FC = () => {
           )}
           <span>
             {isAdmin ? (
-              <strong>Operations Admin Access:</strong>
+              <strong>Manager Access:</strong>
             ) : (
               <strong>Tier-1 Support Agent View:</strong>
             )}{' '}
@@ -66,7 +66,7 @@ export const SettingsPage: React.FC = () => {
             ? 'bg-purple-500/20 text-purple-600 dark:text-purple-400 border-purple-500/30' 
             : 'bg-slate-200 dark:bg-neutral-800 text-slate-600 dark:text-neutral-400 border-transparent'
         }`}>
-          {isAdmin ? 'System Lead' : 'Read-Only Audit'}
+          {isAdmin ? 'Manager Clearance' : 'Read-Only Audit'}
         </span>
       </div>
 

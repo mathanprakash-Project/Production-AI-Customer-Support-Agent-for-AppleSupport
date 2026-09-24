@@ -1,10 +1,12 @@
 import pytest
+from httpx import ASGITransport, AsyncClient
 from app.agent.classifier import IntentClassifier
 from app.agent.drafter import ReplyDrafter
 from app.agent.escalation import EscalationEngine
 from app.agent.pipeline import AgentPipeline
 from app.llm.providers.mock import MockProvider
 from app.schemas.inference import RetrievedThreadItem
+from app.main import app
 
 
 @pytest.fixture
@@ -214,4 +216,69 @@ async def test_ipad_find_software_version_web_search_query(pipeline):
     assert "settings > general > about" in reply_lower
     assert "ipad" in reply_lower
     assert "find my" not in reply_lower
+
+
+@pytest.mark.asyncio
+async def test_admin_login_is_disabled():
+    """Verify that logging in with an admin (Operations Lead) profile is rejected with 403 Forbidden."""
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+        res = await client.post(
+            "/api/v1/auth/login",
+            json={"email": "admin@tweetsupport.local", "password": "admin123"},
+        )
+        assert res.status_code == 403
+        assert "Operations Lead login is disabled" in res.json()["detail"]
+
+
+@pytest.mark.asyncio
+async def test_admin_and_manager_registration_is_blocked():
+    """Verify that attempting to register with admin or manager role is rejected with 403 Forbidden."""
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+        # Admin registration attempt
+        res_admin = await client.post(
+            "/api/v1/auth/register",
+            json={
+                "email": "new_lead@tweetsupport.local",
+                "password": "Password123!",
+                "full_name": "New Operations Lead",
+                "role": "admin",
+            },
+        )
+        assert res_admin.status_code == 403
+        assert "Privileged profile creation is disabled" in res_admin.json()["detail"]
+
+        # Manager registration attempt
+        res_mgr = await client.post(
+            "/api/v1/auth/register",
+            json={
+                "email": "another_mgr@example.com",
+                "password": "Password123!",
+                "full_name": "Another Manager",
+                "role": "manager",
+            },
+        )
+        assert res_mgr.status_code == 403
+        assert "Privileged profile creation is disabled" in res_mgr.json()["detail"]
+
+
+@pytest.mark.asyncio
+async def test_manager_and_agent_login_allowed():
+    """Verify that only manager and agent accounts can successfully log in."""
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+        # Agent login
+        res_agent = await client.post(
+            "/api/v1/auth/login",
+            json={"email": "agent@tweetsupport.local", "password": "agent123"},
+        )
+        assert res_agent.status_code == 200
+        assert res_agent.json()["user"]["role"] == "agent"
+
+        # Manager login
+        res_mgr = await client.post(
+            "/api/v1/auth/login",
+            json={"email": "mathanprakashselvam@gmail.com", "password": "Tweetsupportadmin123"},
+        )
+        assert res_mgr.status_code == 200
+        assert res_mgr.json()["user"]["role"] == "manager"
+
 

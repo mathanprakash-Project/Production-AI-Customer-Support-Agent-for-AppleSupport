@@ -121,11 +121,6 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
           <div className="p-3 pt-0">
             <div className="px-3 py-2 text-[11px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider flex items-center justify-between">
               <span>Governance & AI</span>
-              {isAdmin && (
-                <span className="text-[10px] bg-purple-500/10 text-purple-600 dark:text-purple-400 px-2 py-0.5 rounded-full font-bold border border-purple-500/20">
-                  Admin Lead
-                </span>
-              )}
               {isManager && (
                 <span className="text-[10px] bg-amber-500/10 text-amber-600 dark:text-amber-400 px-2 py-0.5 rounded-full font-bold border border-amber-500/20">
                   Manager
@@ -134,7 +129,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
             </div>
             <nav className="space-y-1">
               {governanceNav.map((item: any) => {
-                if (item.adminOnly && !isAdmin) return null;
+                if (item.adminOnly && !isAdmin && !isManager) return null;
                 if (item.privilegedOnly && !canMonitorUsers) return null;
 
                 const Icon = item.icon;
@@ -154,8 +149,8 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
                       <span>{item.label}</span>
                     </div>
                     {item.adminOnly && (
-                      <span className="text-[10px] px-2 py-0.5 rounded-full font-bold border bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20">
-                        Admin
+                      <span className="text-[10px] px-2 py-0.5 rounded-full font-bold border bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20">
+                        Manager
                       </span>
                     )}
                     {item.privilegedOnly && (
@@ -175,26 +170,24 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3 overflow-hidden">
               <div className={`h-9 w-9 rounded-full flex items-center justify-center text-xs font-bold text-white shadow-sm flex-shrink-0 ${
-                isManager ? 'bg-amber-600' : isAdmin ? 'bg-purple-600' : 'bg-sky-600'
+                isManager ? 'bg-amber-600' : 'bg-sky-600'
               }`}>
-                {isAdmin ? <Shield className="h-4 w-4" /> : <UserCheck className="h-4 w-4" />}
+                {isManager ? <Shield className="h-4 w-4" /> : <UserCheck className="h-4 w-4" />}
               </div>
               <div className="truncate">
                 <p className="text-xs font-bold text-slate-900 dark:text-white truncate">
-                  {user?.full_name || (isManager ? 'Manager-Users' : isAdmin ? 'Operations Admin' : 'Support Agent')}
+                  {user?.full_name || (isManager ? 'Mathanprakash' : 'Support Agent')}
                 </p>
                 <div className="flex items-center space-x-1.5 mt-0.5">
                   <span className={`inline-block w-1.5 h-1.5 rounded-full ${
-                    isManager ? 'bg-amber-500' : isAdmin ? 'bg-purple-500' : 'bg-emerald-500'
+                    isManager ? 'bg-amber-500' : 'bg-emerald-500'
                   }`} />
                   <span className={`text-[10px] font-bold tracking-tight uppercase ${
                     isManager
                       ? 'text-amber-600 dark:text-amber-400'
-                      : isAdmin
-                      ? 'text-purple-600 dark:text-purple-400'
                       : 'text-emerald-600 dark:text-emerald-400'
                   }`}>
-                    {isManager ? 'Manager-Users' : isAdmin ? 'Operations Lead' : 'Tier-1 Agent'}
+                    {isManager ? 'Manager-Users' : 'Tier-1 Agent'}
                   </span>
                 </div>
               </div>

@@ -18,7 +18,7 @@ async def test_knowledge_base_endpoints():
         # 1. Login
         login_res = await client.post(
             "/api/v1/auth/login",
-            json={"email": "admin@tweetsupport.local", "password": "admin123"},
+            json={"email": "mathanprakashselvam@gmail.com", "password": "Tweetsupportadmin123"},
         )
         assert login_res.status_code == 200
         token = login_res.json()["access_token"]
