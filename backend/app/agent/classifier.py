@@ -26,8 +26,16 @@ DEFAULT_TAXONOMY: List[Dict[str, Any]] = [
     },
     {
         "label": "ios_update_bugs",
-        "description": "Errors downloading or installing iOS update, software glitches or bugs, operating system issues, device stuck on Apple logo during reboot.",
-        "examples": ["update error 4013", "stuck on Apple logo after iOS 18", "not enough space to update", "problem with my software with my apple iphone 12", "iOS software glitches"],
+        "description": "Errors downloading or installing iOS update, software glitches or bugs, operating system issues, checking software/iOS/iPadOS version or device model specifications, device stuck on Apple logo during reboot.",
+        "examples": [
+            "update error 4013",
+            "stuck on Apple logo after iOS 18",
+            "not enough space to update",
+            "problem with my software with my apple iphone 12",
+            "iOS software glitches",
+            "how to check software version of my iPad",
+            "i cant see the version of my current ipad where to find it",
+        ],
     },
     {
         "label": "app_crashes",
@@ -82,8 +90,8 @@ DEFAULT_TAXONOMY: List[Dict[str, Any]] = [
     },
     {
         "label": "lost_device_find_my",
-        "description": "Locating lost or stolen EarPods, AirPods, iPhone, iPad, or Mac using Find My app or iCloud.com.",
-        "examples": ["my EarPods i lost i need to find", "lost my right AirPod in park", "how to track lost iPhone with Find My"],
+        "description": "Locating physically lost or stolen EarPods, AirPods, iPhone, iPad, or Mac using Find My app or iCloud.com (not for finding settings, software version, or device menus).",
+        "examples": ["my EarPods i lost i need to find", "lost my right AirPod in park", "how to track lost iPhone with Find My", "stolen iPad locate with Find My"],
     },
     {
         "label": "out_of_scope",

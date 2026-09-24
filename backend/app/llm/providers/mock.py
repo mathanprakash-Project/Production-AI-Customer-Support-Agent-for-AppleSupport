@@ -101,6 +101,16 @@ class MockProvider(LLMProvider):
 
         # Software / iOS Update issues
         is_software_update = bool(re.search(r"\b(software|ios\b|ios\s*\d+|os\b|firmware|glitch|bug|system\b|update|recovery mode|stuck on)\b", clean_text))
+        is_software_version = bool(re.search(r"\b(version|software version|ipados version|ios version|see the version|find the version|which version|model number|serial number)\b", clean_text))
+        is_lost_device = (
+            "find my" in clean_text
+            or "findmy" in clean_text
+            or "lost" in clean_text
+            or "stolen" in clean_text
+            or "locate my" in clean_text
+            or "track my" in clean_text
+            or (bool(re.search(r"\b(locate|track|lost|stolen)\b", clean_text)) and any(w in clean_text for w in ["phone", "ipad", "mac", "airpod", "watch", "device", "earpod"]))
+        ) and not is_software_version
 
         if is_apk:
             intent_label = "out_of_scope"
@@ -121,9 +131,13 @@ class MockProvider(LLMProvider):
             intent_label = "display_screen"
             dev = detected_device or "iPhone"
             draft_text = f"If your {dev} touch screen is unresponsive or showing display issues, please perform a force restart (press Volume Up, Volume Down, then hold the Side button until the Apple logo appears). If the issue persists, let us know or visit https://support.apple.com to book a service appointment."
-        elif "lost" in clean_text or "find" in clean_text or "stolen" in clean_text or "locate" in clean_text or "find my" in clean_text or "earpod" in clean_text:
+        elif is_software_version:
+            intent_label = "ios_update_bugs"
+            dev = detected_device or "iPad"
+            draft_text = f"To find the software version on your {dev}, go to Settings > General > About. You will see the iPadOS/iOS Version, Model Name, and Model Number listed there. Learn more at https://support.apple.com/en-us/HT201685."
+        elif is_lost_device:
             intent_label = "lost_device_find_my"
-            draft_text = "You can locate your lost EarPods or AirPods using the Find My app on your iPhone or at https://www.icloud.com/find. Select your EarPods under Devices to view their location or play a sound."
+            draft_text = "You can locate your lost EarPods or Apple device using the Find My app or at https://www.icloud.com/find. Select your device under Devices to view its location or play a sound."
         elif "battery" in clean_text or "overheating" in clean_text or "drain" in clean_text:
             intent_label = "battery_performance"
             dev_str = f" on your {detected_device}" if detected_device else ""
@@ -182,7 +196,10 @@ class MockProvider(LLMProvider):
                 dev_str = f"your {detected_device}" if detected_device else "your device"
                 draft_text = f"Hi there, let's get {dev_str} charging again. Inspect the charging port for debris and test with an Apple-certified cable."
             elif extracted_intent in ["ios_update_bugs", "software_update_bugs"]:
-                if detected_device:
+                if is_software_version:
+                    dev = detected_device or "iPad"
+                    draft_text = f"To find the software version on your {dev}, go to Settings > General > About. You will see the iPadOS/iOS Version, Model Name, and Model Number listed there. Learn more at https://support.apple.com/en-us/HT201685."
+                elif detected_device:
                     draft_text = f"We'd be glad to help with your {detected_device}! Could you share what iOS version you're on and describe what happens when the software issue occurs?"
                 else:
                     draft_text = "Let's resolve the update error. Restart your device and ensure you have sufficient storage space before downloading."

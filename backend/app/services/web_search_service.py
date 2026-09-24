@@ -101,7 +101,14 @@ class WebSearchService:
         max_results: int,
     ) -> List[WebSearchResult]:
         clean_q = re.sub(r"@\w+", "", query).strip()
-        search_query = f"(site:support.apple.com OR site:apple.com) {clean_q}"
+        lower_q = clean_q.lower()
+        if "version" in lower_q and ("ipad" in lower_q or "iphone" in lower_q):
+            target_device = "iPad" if "ipad" in lower_q else "iPhone"
+            search_query = f"site:support.apple.com find software version {target_device}"
+        elif any(w in lower_q for w in ["trade in", "trade-in", "exchange"]):
+            search_query = "site:apple.com Apple Trade In exchange value process"
+        else:
+            search_query = f"(site:support.apple.com OR site:apple.com) {clean_q}"
         results: List[WebSearchResult] = []
 
         headers = {
@@ -232,13 +239,31 @@ class WebSearchService:
                 "snippet": "You can trade in your eligible iPhone for credit toward your next purchase or an Apple Gift Card. Answer a few questions about your device online to get an estimated trade-in value, back up your data, and use the prepaid trade-in kit to mail it in or bring it to an Apple Store.",
                 "url": "https://www.apple.com/shop/trade-in",
             },
+            "software_version_check": {
+                "title": "Find the software version on your iPhone, iPad, or iPod - Apple Support",
+                "snippet": "To find the software version installed on your device, go to Settings > General, then tap About. You will see the software version (iPadOS or iOS), Model Name, Model Number, and Serial Number.",
+                "url": "https://support.apple.com/en-us/HT201685",
+            },
         }
 
         results: List[WebSearchResult] = []
 
-        # 1. Match by query keywords (e.g. trade-in, exchange) or intent
+        # 1. Match by query keywords (e.g. software version check, trade-in, exchange) or intent
         query_lower = query.lower()
-        if any(w in query_lower for w in ["trade in", "trade-in", "exchange", "trade my", "upgrade"]):
+        is_version_query = any(w in query_lower for w in ["version", "find the version", "see the version", "which version", "model number", "serial number", "ipados version", "ios version", "where to find it", "check the version"]) and any(d in query_lower for d in ["ipad", "iphone", "ios", "ipados", "apple", "device", "current", "software"])
+
+        if is_version_query:
+            ver_guide = CANONICAL_APPLE_KB.get("software_version_check")
+            if ver_guide:
+                results.append(
+                    WebSearchResult(
+                        title=ver_guide["title"],
+                        snippet=ver_guide["snippet"],
+                        url=ver_guide["url"],
+                        source="verified_apple_kb_index",
+                    )
+                )
+        elif any(w in query_lower for w in ["trade in", "trade-in", "exchange", "trade my", "upgrade"]):
             trade_guide = CANONICAL_APPLE_KB.get("trade_in_exchange")
             if trade_guide:
                 results.append(

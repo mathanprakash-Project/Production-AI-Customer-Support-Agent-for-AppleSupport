@@ -186,3 +186,32 @@ async def test_iphone_12_exchange_web_search_query(pipeline):
     assert "trade" in reply_lower or "exchange" in reply_lower
     assert "https://www.apple.com/shop/trade-in" in res.draft.reply
     assert "share more details about your apple device model" not in reply_lower
+
+
+@pytest.mark.asyncio
+async def test_ipad_find_software_version_web_search_query(pipeline):
+    """
+    Test that '@apple support i cant see the version of my current ipad which i bought on 2/3/2025 can u help me out to where to find it':
+    1. Is classified as 'ios_update_bugs' (NOT 'lost_device_find_my').
+    2. Triggers web search grounding.
+    3. Retrieves the official Apple software version guide (https://support.apple.com/en-us/HT201685).
+    4. Drafted reply instructs to check Settings > General > About on the iPad.
+    """
+    query = "@apple support i cant see the version of my current ipad which i bought on 2/3/2025 can u help me out to where to find it"
+    res = await pipeline.run(query)
+
+    # 1. Classification check
+    assert res.intent.intent == "ios_update_bugs"
+    assert res.intent.intent != "lost_device_find_my"
+
+    # 2. Web search check
+    assert res.meta.web_search_used is True
+    assert len(res.retrieved) > 0
+    assert any("HT201685" in (t.url or "") or "software version" in t.customer_msg.lower() for t in res.retrieved)
+
+    # 3. Draft reply check
+    reply_lower = res.draft.reply.lower()
+    assert "settings > general > about" in reply_lower
+    assert "ipad" in reply_lower
+    assert "find my" not in reply_lower
+

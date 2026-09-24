@@ -53,12 +53,22 @@ class InferenceService:
                 reconstructed_threads: List[RetrievedThreadItem] = []
                 for tid in (existing_draft.retrieved_thread_ids or []):
                     if tid.startswith("web-"):
-                        url = "https://www.apple.com/shop/trade-in" if any(w in ticket.customer_text.lower() for w in ["trade", "exchange"]) else "https://support.apple.com"
+                        cust_lower = ticket.customer_text.lower()
+                        if any(w in cust_lower for w in ["version", "see the version", "find the version"]):
+                            url = "https://support.apple.com/en-us/HT201685"
+                            guide_title = "Find the software version on your iPhone, iPad, or iPod - Apple Support"
+                        elif any(w in cust_lower for w in ["trade", "exchange"]):
+                            url = "https://www.apple.com/shop/trade-in"
+                            guide_title = "Apple Trade In - Official Exchange Process & Value"
+                        else:
+                            url = "https://support.apple.com"
+                            guide_title = "Apple Support Official Knowledge Guide"
+
                         reconstructed_threads.append(
                             RetrievedThreadItem(
                                 thread_id=tid,
                                 similarity=0.86,
-                                customer_msg="Apple Support Official Knowledge Guide",
+                                customer_msg=guide_title,
                                 brand_reply=existing_draft.reply_text,
                                 intent_label=existing_draft.intent_label,
                                 source="web_search",
