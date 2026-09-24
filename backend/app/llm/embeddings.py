@@ -23,6 +23,13 @@ class EmbeddingService:
     def _get_model(self):
         if self._model is None:
             try:
+                from app.core.config import settings
+                if getattr(settings, "LLM_PROVIDER", "").lower() == "mock":
+                    self._model = "fallback"
+                    return self._model
+            except Exception:
+                pass
+            try:
                 from sentence_transformers import SentenceTransformer
                 logger.info(f"Loading SentenceTransformer model '{self.model_name}'...")
                 self._model = SentenceTransformer(self.model_name)

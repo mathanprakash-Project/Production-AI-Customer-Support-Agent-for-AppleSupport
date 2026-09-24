@@ -107,3 +107,9 @@ jobs:
           kubectl rollout status deployment/backend-deployment -n ${{ env.NAMESPACE }}
           kubectl rollout status deployment/frontend-deployment -n ${{ env.NAMESPACE }}
           kubectl get service frontend-service -n ${{ env.NAMESPACE }}
+          echo "=== PODS IN NAMESPACE ==="
+          kubectl get pods -n ${{ env.NAMESPACE }} -o wide
+          echo "=== ENDPOINTS ==="
+          kubectl get endpoints -n ${{ env.NAMESPACE }}
+          echo "=== BACKEND LOGS ==="
+          kubectl logs deployment/backend-deployment -n ${{ env.NAMESPACE }} --tail=100 || true
