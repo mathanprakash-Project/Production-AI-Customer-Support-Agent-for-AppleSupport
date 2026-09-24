@@ -46,7 +46,7 @@ class AgentPipeline:
         consensus_classifier: Optional[Any] = None,
         use_consensus: bool = False,
         web_search: Optional[Any] = None,
-        use_web_search: bool = False,
+        use_web_search: bool = True,
     ):
         self.provider = provider
         self.thread_repo = thread_repo
