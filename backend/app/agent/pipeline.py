@@ -8,9 +8,10 @@ Coordinates 5 stages sequentially:
   Stage 5: Safety Checker (URL validation, promise blocking, tone)
 """
 
+from __future__ import annotations
 import logging
 import time
-from typing import Optional
+from typing import Any, Optional
 from app.agent.classifier import IntentClassifier
 from app.agent.drafter import ReplyDrafter
 from app.agent.escalation import EscalationEngine
