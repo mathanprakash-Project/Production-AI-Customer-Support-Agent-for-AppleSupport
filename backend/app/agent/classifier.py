@@ -71,8 +71,14 @@ DEFAULT_TAXONOMY: List[Dict[str, Any]] = [
     },
     {
         "label": "purchase_refund_billing",
-        "description": "Unrecognized charge on card, Apple bill refund, cancellation of active subscription.",
-        "examples": ["charged $14.99 unauthorized", "cancel my Apple Music subscription", "request refund for app"],
+        "description": "Unrecognized charge on card, Apple bill refund, cancellation of active subscription, Apple Trade In or device exchange process.",
+        "examples": [
+            "charged $14.99 unauthorized",
+            "cancel my Apple Music subscription",
+            "request refund for app",
+            "i need to exchange my iphone 12 what is the process",
+            "how does apple trade in exchange work",
+        ],
     },
     {
         "label": "lost_device_find_my",

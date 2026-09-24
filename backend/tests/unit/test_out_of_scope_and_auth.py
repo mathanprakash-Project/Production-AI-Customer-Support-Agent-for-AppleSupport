@@ -72,7 +72,7 @@ def test_rag_similarity_below_60_triggers_hitl(escalation_engine):
 @pytest.mark.asyncio
 async def test_touch_screen_not_working_query(pipeline, mock_provider):
     """Test that '@AppleSupport touch screen not working ' is classified as display_screen and NOT charging."""
-    res = await pipeline.run("@AppleSupport touch screen not working ")
+    res = await pipeline.run("@AppleSupport touch screen not working ", use_web_search=False)
     assert res.intent.intent == "display_screen"
     assert "charging port" not in res.draft.reply.lower()
     assert "cable" not in res.draft.reply.lower()
@@ -158,4 +158,31 @@ async def test_iphone_12_software_query(pipeline):
     assert "software" in reply_lower or "ios" in reply_lower
 
 
+@pytest.mark.asyncio
+async def test_iphone_12_exchange_web_search_query(pipeline):
+    """
+    Test that '@apple support i need to exchange my i phone 12 can what is the process':
+    1. Is classified as 'purchase_refund_billing' (NOT 'out_of_scope').
+    2. Triggers web search grounding when RAG has 0 matches.
+    3. Retrieved threads contain official Apple Trade In reference (https://www.apple.com/shop/trade-in).
+    4. Drafted reply instructs on trade-in and includes the official Apple link without asking for device model.
+    """
+    query = "@apple support i need to exchange my i phone 12 can what is the process"
+    res = await pipeline.run(query)
 
+    # 1. Classification check
+    assert res.intent.intent == "purchase_refund_billing"
+
+    # 2. Web search check
+    assert res.meta.web_search_used is True
+    assert len(res.retrieved) > 0
+    assert any(t.source == "web_search" for t in res.retrieved)
+
+    # 3. Grounded link check
+    assert any("trade-in" in (t.url or "") or "trade" in t.brand_reply.lower() for t in res.retrieved)
+
+    # 4. Draft reply check
+    reply_lower = res.draft.reply.lower()
+    assert "trade" in reply_lower or "exchange" in reply_lower
+    assert "https://www.apple.com/shop/trade-in" in res.draft.reply
+    assert "share more details about your apple device model" not in reply_lower

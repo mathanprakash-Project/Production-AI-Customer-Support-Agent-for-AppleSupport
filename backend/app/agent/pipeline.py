@@ -106,7 +106,14 @@ class AgentPipeline:
         web_search_used = False
         web_search_ms = 0
 
-        if effective_web_search and (not has_history or max_rag_similarity < 0.60) and intent_result.intent != "out_of_scope":
+        # Check if inquiry is truly off-topic (e.g. produce, groceries, personal relations)
+        clean_lower = customer_message.lower()
+        is_truly_non_apple = any(kw in clean_lower for kw in [
+            "1 kg", "per kg", "produce", "fruit", "grocery", "my wife", "husband", "girlfriend",
+            "boyfriend", "not talking to me", "pizza", "weather", "recipe", "who won the match"
+        ])
+
+        if effective_web_search and (not has_history or max_rag_similarity < 0.60) and not is_truly_non_apple:
             t_ws = time.time()
             try:
                 web_results = await self.web_search.search_apple_support(
@@ -153,9 +160,12 @@ class AgentPipeline:
         # ==========================================
         t4 = time.time()
         # If escalated due to out-of-scope or low RAG grounding, generate polite ecosystem deflection
-        is_grounding_or_scope_escalation = intent_result.intent == "out_of_scope" or not has_history or (max_rag_similarity < 0.60)
+        # But if web search retrieved official groundings, allow drafter to synthesize grounded answer
+        has_web_grounding = any(t.source == "web_search" or t.thread_id.startswith("web-") for t in retrieved_threads)
+        is_grounding_or_scope_escalation = (intent_result.intent == "out_of_scope" or not has_history or (max_rag_similarity < 0.60)) and not has_web_grounding
         
-        if escalation_result.decision == "escalate" and not is_grounding_or_scope_escalation:
+        has_critical_security = any("pii" in r.lower() or "legal" in r.lower() or "security" in r.lower() for r in escalation_result.reasons)
+        if escalation_result.decision == "escalate" and has_critical_security and not is_grounding_or_scope_escalation:
             # For security, PII, or legal escalations, draft an empathetic holding response
             draft_result = DraftReplySchema(
                 reply="We've received your request and an Apple specialist will assist you shortly to verify your details securely.",

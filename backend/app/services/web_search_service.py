@@ -100,8 +100,8 @@ class WebSearchService:
         intent: Optional[str],
         max_results: int,
     ) -> List[WebSearchResult]:
-        """Attempts live web search targeting site:support.apple.com."""
-        search_query = f"site:support.apple.com {query}"
+        clean_q = re.sub(r"@\w+", "", query).strip()
+        search_query = f"(site:support.apple.com OR site:apple.com) {clean_q}"
         results: List[WebSearchResult] = []
 
         headers = {
@@ -227,12 +227,29 @@ class WebSearchService:
                 "snippet": "Open the Find My app on a trusted Apple device or sign in to icloud.com/find. Select your device or item to view its location on a map, play a sound to locate it nearby, or mark it as lost to lock it remotely.",
                 "url": "https://www.apple.com/icloud/find-my/",
             },
+            "trade_in_exchange": {
+                "title": "Apple Trade In - Official Exchange Process & Value",
+                "snippet": "You can trade in your eligible iPhone for credit toward your next purchase or an Apple Gift Card. Answer a few questions about your device online to get an estimated trade-in value, back up your data, and use the prepaid trade-in kit to mail it in or bring it to an Apple Store.",
+                "url": "https://www.apple.com/shop/trade-in",
+            },
         }
 
         results: List[WebSearchResult] = []
 
-        # 1. Match by intent if known
-        if intent and intent in CANONICAL_APPLE_KB:
+        # 1. Match by query keywords (e.g. trade-in, exchange) or intent
+        query_lower = query.lower()
+        if any(w in query_lower for w in ["trade in", "trade-in", "exchange", "trade my", "upgrade"]):
+            trade_guide = CANONICAL_APPLE_KB.get("trade_in_exchange")
+            if trade_guide:
+                results.append(
+                    WebSearchResult(
+                        title=trade_guide["title"],
+                        snippet=trade_guide["snippet"],
+                        url=trade_guide["url"],
+                        source="verified_apple_kb_index",
+                    )
+                )
+        elif intent and intent in CANONICAL_APPLE_KB:
             guide = CANONICAL_APPLE_KB[intent]
             results.append(
                 WebSearchResult(

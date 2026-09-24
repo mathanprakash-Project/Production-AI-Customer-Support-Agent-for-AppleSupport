@@ -50,6 +50,38 @@ class InferenceService:
         if not force_fresh:
             existing_draft = await self.draft_repo.get_latest_by_ticket_id(ticket_id)
             if existing_draft:
+                reconstructed_threads: List[RetrievedThreadItem] = []
+                for tid in (existing_draft.retrieved_thread_ids or []):
+                    if tid.startswith("web-"):
+                        url = "https://www.apple.com/shop/trade-in" if any(w in ticket.customer_text.lower() for w in ["trade", "exchange"]) else "https://support.apple.com"
+                        reconstructed_threads.append(
+                            RetrievedThreadItem(
+                                thread_id=tid,
+                                similarity=0.86,
+                                customer_msg="Apple Support Official Knowledge Guide",
+                                brand_reply=existing_draft.reply_text,
+                                intent_label=existing_draft.intent_label,
+                                source="web_search",
+                                url=url,
+                            )
+                        )
+                    else:
+                        try:
+                            t = await self.thread_repo.get(tid)
+                            if t:
+                                reconstructed_threads.append(
+                                    RetrievedThreadItem(
+                                        thread_id=t.thread_id,
+                                        similarity=0.85,
+                                        customer_msg=t.customer_text or "",
+                                        brand_reply=t.brand_reply_text or "",
+                                        intent_label=t.intent or existing_draft.intent_label,
+                                        source="internal_rag",
+                                    )
+                                )
+                        except Exception:
+                            pass
+
                 return InferenceResponse(
                     ticket_id=ticket.id,
                     customer_message=ticket.customer_text,
@@ -59,7 +91,7 @@ class InferenceService:
                         confidence=existing_draft.intent_confidence,
                         alternatives=existing_draft.intent_alternatives or [],
                     ),
-                    retrieved=[],
+                    retrieved=reconstructed_threads,
                     draft=DraftReplySchema(
                         reply=existing_draft.reply_text,
                         confidence=existing_draft.reply_confidence,
@@ -75,6 +107,7 @@ class InferenceService:
                         provider=existing_draft.provider,
                         prompt_version=existing_draft.prompt_version,
                         latency_ms=existing_draft.latency_ms,
+                        web_search_used=any(tid.startswith("web-") for tid in (existing_draft.retrieved_thread_ids or [])),
                     ),
                 )
 

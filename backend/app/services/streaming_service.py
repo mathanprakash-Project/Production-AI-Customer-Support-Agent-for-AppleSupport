@@ -80,8 +80,15 @@ class StreamingInferenceService:
         max_rag_similarity = max([t.similarity for t in retrieved_threads], default=0.0)
         has_history = len(retrieved_threads) > 0
         
+        # Check if inquiry is off-topic (e.g. produce, groceries, personal relations)
+        clean_lower = customer_message.lower()
+        is_truly_non_apple = any(kw in clean_lower for kw in [
+            "1 kg", "per kg", "produce", "fruit", "grocery", "my wife", "husband", "girlfriend",
+            "boyfriend", "not talking to me", "pizza", "weather", "recipe", "who won the match"
+        ])
+        
         # Web Search MCP Fallback: If RAG lacks match or similarity < 60%, query official Apple Support Web Search
-        if (not has_history or max_rag_similarity < 0.60) and intent_result.intent != "out_of_scope":
+        if (not has_history or max_rag_similarity < 0.60) and not is_truly_non_apple:
             yield {"event": "web_search_start", "data": {"query": customer_message, "intent": intent_result.intent}}
             try:
                 web_results = await self.web_search.search_apple_support(
@@ -133,8 +140,10 @@ class StreamingInferenceService:
         yield {"event": "stage_start", "data": {"stage": STAGE_NAMES[3], "index": 4, "total": 5}}
         t4 = time.time()
         
-        is_grounding_or_scope_escalation = intent_result.intent == "out_of_scope" or not has_history or (max_rag_similarity < 0.60)
-        if escalation_result.decision == "escalate" and not is_grounding_or_scope_escalation:
+        has_web_grounding = any(t.source == "web_search" or t.thread_id.startswith("web-") for t in retrieved_threads)
+        is_grounding_or_scope_escalation = (intent_result.intent == "out_of_scope" or not has_history or (max_rag_similarity < 0.60)) and not has_web_grounding
+        has_critical_security = any("pii" in r.lower() or "legal" in r.lower() or "security" in r.lower() for r in escalation_result.reasons)
+        if escalation_result.decision == "escalate" and has_critical_security and not is_grounding_or_scope_escalation:
             draft_result = DraftReplySchema(
                 reply="We've received your request and an Apple specialist will assist you shortly to verify your details securely.",
                 confidence=0.60,

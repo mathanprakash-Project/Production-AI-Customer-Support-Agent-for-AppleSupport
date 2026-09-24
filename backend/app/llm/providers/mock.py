@@ -71,14 +71,14 @@ class MockProvider(LLMProvider):
 
         # Extract device model mention if present
         device_match = re.search(
-            r"\b(iphone\s*(?:1[1-6](?:\s*pro\s*max|\s*pro|\s*plus|\s*mini)?|[6-8](?:\s*plus)?|x[rs]?|se)|ipad\s*(?:pro|air|mini)?|macbook\s*(?:pro|air)?|apple\s*watch|airpods(?:\s*pro|\s*max)?)\b",
+            r"\b(i\s*phone\s*(?:1[1-6](?:\s*pro\s*max|\s*pro|\s*plus|\s*mini)?|[6-8](?:\s*plus)?|x[rs]?|se)|ipad\s*(?:pro|air|mini)?|macbook\s*(?:pro|air)?|apple\s*watch|airpods(?:\s*pro|\s*max)?)\b",
             target_text,
             re.IGNORECASE
         )
         detected_device = device_match.group(0).strip() if device_match else None
         # Format nice device name (e.g. iPhone 12)
         if detected_device:
-            detected_device = re.sub(r"(?i)\biphone\b", "iPhone", detected_device)
+            detected_device = re.sub(r"(?i)\bi\s*phone\b", "iPhone", detected_device)
             detected_device = re.sub(r"(?i)\bipad\b", "iPad", detected_device)
             detected_device = re.sub(r"(?i)\bmacbook\b", "MacBook", detected_device)
             detected_device = re.sub(r"(?i)\bairpods\b", "AirPods", detected_device)
@@ -89,6 +89,8 @@ class MockProvider(LLMProvider):
         is_personal = any(kw in clean_text for kw in ["my wife", "husband", "girlfriend", "boyfriend", "not talking to me", "weather", "pizza", "football", "recipe"])
         is_cost_pricing = any(kw in clean_text for kw in ["costly in indai", "costly in india", "costly", "why apple products are costly", "expensive", "tax in india"])
         is_competitor = any(kw in clean_text for kw in ["samsung", "galaxy", "pixel", "playstation", "xbox", "nintendo", "dell", "lenovo", "thinkpad", "windows 10", "windows 11"])
+
+        is_trade_in = bool(re.search(r"\b(exchange|trade\s*in|trade-in|trade|upgrade)\b", clean_text))
 
         # Display and Touch Screen issues
         is_display_touch = bool(re.search(r"\b(touch|touchscreen|touch screen|unresponsive touch|display|screen|flicker|flickering|green line|black screen)\b", clean_text))
@@ -148,9 +150,13 @@ class MockProvider(LLMProvider):
         elif "apple id" in clean_text or "password" in clean_text or "locked" in clean_text or "hacked" in clean_text:
             intent_label = "apple_id_account"
             draft_text = "We can help with your Apple ID. You can reset your password securely via https://iforgot.apple.com."
-        elif "refund" in clean_text or "bill" in clean_text or "subscription" in clean_text or "$" in clean_text:
+        elif is_trade_in or "refund" in clean_text or "bill" in clean_text or "subscription" in clean_text or "$" in clean_text:
             intent_label = "purchase_refund_billing"
-            draft_text = "You can review purchase history and request refunds directly at https://reportaproblem.apple.com."
+            if is_trade_in:
+                dev_str = f" for your {detected_device}" if detected_device else ""
+                draft_text = f"You can trade in your eligible device{dev_str} toward a new purchase or an Apple Gift Card. Check estimated values and start the process online at https://www.apple.com/shop/trade-in or visit an Apple Store."
+            else:
+                draft_text = "You can review purchase history and request refunds directly at https://reportaproblem.apple.com."
         elif "cracked" in clean_text or "shattered" in clean_text or "water" in clean_text or "liquid" in clean_text or "repair" in clean_text or "camera" in clean_text or "imei" in clean_text or "coffee" in clean_text or "glass" in clean_text or "human" in clean_text or "sue" in clean_text:
             intent_label = "hardware_damage"
             draft_text = "For physical hardware damage, you can check repair estimates and book a Genius Bar appointment at https://support.apple.com."
@@ -180,6 +186,12 @@ class MockProvider(LLMProvider):
                     draft_text = f"We'd be glad to help with your {detected_device}! Could you share what iOS version you're on and describe what happens when the software issue occurs?"
                 else:
                     draft_text = "Let's resolve the update error. Restart your device and ensure you have sufficient storage space before downloading."
+            elif extracted_intent in ["purchase_refund_billing", "billing_and_subscriptions"]:
+                if is_trade_in:
+                    dev_str = f" for your {detected_device}" if detected_device else ""
+                    draft_text = f"You can trade in your eligible device{dev_str} toward a new purchase or an Apple Gift Card. Check estimated values and start the process online at https://www.apple.com/shop/trade-in or visit an Apple Store."
+                else:
+                    draft_text = "You can review purchase history and request refunds directly at https://reportaproblem.apple.com."
             elif extracted_intent == "app_crashes":
                 draft_text = "To resolve app issues, force quit the app, check for updates in the App Store, and reinstall if necessary."
             elif extracted_intent == "out_of_scope":
@@ -212,11 +224,13 @@ class MockProvider(LLMProvider):
                     ],
                 }
             elif "draft" in schema_name or "reply" in schema_name:
+                found_threads = re.findall(r"\[Thread\s+([^\]]+)\]", prompt)
+                grounded_ids = found_threads[:2] if found_threads else ["mock-thread-101", "mock-thread-102"]
                 sample_data = {
                     "reply": draft_text,
                     "confidence": 0.85,
-                    "grounded_thread_ids": ["mock-thread-101", "mock-thread-102"],
-                    "reasoning": "Synthesized grounded solution from top retrieved AppleSupport historical resolutions.",
+                    "grounded_thread_ids": grounded_ids,
+                    "reasoning": f"Synthesized grounded solution for {intent_label} from top retrieved AppleSupport historical resolutions.",
                 }
             elif "judge" in schema_name:
                 sample_data = {

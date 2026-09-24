@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 def extract_device_model(text: str) -> Optional[str]:
     """Extracts mentioned Apple hardware model to personalize response."""
     patterns = [
-        r"\b(iphone\s*(?:1[1-6](?:\s*pro\s*max|\s*pro|\s*plus|\s*mini)?|[6-8](?:\s*plus)?|x[rs]?|se))\b",
+        r"\b(i\s*phone\s*(?:1[1-6](?:\s*pro\s*max|\s*pro|\s*plus|\s*mini)?|[6-8](?:\s*plus)?|x[rs]?|se))\b",
         r"\b(ipad\s*(?:pro|air|mini)?(?:\s*\d+)?)\b",
         r"\b(macbook\s*(?:pro|air)?)\b",
         r"\b(apple\s*watch(?:\s*(?:ultra\s*2|ultra|series\s*\d+|se))?)\b",
@@ -26,7 +26,7 @@ def extract_device_model(text: str) -> Optional[str]:
         m = re.search(pat, text, re.IGNORECASE)
         if m:
             val = m.group(0).strip()
-            val = re.sub(r"(?i)\biphone\b", "iPhone", val)
+            val = re.sub(r"(?i)\bi\s*phone\b", "iPhone", val)
             val = re.sub(r"(?i)\bipad\b", "iPad", val)
             val = re.sub(r"(?i)\bmacbook\b", "MacBook", val)
             val = re.sub(r"(?i)\bairpods\b", "AirPods", val)
@@ -123,9 +123,10 @@ class ReplyDrafter:
             )
             return (out_of_scope_draft, 1, 0, 0)
 
+        has_web_grounding = any(t.source == "web_search" or t.thread_id.startswith("web-") for t in retrieved_threads)
         detected_device = extract_device_model(customer_message)
         max_sim = max([t.similarity for t in retrieved_threads], default=0.0)
-        if intent == "out_of_scope" or not retrieved_threads or max_sim < 0.60:
+        if (intent == "out_of_scope" or not retrieved_threads or max_sim < 0.60) and not has_web_grounding:
             if detected_device:
                 if intent == "ios_update_bugs" or "software" in lower_msg or "ios" in lower_msg:
                     reply_text = f"Thanks for reaching out to @AppleSupport! We'd be glad to help with your {detected_device}. Could you share what iOS version you're on and describe what happens with the software so we can assist?"
