@@ -67,10 +67,32 @@ class Settings(BaseSettings):
     JUDGE_PROVIDER: str = "ollama"  # ollama | openai | mock
     JUDGE_MODEL: str = "qwen2.5:14b-instruct"
 
-    # Retrieval & Embeddings
-    EMBEDDING_MODEL: str = "all-MiniLM-L6-v2"
+    # Retrieval & Embeddings (pluggable model)
+    EMBEDDING_MODEL: str = "all-MiniLM-L6-v2"  # or "nomic-embed-text-v1.5", "BAAI/bge-small-en-v1.5"
     EMBEDDING_DIM: int = 384
     TOP_K_RETRIEVAL: int = 3
+
+    # Memory System (Cognis-style triple scope)
+    MEMORY_SESSION_TIMEOUT_MINUTES: int = 30
+    MEMORY_MAX_TURNS_PER_SESSION: int = 50
+    MEMORY_USER_FACT_LIMIT: int = 100
+    MEMORY_ENABLE_LLM_EXTRACTION: bool = False  # Use deterministic extraction by default
+
+    # Consensus Classifier (Six Sigma)
+    CONSENSUS_ENABLED: bool = True
+    CONSENSUS_HIGH_STAKES_INTENTS: List[str] = [
+        "purchase_refund_billing",
+        "apple_id_account",
+        "hardware_damage",
+    ]
+    CONSENSUS_VOTER_COUNT: int = 3
+
+    # Multi-Tenant
+    MULTI_TENANT_ENABLED: bool = False
+    DEFAULT_TENANT_ID: str = "apple_support"
+
+    # Web Search Fallback (MCP integration for ungrounded queries)
+    WEB_SEARCH_FALLBACK_ENABLED: bool = True
 
     # Brand & Ingestion
     BRAND: str = "AppleSupport"

@@ -4,8 +4,11 @@ Service layer for running agent inference and managing draft responses.
 
 from typing import List, Optional
 from sqlalchemy.ext.asyncio import AsyncSession
+from app.agent.consensus_classifier import ConsensusClassifier
 from app.agent.pipeline import AgentPipeline
+from app.core.config import settings
 from app.llm.factory import get_llm_provider
+from app.memory.memory_manager import MemoryManager
 from app.models.draft import Draft
 from app.repositories.draft_repo import DraftRepository
 from app.repositories.thread_repo import ThreadRepository
@@ -27,10 +30,15 @@ class InferenceService:
         self.draft_repo = DraftRepository(db)
         self.thread_repo = ThreadRepository(db)
         self.provider = get_llm_provider()
+        self.consensus_classifier = ConsensusClassifier(self.provider) if settings.CONSENSUS_ENABLED else None
         self.pipeline = AgentPipeline(
             provider=self.provider,
             thread_repo=self.thread_repo,
+            consensus_classifier=self.consensus_classifier,
+            use_consensus=settings.CONSENSUS_ENABLED,
+            use_web_search=settings.WEB_SEARCH_FALLBACK_ENABLED,
         )
+        self.memory_manager = MemoryManager(db=db, provider=self.provider)
 
     async def run_ticket_inference(self, ticket_id: str, force_fresh: bool = False) -> InferenceResponse:
         """Run agent pipeline on ticket text and persist draft."""
@@ -70,11 +78,42 @@ class InferenceService:
                     ),
                 )
 
+        # Multi-turn memory processing
+        user_identifier = ticket.tweet_author or f"ticket_{ticket.id}"
+        session_id = None
+        conv_history = None
+        user_profile = None
+        try:
+            mem_data = await self.memory_manager.process_customer_message(
+                user_identifier=user_identifier,
+                message=ticket.customer_text,
+                ticket_id=ticket.id,
+            )
+            session_id = mem_data.get("session_id")
+            conv_history = mem_data.get("conversation_history")
+            user_profile = mem_data.get("user_profile")
+        except Exception as e:
+            import logging
+            logging.getLogger(__name__).debug(f"Memory processing note: {e}")
+
         # Run fresh agent pipeline
         result = await self.pipeline.run(
             customer_message=ticket.customer_text,
             ticket_id=ticket.id,
+            conversation_history=conv_history,
+            user_profile=user_profile,
         )
+
+        # Record agent turn to session memory if session active
+        if session_id and result.draft and result.draft.reply:
+            try:
+                await self.memory_manager.record_agent_response(
+                    session_id=session_id,
+                    response=result.draft.reply,
+                )
+            except Exception as e:
+                import logging
+                logging.getLogger(__name__).debug(f"Could not record agent turn: {e}")
 
         # Persist draft to database
         draft_entity = Draft(

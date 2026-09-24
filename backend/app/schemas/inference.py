@@ -25,6 +25,8 @@ class RetrievedThreadItem(BaseModel):
     customer_msg: str
     brand_reply: str
     intent_label: Optional[str] = None
+    source: Optional[str] = "internal_rag"  # "internal_rag" | "web_search"
+    url: Optional[str] = None
 
 
 class DraftReplySchema(BaseModel):
@@ -58,6 +60,8 @@ class InferenceMeta(BaseModel):
     retrieval_ms: Optional[int] = None
     drafting_ms: Optional[int] = None
     safety_ms: Optional[int] = None
+    web_search_used: Optional[bool] = False
+    web_search_ms: Optional[int] = None
 
 
 class InferenceResponse(BaseModel):

@@ -22,11 +22,14 @@ import {
   BadgeCheck,
   Twitter,
   Trash2,
+  Globe,
 } from 'lucide-react';
 import { api } from '../services/apiClient';
 import { useAuthStore } from '../stores/authStore';
 import { InferenceResponse, Ticket } from '../types';
 import { FormattedTweet } from '../components/common/FormattedTweet';
+import { useSSE } from '../hooks/useSSE';
+import { StreamingDraft } from '../components/StreamingDraft';
 
 export const TicketDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -43,6 +46,36 @@ export const TicketDetailPage: React.FC = () => {
   const [actionSuccess, setActionSuccess] = useState<string | null>(null);
   const [submittingAction, setSubmittingAction] = useState(false);
   const [deletingTicket, setDeletingTicket] = useState(false);
+
+  const {
+    isStreaming,
+    currentStage,
+    streamedTokens,
+    draftComplete,
+    safetyResult: sseSafetyResult,
+    pipelineComplete: ssePipelineComplete,
+    totalMs: sseTotalMs,
+    startStream,
+  } = useSSE();
+
+  useEffect(() => {
+    if (streamedTokens) {
+      setReplyText(streamedTokens);
+    }
+  }, [streamedTokens]);
+
+  useEffect(() => {
+    if (ssePipelineComplete && id) {
+      api.getTicket(id).then(setTicket).catch(console.error);
+      api.runInference(id, false).then(setInference).catch(console.error);
+    }
+  }, [ssePipelineComplete, id]);
+
+  const handleStartStreaming = () => {
+    if (!id) return;
+    setReplyText('');
+    startStream(api.getStreamUrl(id));
+  };
 
   const canDeleteTicket =
     currentUser?.email?.toLowerCase() === 'mathanprakashselvam@gmail.com' ||
@@ -214,8 +247,17 @@ export const TicketDetailPage: React.FC = () => {
           </div>
 
           <button
+            onClick={handleStartStreaming}
+            disabled={isStreaming || inferring}
+            className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 text-xs font-bold text-sky-600 dark:text-sky-400 bg-sky-500/10 hover:bg-sky-500/20 rounded-full border border-sky-500/30 transition shadow-sm"
+          >
+            <Sparkles className={`h-3.5 w-3.5 ${isStreaming ? 'animate-spin' : ''}`} />
+            <span>{isStreaming ? 'Streaming Draft...' : 'Stream Live AI'}</span>
+          </button>
+
+          <button
             onClick={() => fetchTicketAndInference(true)}
-            disabled={inferring}
+            disabled={inferring || isStreaming}
             className="inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-neutral-300 bg-slate-100 dark:bg-neutral-900 hover:bg-slate-200 dark:hover:bg-neutral-800 rounded-full border border-slate-200 dark:border-neutral-800 transition"
           >
             <RotateCw className={`h-3.5 w-3.5 ${inferring ? 'animate-spin text-sky-500' : ''}`} />
@@ -397,7 +439,16 @@ export const TicketDetailPage: React.FC = () => {
                         {inference.retrieved.map((thread, idx) => (
                           <div key={idx} className="bg-slate-50 dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl p-3.5 text-xs space-y-1.5">
                             <div className="flex items-center justify-between text-[11px] text-slate-400 dark:text-neutral-500 font-medium">
-                              <span>Thread #{thread.thread_id}</span>
+                              <span className="flex items-center space-x-1.5">
+                                {thread.source === 'web_search' || thread.thread_id.startsWith('web-') ? (
+                                  <span className="inline-flex items-center text-sky-500 font-bold">
+                                    <Globe className="w-3 h-3 mr-1" />
+                                    Apple Support Web Search
+                                  </span>
+                                ) : (
+                                  <span>Thread #{thread.thread_id}</span>
+                                )}
+                              </span>
                               <span className="text-sky-500 font-bold font-mono">
                                 {(thread.similarity * 100).toFixed(0)}% Match
                               </span>
@@ -406,6 +457,19 @@ export const TicketDetailPage: React.FC = () => {
                             <div className="pt-1.5 border-t border-slate-200 dark:border-neutral-800 text-slate-900 dark:text-neutral-200 font-medium">
                               <span className="text-sky-500 font-bold">@AppleSupport:</span> <FormattedTweet text={thread.brand_reply} />
                             </div>
+                            {thread.url && (
+                              <div className="pt-1 flex items-center justify-end">
+                                <a
+                                  href={thread.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center space-x-1 text-[11px] text-sky-500 hover:text-sky-400 hover:underline font-semibold"
+                                >
+                                  <span>Official Apple Guide</span>
+                                  <ExternalLink className="w-3 h-3" />
+                                </a>
+                              </div>
+                            )}
                           </div>
                         ))}
                       </div>
@@ -454,16 +518,30 @@ export const TicketDetailPage: React.FC = () => {
                   </div>
                 )}
 
-                {/* Draft Editable Text Area */}
-                <div className="relative flex-1 min-h-0 flex flex-col">
-                  <textarea
-                    value={replyText}
-                    onChange={(e) => setReplyText(e.target.value)}
-                    placeholder="AI agent is drafting a reply..."
-                    disabled={inferring || submittingAction}
-                    className="w-full flex-1 p-3.5 text-sm bg-slate-50 dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl text-slate-900 dark:text-neutral-100 placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-sky-500 leading-relaxed font-normal resize-none min-h-[130px]"
-                  />
-                </div>
+                {/* Draft Editable Text Area or Streaming Draft */}
+                {isStreaming ? (
+                  <div className="bg-slate-50 dark:bg-black border border-sky-500/30 rounded-xl p-4 min-h-[140px] mb-2">
+                    <StreamingDraft
+                      currentStage={currentStage}
+                      streamedTokens={streamedTokens}
+                      draftComplete={draftComplete}
+                      safetyResult={sseSafetyResult}
+                      pipelineComplete={ssePipelineComplete}
+                      totalMs={sseTotalMs}
+                      isStreaming={isStreaming}
+                    />
+                  </div>
+                ) : (
+                  <div className="relative flex-1 min-h-0 flex flex-col">
+                    <textarea
+                      value={replyText}
+                      onChange={(e) => setReplyText(e.target.value)}
+                      placeholder="AI agent is drafting a reply..."
+                      disabled={inferring || submittingAction}
+                      className="w-full flex-1 p-3.5 text-sm bg-slate-50 dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl text-slate-900 dark:text-neutral-100 placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-sky-500 leading-relaxed font-normal resize-none min-h-[130px]"
+                    />
+                  </div>
+                )}
 
                 {/* Inference Latency Metrics */}
                 {inference && (
@@ -487,10 +565,10 @@ export const TicketDetailPage: React.FC = () => {
 
               {/* Support Agent Action Buttons */}
               <div className="flex-shrink-0 pt-3.5 border-t border-slate-100 dark:border-neutral-800 mt-3.5">
-                  <div className="flex flex-wrap gap-3 justify-end">
+                  <div className="flex flex-wrap gap-3 justify-end items-center">
                     <button
                       type="button"
-                      disabled={submittingAction}
+                      disabled={submittingAction || isStreaming}
                       onClick={() => handleAction('reject')}
                       className="px-4 py-2 border border-slate-200 dark:border-neutral-800 text-slate-700 dark:text-neutral-300 hover:bg-slate-100 dark:hover:bg-neutral-800 text-xs font-bold rounded-full transition flex items-center space-x-1.5"
                     >
@@ -500,7 +578,7 @@ export const TicketDetailPage: React.FC = () => {
 
                     <button
                       type="button"
-                      disabled={submittingAction}
+                      disabled={submittingAction || isStreaming}
                       onClick={() => handleAction('escalate')}
                       className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-full shadow transition flex items-center space-x-1.5"
                     >
@@ -510,7 +588,7 @@ export const TicketDetailPage: React.FC = () => {
 
                     <button
                       type="button"
-                      disabled={submittingAction}
+                      disabled={submittingAction || isStreaming}
                       onClick={() => handleAction('edit')}
                       className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-full shadow transition flex items-center space-x-1.5"
                     >
@@ -520,9 +598,19 @@ export const TicketDetailPage: React.FC = () => {
 
                     <button
                       type="button"
-                      disabled={submittingAction}
+                      disabled={
+                        submittingAction ||
+                        isStreaming ||
+                        (inference?.safety ? !inference.safety.passed : false) ||
+                        (sseSafetyResult ? !sseSafetyResult.passed : false)
+                      }
                       onClick={() => handleAction('approve')}
-                      className="px-5 py-2 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-full shadow transition flex items-center space-x-2"
+                      className="px-5 py-2 bg-sky-500 hover:bg-sky-600 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold rounded-full shadow transition flex items-center space-x-2"
+                      title={
+                        (inference?.safety && !inference.safety.passed) || (sseSafetyResult && !sseSafetyResult.passed)
+                          ? "Disabled until all safety checks pass"
+                          : "Approve draft and publish resolution"
+                      }
                     >
                       <Send className="h-4 w-4" />
                       <span>Approve & Post</span>

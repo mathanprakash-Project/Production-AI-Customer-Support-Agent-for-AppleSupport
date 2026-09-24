@@ -23,6 +23,7 @@ from app.schemas.inference import (
     EscalationDecision,
     InferenceMeta,
     InferenceResponse,
+    RetrievedThreadItem,
     SafetyResultSchema,
 )
 
@@ -41,6 +42,10 @@ class AgentPipeline:
         drafter: Optional[ReplyDrafter] = None,
         escalation: Optional[EscalationEngine] = None,
         safety: Optional[SafetyChecker] = None,
+        consensus_classifier: Optional[Any] = None,
+        use_consensus: bool = False,
+        web_search: Optional[Any] = None,
+        use_web_search: bool = False,
     ):
         self.provider = provider
         self.thread_repo = thread_repo
@@ -49,12 +54,20 @@ class AgentPipeline:
         self.drafter = drafter or ReplyDrafter(provider)
         self.escalation = escalation or EscalationEngine()
         self.safety = safety or SafetyChecker()
+        self.consensus_classifier = consensus_classifier
+        self.use_consensus = use_consensus
+        from app.services.web_search_service import WebSearchService
+        self.web_search = web_search or WebSearchService()
+        self.use_web_search = use_web_search
 
     async def run(
         self,
         customer_message: str,
         ticket_id: str = "transient-ticket",
         top_k: int = 3,
+        conversation_history: Optional[str] = None,
+        user_profile: Optional[str] = None,
+        use_web_search: Optional[bool] = None,
     ) -> InferenceResponse:
         """Execute the 5-stage inference flow with per-stage latency instrumentation."""
         overall_start = time.time()
@@ -63,7 +76,10 @@ class AgentPipeline:
         # STAGE 1: INTENT CLASSIFICATION
         # ==========================================
         t1 = time.time()
-        intent_result = await self.classifier.classify(customer_message)
+        if self.use_consensus and self.consensus_classifier:
+            intent_result = await self.consensus_classifier.classify_with_consensus(customer_message)
+        else:
+            intent_result = await self.classifier.classify(customer_message)
         classification_ms = int((time.time() - t1) * 1000)
 
         # ==========================================
@@ -83,6 +99,39 @@ class AgentPipeline:
 
         max_rag_similarity = max([t.similarity for t in retrieved_threads], default=0.0)
         has_history = len(retrieved_threads) > 0
+
+        # Web Search MCP Fallback: If RAG lacks match or similarity < 60%, ground via official Apple Support Web Search
+        effective_web_search = self.use_web_search if use_web_search is None else use_web_search
+        web_search_used = False
+        web_search_ms = 0
+
+        if effective_web_search and (not has_history or max_rag_similarity < 0.60) and intent_result.intent != "out_of_scope":
+            t_ws = time.time()
+            try:
+                web_results = await self.web_search.search_apple_support(
+                    query=customer_message,
+                    intent=intent_result.intent,
+                    max_results=top_k,
+                )
+                web_search_ms = int((time.time() - t_ws) * 1000)
+                if web_results:
+                    web_search_used = True
+                    for wr in web_results:
+                        retrieved_threads.append(
+                            RetrievedThreadItem(
+                                thread_id=f"web-{abs(hash(wr.url)) % 100000}",
+                                similarity=0.86,
+                                customer_msg=wr.title,
+                                brand_reply=f"{wr.snippet} Reference: {wr.url}",
+                                intent_label=intent_result.intent,
+                                source="web_search",
+                                url=wr.url,
+                            )
+                        )
+                    max_rag_similarity = max([t.similarity for t in retrieved_threads], default=0.0)
+                    has_history = len(retrieved_threads) > 0
+            except Exception as e:
+                logger.warning(f"Web search MCP fallback note: {e}")
 
         # ==========================================
         # STAGE 3: ESCALATION ENGINE (Grounding & Safety Check)
@@ -119,6 +168,8 @@ class AgentPipeline:
                 customer_message=customer_message,
                 intent=intent_result.intent,
                 retrieved_threads=retrieved_threads,
+                conversation_history=conversation_history,
+                user_profile=user_profile,
             )
         drafting_ms = int((time.time() - t4) * 1000)
 
@@ -160,5 +211,7 @@ class AgentPipeline:
                 retrieval_ms=retrieval_ms,
                 drafting_ms=drafting_ms,
                 safety_ms=safety_ms,
+                web_search_used=web_search_used,
+                web_search_ms=web_search_ms,
             ),
         )

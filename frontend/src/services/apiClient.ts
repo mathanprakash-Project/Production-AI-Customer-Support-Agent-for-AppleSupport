@@ -12,6 +12,7 @@ import {
   TimeSavedResponse,
   KnowledgeEntry,
   KnowledgeStats,
+  FlywheelMetrics,
 } from '../types';
 
 const API_BASE = '/api/v1';
@@ -199,5 +200,15 @@ export const api = {
     const res = await apiClient.get('/health');
     return res.data;
   },
-};
 
+  // Streaming
+  getStreamUrl(ticketId: string): string {
+    return `/api/v1/tickets/${ticketId}/inference/stream`;
+  },
+
+  // Flywheel
+  async getFlywheelMetrics(): Promise<FlywheelMetrics> {
+    const res = await apiClient.get('/analytics/flywheel');
+    return res.data;
+  },
+};

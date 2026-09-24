@@ -13,6 +13,7 @@ from app.models.ticket import Ticket
 from app.models.thread import Thread
 from app.models.knowledge_base import KnowledgeEntry
 from app.models.system_config import SystemConfig
+from app.models.memory import ConversationSession, ConversationTurn, UserMemory, ContextMemory
 from app.llm.embeddings import get_embedding_service
 
 logger = logging.getLogger(__name__)

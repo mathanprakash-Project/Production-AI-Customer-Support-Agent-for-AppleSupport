@@ -93,8 +93,9 @@ class MockProvider(LLMProvider):
         # Display and Touch Screen issues
         is_display_touch = bool(re.search(r"\b(touch|touchscreen|touch screen|unresponsive touch|display|screen|flicker|flickering|green line|black screen)\b", clean_text))
 
-        # Charging issues (strictly bounded, avoiding bare 'port' collision with '@AppleSupport')
-        is_charging = bool(re.search(r"\b(charge|charging|charger|lightning cable|usbc cable|usb-c cable|charging cable|charging port|lightning port|usb-c port)\b", clean_text)) or ("cable" in clean_text and "not" in clean_text)
+        # Charging issues (strictly bounded, avoiding financial charge and bare 'port' collision with '@AppleSupport')
+        is_financial = bool(re.search(r"\b(unauthorized|credit card|card|statement|bill|refund|subscription|\$)\b", clean_text))
+        is_charging = ((bool(re.search(r"\b(charge|charging|charger|lightning cable|usbc cable|usb-c cable|charging cable|charging port|lightning port|usb-c port)\b", clean_text)) or ("cable" in clean_text and "not" in clean_text)) and not is_financial)
 
         # Software / iOS Update issues
         is_software_update = bool(re.search(r"\b(software|ios\b|ios\s*\d+|os\b|firmware|glitch|bug|system\b|update|recovery mode|stuck on)\b", clean_text))

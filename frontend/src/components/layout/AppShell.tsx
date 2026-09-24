@@ -211,7 +211,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 h-full min-h-0 overflow-hidden flex flex-col bg-slate-50 dark:bg-black transition-colors duration-200">
+      <main className="flex-1 h-full min-h-0 overflow-hidden flex flex-col bg-slate-50 dark:bg-black transition-colors duration-200 animate-fade-in">
         {children}
       </main>
     </div>

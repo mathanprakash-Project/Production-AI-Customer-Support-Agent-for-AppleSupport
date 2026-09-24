@@ -48,6 +48,8 @@ export interface RetrievedThreadItem {
   customer_msg: string;
   brand_reply: string;
   intent_label?: string;
+  source?: 'internal_rag' | 'web_search' | string;
+  url?: string;
 }
 
 export interface DraftReply {
@@ -211,3 +213,37 @@ export interface EvalSummaryResponse {
   failure_examples: FailureExample[];
 }
 
+// Memory & Multi-Turn types
+export interface ConversationSession {
+  id: string;
+  user_identifier: string;
+  is_active: boolean;
+  turn_count: number;
+  created_at: string;
+  last_active_at: string;
+}
+
+export interface ConversationTurn {
+  id: string;
+  session_id: string;
+  role: 'customer' | 'agent' | 'system';
+  message: string;
+  turn_index: number;
+  created_at: string;
+}
+
+// Flywheel types
+export interface FlywheelMetrics {
+  kb_total_entries: number;
+  kb_weekly_growth: number;
+  kb_growth_rate_pct: number;
+  avg_helpfulness_ratio: number;
+  feedback_distribution: Record<string, number>;
+  resolved_tickets_month: number;
+  top_performing_entries: Array<{
+    id: string;
+    intent: string;
+    times_retrieved: number;
+    helpfulness_ratio: number;
+  }>;
+}

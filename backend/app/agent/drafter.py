@@ -52,6 +52,8 @@ class ReplyDrafter:
         customer_message: str,
         intent: str,
         retrieved_threads: List[RetrievedThreadItem],
+        conversation_history: Optional[str] = None,
+        user_profile: Optional[str] = None,
     ) -> Tuple[DraftReplySchema, int, int, int]:
         """
         Generates draft reply.
@@ -153,7 +155,18 @@ class ReplyDrafter:
             intent=intent,
             retrieved_threads=retrieved_threads,
             tone_guidelines=tone_guidelines,
+            conversation_history=conversation_history,
+            user_profile=user_profile,
         )
+
+        # If conversation history or user memory profile exists, augment prompt context
+        context_blocks = []
+        if user_profile:
+            context_blocks.append(f"Customer Context:\n{user_profile}")
+        if conversation_history:
+            context_blocks.append(f"Conversation Thread History:\n{conversation_history}")
+        if context_blocks:
+            prompt = "\n\n".join(context_blocks) + "\n\n" + prompt
 
         safe_default = DraftReplySchema(
             reply="Thanks for contacting @AppleSupport! We are here to help with your Apple ecosystem devices and services. Could you share your device model and iOS version so we can assist further?",

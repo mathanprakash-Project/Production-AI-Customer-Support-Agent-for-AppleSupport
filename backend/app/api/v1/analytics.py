@@ -69,3 +69,15 @@ async def get_time_saved(
     service = AnalyticsService(db)
     return await service.get_time_saved()
 
+
+@router.get("/flywheel")
+async def get_flywheel_metrics(
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Retrieve helpfulness-weighted flywheel analytics metrics."""
+    from app.services.flywheel_service import FlywheelService
+    service = FlywheelService(db)
+    return await service.get_flywheel_metrics()
+
+

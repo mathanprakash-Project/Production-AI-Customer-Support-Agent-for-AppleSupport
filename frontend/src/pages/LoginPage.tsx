@@ -51,7 +51,7 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-slate-50 dark:bg-black text-slate-900 dark:text-neutral-100 transition-colors duration-200 font-sans p-4 sm:p-6">
+    <div className="min-h-screen flex flex-col justify-between bg-slate-50 dark:bg-black text-slate-900 dark:text-neutral-100 transition-colors duration-200 font-sans p-4 sm:p-8 animate-fade-in">
       {/* Top Header Navigation */}
       <header className="w-full max-w-6xl mx-auto flex items-center justify-between py-4">
         <div className="flex items-center space-x-3">
@@ -81,7 +81,7 @@ export const LoginPage: React.FC = () => {
 
       {/* Center Auth Box */}
       <div className="w-full max-w-md mx-auto my-auto py-8">
-        <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-slate-200 dark:border-neutral-800 p-8 shadow-sm">
+        <div className="card p-8 card-hover">
           {/* Mode Selector Tabs */}
           <div className="flex items-center p-1 bg-slate-100 dark:bg-black rounded-full border border-slate-200 dark:border-neutral-800 mb-6">
             <button
@@ -143,7 +143,7 @@ export const LoginPage: React.FC = () => {
             {mode === 'register' && (
               <>
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 dark:text-neutral-400 uppercase tracking-wider mb-1.5">
+                  <label className="block section-title mb-1.5">
                     Full Name
                   </label>
                   <div className="relative">
@@ -153,14 +153,14 @@ export const LoginPage: React.FC = () => {
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       required
-                      className="w-full pl-10 pr-3.5 py-2 text-xs bg-slate-50 dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl text-slate-900 dark:text-neutral-100 placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                      className="input-field pl-10"
                       placeholder="e.g. Jane Doe"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 dark:text-neutral-400 uppercase tracking-wider mb-1.5">
+                  <label className="block section-title mb-1.5">
                     Workspace Role
                   </label>
                   <div className="grid grid-cols-3 gap-2">
@@ -207,7 +207,7 @@ export const LoginPage: React.FC = () => {
                   <div className="p-3.5 bg-amber-500/10 border border-amber-500/20 rounded-xl space-y-2 animate-in fade-in duration-200">
                     <div className="flex items-center space-x-1.5 text-amber-600 dark:text-amber-400">
                       <KeyRound className="h-4 w-4" />
-                      <span className="text-[11px] font-bold uppercase tracking-wider">
+                      <span className="section-title">
                         Security Verification Required
                       </span>
                     </div>
@@ -221,7 +221,7 @@ export const LoginPage: React.FC = () => {
                         value={securityAnswer}
                         onChange={(e) => setSecurityAnswer(e.target.value)}
                         required
-                        className="w-full pl-10 pr-3.5 py-2 text-xs bg-white dark:bg-black border border-amber-500/30 rounded-lg text-slate-900 dark:text-neutral-100 placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                        className="input-field pl-10 !border-amber-500/30 focus:!ring-amber-500"
                         placeholder="Enter secret answer (e.g. Tweetsupportadmin123)"
                       />
                     </div>
@@ -231,7 +231,7 @@ export const LoginPage: React.FC = () => {
             )}
 
             <div>
-              <label className="block text-[11px] font-bold text-slate-500 dark:text-neutral-400 uppercase tracking-wider mb-1.5">
+              <label className="block section-title mb-1.5">
                 Email Address
               </label>
               <div className="relative">
@@ -241,14 +241,14 @@ export const LoginPage: React.FC = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full pl-10 pr-3.5 py-2 text-xs bg-slate-50 dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl text-slate-900 dark:text-neutral-100 placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                  className="input-field pl-10"
                   placeholder="agent@tweetsupport.local"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-slate-500 dark:text-neutral-400 uppercase tracking-wider mb-1.5">
+              <label className="block section-title mb-1.5">
                 Password
               </label>
               <div className="relative">
@@ -258,7 +258,7 @@ export const LoginPage: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full pl-10 pr-3.5 py-2 text-xs bg-slate-50 dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl text-slate-900 dark:text-neutral-100 placeholder-slate-400 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                  className="input-field pl-10"
                   placeholder="••••••••"
                 />
               </div>
@@ -267,7 +267,7 @@ export const LoginPage: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 py-2.5 px-4 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-full shadow-sm transition flex items-center justify-center space-x-2"
+              className="btn-primary w-full mt-2 flex items-center justify-center space-x-2"
             >
               <span>
                 {loading

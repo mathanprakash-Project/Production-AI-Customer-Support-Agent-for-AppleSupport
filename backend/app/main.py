@@ -16,6 +16,7 @@ from app.api.v1.intents import router as intents_router
 from app.api.v1.tickets import router as tickets_router
 from app.api.v1.knowledge import router as knowledge_router
 from app.api.v1.analytics import router as analytics_router
+from app.api.v1.streaming import router as streaming_router
 from app.core.config import settings
 from app.core.logging import setup_logging
 from app.core.middleware import RequestContextMiddleware
@@ -69,6 +70,7 @@ def create_app() -> FastAPI:
     app.include_router(eval_router, prefix=prefix)
     app.include_router(knowledge_router, prefix=prefix)
     app.include_router(analytics_router, prefix=prefix)
+    app.include_router(streaming_router, prefix=prefix)
 
     # Root route
     @app.get("/")

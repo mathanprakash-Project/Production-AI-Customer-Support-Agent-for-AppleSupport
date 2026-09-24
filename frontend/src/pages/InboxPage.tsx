@@ -97,9 +97,9 @@ export const InboxPage: React.FC = () => {
   );
 
   return (
-    <div className="flex-1 h-full min-h-0 flex flex-col overflow-hidden bg-slate-50 dark:bg-black text-slate-900 dark:text-neutral-100">
+    <div className="flex-1 h-full min-h-0 flex flex-col overflow-hidden bg-slate-50 dark:bg-black text-slate-900 dark:text-neutral-100 animate-fade-in">
       {/* Top Header */}
-      <header className="flex-shrink-0 bg-white dark:bg-black border-b border-slate-200 dark:border-neutral-800 px-6 py-3.5 flex items-center justify-between">
+      <header className="flex-shrink-0 bg-white dark:bg-black border-b border-slate-200 dark:border-neutral-800 px-6 py-4 flex items-center justify-between">
         <div>
           <div className="flex items-center space-x-3">
             <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
@@ -195,7 +195,7 @@ export const InboxPage: React.FC = () => {
               <div
                 key={ticket.id}
                 onClick={() => navigate(`/inbox/${ticket.id}`)}
-                className="bg-white dark:bg-neutral-900 hover:border-sky-400 dark:hover:border-sky-500 cursor-pointer border border-slate-200 dark:border-neutral-800 rounded-2xl p-5 transition-all shadow-sm flex items-center justify-between group"
+                className="bg-white dark:bg-neutral-900 hover:border-sky-400 dark:hover:border-sky-500 hover:shadow-md cursor-pointer border border-slate-200 dark:border-neutral-800 rounded-2xl p-5 transition-all duration-200 shadow-sm flex items-center justify-between group"
               >
                 <div className="flex-1 pr-6">
                   <div className="flex items-center space-x-3 mb-2">

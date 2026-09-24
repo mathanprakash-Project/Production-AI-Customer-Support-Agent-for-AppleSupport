@@ -9,6 +9,8 @@ import {
   RefreshCw,
   TrendingUp,
   Zap,
+  Sparkles,
+  Star,
 } from 'lucide-react';
 import { api } from '../services/apiClient';
 import {
@@ -16,6 +18,7 @@ import {
   FeedbackSummaryItem,
   IntentDistributionResponse,
   TimeSavedResponse,
+  FlywheelMetrics,
 } from '../types';
 
 export const AnalyticsPage: React.FC = () => {
@@ -24,20 +27,23 @@ export const AnalyticsPage: React.FC = () => {
   const [distribution, setDistribution] = useState<IntentDistributionResponse | null>(null);
   const [feedbackSummary, setFeedbackSummary] = useState<FeedbackSummaryItem[]>([]);
   const [timeSaved, setTimeSaved] = useState<TimeSavedResponse | null>(null);
+  const [flywheel, setFlywheel] = useState<FlywheelMetrics | null>(null);
 
   const fetchAnalytics = async () => {
     setLoading(true);
     try {
-      const [ov, dist, fb, ts] = await Promise.all([
+      const [ov, dist, fb, ts, fw] = await Promise.all([
         api.getAnalyticsOverview(),
         api.getIntentDistribution('week'),
         api.getFeedbackSummary(),
         api.getTimeSaved(),
+        api.getFlywheelMetrics().catch(() => null),
       ]);
       setOverview(ov);
       setDistribution(dist);
       setFeedbackSummary(fb.summary);
       setTimeSaved(ts);
+      setFlywheel(fw);
     } catch (err) {
       console.error('Failed to load analytics', err);
     } finally {
@@ -211,6 +217,89 @@ export const AnalyticsPage: React.FC = () => {
             Formula: (Tickets × 4.5m manual) - (Tickets × 30s review)
           </div>
         </div>
+      </div>
+
+      {/* Helpfulness-Weighted Flywheel & Continuous Learning Section */}
+      <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-2xl p-5 shadow-sm space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Sparkles className="w-5 h-5 text-sky-500" />
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+              Helpfulness Flywheel & Self-Improvement Loop
+            </h3>
+          </div>
+          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+            Active Feedback Flywheel
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+          <div className="p-4 bg-slate-50 dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl space-y-1">
+            <span className="text-[11px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider">
+              Weekly Knowledge Influx
+            </span>
+            <div className="text-2xl font-bold text-slate-900 dark:text-white font-mono">
+              +{flywheel ? flywheel.kb_weekly_growth : 0} entries
+            </div>
+            <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
+              +{flywheel ? flywheel.kb_growth_rate_pct : 0}% 7-day velocity
+            </p>
+          </div>
+
+          <div className="p-4 bg-slate-50 dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl space-y-1">
+            <span className="text-[11px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider">
+              Mean Helpfulness Weight
+            </span>
+            <div className="text-2xl font-bold text-emerald-500 font-mono">
+              {flywheel ? `${Math.round(flywheel.avg_helpfulness_ratio * 100)}%` : '—'}
+            </div>
+            <p className="text-[11px] text-slate-400 dark:text-neutral-500">
+              Across verified RAG memory
+            </p>
+          </div>
+
+          <div className="p-4 bg-slate-50 dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl space-y-1">
+            <span className="text-[11px] font-bold text-slate-400 dark:text-neutral-500 uppercase tracking-wider">
+              Resolution Re-ranking
+            </span>
+            <div className="text-2xl font-bold text-sky-500 font-mono">
+              70% Sim / 30% Help
+            </div>
+            <p className="text-[11px] text-slate-400 dark:text-neutral-500">
+              Hybrid decay & dynamic boost
+            </p>
+          </div>
+        </div>
+
+        {/* Top Performing KB Entries */}
+        {flywheel && flywheel.top_performing_entries && flywheel.top_performing_entries.length > 0 && (
+          <div className="pt-2">
+            <span className="text-xs font-bold text-slate-700 dark:text-neutral-300 mb-2 block">
+              Top Ranked Knowledge Resolutions
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+              {flywheel.top_performing_entries.map((entry) => (
+                <div
+                  key={entry.id}
+                  className="p-3 bg-slate-50/80 dark:bg-neutral-950 border border-slate-200 dark:border-neutral-800 rounded-xl flex items-center justify-between text-xs"
+                >
+                  <div>
+                    <span className="font-bold text-slate-900 dark:text-white capitalize">
+                      {entry.intent.replace(/_/g, ' ')}
+                    </span>
+                    <span className="text-[10px] text-slate-400 dark:text-neutral-500 block font-mono">
+                      #{entry.id} • {entry.times_retrieved}x used
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-1 font-bold text-emerald-500 font-mono text-xs">
+                    <Star className="w-3.5 h-3.5 fill-current text-amber-400" />
+                    <span>{Math.round((entry.helpfulness_ratio || 0.5) * 100)}%</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Triage Breakdown Table */}

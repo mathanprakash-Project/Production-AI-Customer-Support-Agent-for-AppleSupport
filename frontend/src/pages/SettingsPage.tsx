@@ -140,6 +140,72 @@ export const SettingsPage: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Cognis Multi-Turn Memory Architecture */}
+        <div className="bg-white dark:bg-neutral-900 p-6 rounded-2xl border border-slate-200 dark:border-neutral-800 shadow-sm space-y-4">
+          <div className="flex items-center space-x-2 text-slate-900 dark:text-white font-bold text-base">
+            <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+            <h3>Cognis Multi-Turn Memory</h3>
+          </div>
+
+          <div className="space-y-3 text-xs">
+            <div className="flex justify-between py-2 border-b border-slate-100 dark:border-neutral-800">
+              <span className="text-slate-400 dark:text-neutral-500">Memory Architecture:</span>
+              <span className="font-bold text-emerald-500 font-mono">Triple-Scoped (Session / User / Context)</span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-slate-100 dark:border-neutral-800">
+              <span className="text-slate-400 dark:text-neutral-500">Session Scope:</span>
+              <span className="font-bold text-slate-900 dark:text-white font-mono">Conversation turns & context window</span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-slate-100 dark:border-neutral-800">
+              <span className="text-slate-400 dark:text-neutral-500">User Scope:</span>
+              <span className="font-bold text-slate-900 dark:text-white font-mono">13 semantic categories with pgvector recall</span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-slate-100 dark:border-neutral-800">
+              <span className="text-slate-400 dark:text-neutral-500">Hybrid Search:</span>
+              <span className="font-bold text-sky-500 font-mono">BM25 + Dense Vector (RRF Fusion)</span>
+            </div>
+            <div className="flex justify-between py-2">
+              <span className="text-slate-400 dark:text-neutral-500">Memory Status:</span>
+              <span className="inline-flex items-center font-bold text-emerald-500">
+                <CheckCircle2 className="w-3.5 h-3.5 mr-1" /> Active
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Quality, Streaming & Governance */}
+        <div className="bg-white dark:bg-neutral-900 p-6 rounded-2xl border border-slate-200 dark:border-neutral-800 shadow-sm space-y-4">
+          <div className="flex items-center space-x-2 text-slate-900 dark:text-white font-bold text-base">
+            <Shield className="h-5 w-5 text-purple-500" />
+            <h3>Reliability & Governance</h3>
+          </div>
+
+          <div className="space-y-3 text-xs">
+            <div className="flex justify-between py-2 border-b border-slate-100 dark:border-neutral-800">
+              <span className="text-slate-400 dark:text-neutral-500">Six Sigma Consensus:</span>
+              <span className="font-bold text-purple-500 font-mono">3-Voter Majority on High-Stakes</span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-slate-100 dark:border-neutral-800">
+              <span className="text-slate-400 dark:text-neutral-500">High-Stakes Intents:</span>
+              <span className="font-bold text-slate-900 dark:text-white font-mono">Billing, Apple ID, Hardware</span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-slate-100 dark:border-neutral-800">
+              <span className="text-slate-400 dark:text-neutral-500">Real-Time Streaming:</span>
+              <span className="font-bold text-sky-500 font-mono">SSE Token-by-Token + Stage Events</span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-slate-100 dark:border-neutral-800">
+              <span className="text-slate-400 dark:text-neutral-500">Flywheel Loop:</span>
+              <span className="font-bold text-emerald-500 font-mono">Helpfulness Re-weighting + Stale Decay</span>
+            </div>
+            <div className="flex justify-between py-2">
+              <span className="text-slate-400 dark:text-neutral-500">Guardrail Enforcement:</span>
+              <span className="inline-flex items-center font-bold text-emerald-500">
+                <CheckCircle2 className="w-3.5 h-3.5 mr-1" /> Deterministic Whitelist
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
